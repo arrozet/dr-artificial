@@ -3,3 +3,4 @@ __pycache__/
 /.idea
 .env
 *.pyc
+.Rproj.user
