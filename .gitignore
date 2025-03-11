@@ -4,3 +4,7 @@ __pycache__/
 .env
 *.pyc
 .Rproj.user
+test_api/api_key/private_key.py
+test_api/api_key/private_key.py
+test_api/api_key/private_key.py
+test_api/api_key/private_key.py
