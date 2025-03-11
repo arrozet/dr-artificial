@@ -1,6 +1,7 @@
 import os
 import sys
 
+# PARA CAMBIAR EL PATH DE INICIO TIENES QUE IRTE A ROUTER -> MAIN.PY Y CAMBIARLA
 # Agrega la ruta del proyecto al PYTHONPATH
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + "/.."))
 
