@@ -35,31 +35,6 @@
         <!-- Header -->
         <div class="header">
             <div class="title">AsistenteIA</div>
-            
-            <div class="model-selector">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <circle cx="12" cy="12" r="4"></circle>
-                </svg>
-                AsistenteIA Pro
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-            </div>
-        </div>
-        
-        <!-- Welcome Screen (hidden in demo) -->
-        <div class="welcome">
-            <div class="logo">AI</div>
-            <h1>AsistenteIA</h1>
-            <p>Tu asistente de IA personal diseñado para ayudarte con cualquier pregunta o tarea. Pregúntame lo que quieras.</p>
-            
-            <div class="example-prompts">
-                <div class="example">Ayúdame a planificar un viaje a Japón para 10 días</div>
-                <div class="example">Explícame la teoría de la relatividad como si tuviera 10 años</div>
-                <div class="example">Escribe un correo solicitando un aumento de sueldo</div>
-                <div class="example">Crea una breve historia de ciencia ficción ambientada en Marte</div>
-            </div>
         </div>
         
         <!-- Chat Area -->
@@ -113,78 +88,26 @@
                         <br><br>¿Te gustaría que profundice en alguna sección específica o que te ayude con el contenido detallado de alguna de ellas?
                     </div>
                 </div>
-            </div>
+            </div>      
             
-            <div class="message">
-                <div class="avatar user">U</div>
-                <div class="message-content">
-                    <div class="message-bubble">
-                        Genial. ¿Me podrías dar más detalles sobre la energía solar y la eólica? Son las que más me interesan.
-                    </div>
-                </div>
-            </div>
-            
-            <div class="message">
-                <div class="avatar">AI</div>
-                <div class="message-content">
-                    <div class="message-bubble">
-                        Por supuesto, aquí tienes información detallada sobre energía solar y eólica que puedes incluir en tu presentación:
-                        
-                        <br><br><strong>Energía Solar:</strong>
-                        
-                        <br><br>1. <strong>Tipos de tecnología solar:</strong>
-                        <br>• <em>Fotovoltaica (PV):</em> Convierte directamente la luz solar en electricidad mediante células solares de silicio o materiales semiconductores.
-                        <br>• <em>Solar térmica:</em> Concentra la energía del sol para calentar un fluido que genera vapor y mueve turbinas (CSP: Concentrated Solar Power).
-                        <br>• <em>Solar pasiva:</em> Diseño arquitectónico que aprovecha la luz y el calor solar sin dispositivos mecánicos.
-                        
-                        <br><br>2. <strong>Datos relevantes:</strong>
-                        <br>• La capacidad solar global ha crecido exponencialmente: de 40 GW en 2010 a más de 700 GW en 2022.
-                        <br>• El costo de los paneles solares ha disminuido más del 90% desde 2010.
-                        <br>• La eficiencia típica de paneles comerciales oscila entre 15-22%, pero en laboratorio se han alcanzado eficiencias superiores al 40%.
-                        
-                        <br><br>3. <strong>Aplicaciones innovadoras:</strong>
-                        <br>• Granjas solares flotantes
-                        <br>• Ventanas solares semitransparentes
-                        <br>• Tejas solares integradas en edificios
-                        <br>• Carreteras solares
-                        
-                        <br><br><strong>Energía Eólica:</strong>
-                        
-                        <br><br>1. <strong>Tipos de aerogeneradores:</strong>
-                        <br>• <em>Eje horizontal:</em> Los más comunes, con aspas que giran perpendiculares al suelo.
-                        <br>• <em>Eje vertical:</em> Menos comunes pero adecuados para entornos urbanos y vientos turbulentos.
-                        <br>• <em>Offshore (marinos):</em> Instalados en el mar, aprovechan vientos más constantes y fuertes.
-                        
-                        <br><br>2. <strong>Datos relevantes:</strong>
-                        <br>• La capacidad eólica global superó los 800 GW en 2022.
-                        <br>• Una turbina eólica moderna puede generar suficiente electricidad para abastecer a 1,500 hogares.
-                        <br>• Las turbinas actuales pueden alcanzar alturas de más de 200 metros y aspas de 80+ metros.
-                        <br>• El factor de capacidad (tiempo efectivo de funcionamiento) ha mejorado del 20% al 40+% en turbinas modernas.
-                        
-                        <br><br>3. <strong>Innovaciones:</strong>
-                        <br>• Turbinas flotantes para aguas profundas
-                        <br>• Sistemas de almacenamiento integrados
-                        <br>• Diseños sin aspas (por vibración)
-                        <br>• Materiales compuestos más ligeros y resistentes
-                        
-                        <br><br>4. <strong>Complementariedad solar-eólica:</strong>
-                        <br>• Sistemas híbridos que combinan ambas tecnologías
-                        <br>• Patrones de generación complementarios (sol durante el día, viento más constante por la noche)
-                        <br>• Reducción de necesidades de almacenamiento al combinar ambas fuentes
-                        
-                        <br><br>¿Necesitas información específica sobre algún aspecto de estas tecnologías, como su impacto ambiental o viabilidad económica?
-                    </div>
-                </div>
-            </div>
+            {{ mi_mensaje | safe }}  <!-- Esto habrá que quitarlo -->
+            {{ respuesta | safe }}  <!-- Esto habrá que quitarlo -->
+
         </div>
         
+        
+
         <!-- Input Area -->
         <div class="input-container">
-            <div class="input-box">
-                <textarea placeholder="Escribe un mensaje..."></textarea>
-                <button class="send-btn">Enviar</button>
-            </div>
+            <form action="" method="post" class="mt-4" onsubmit="return validarPrompt()">
+                <div class="input-box">
+                    <textarea id="prompt" name="prompt" placeholder="Escribe un mensaje..."></textarea>
+                    <button type="submit" class="send-btn">Enviar</button>
+                </div>
+            </form>
         </div>
     </div>
     
-    <script src="../static/js/script.js"></script> <!-- Enlace al JS -->
+    <script src="../static/js/main.js></script> <!-- Enlace al JS -->
+</body>
+</html>
