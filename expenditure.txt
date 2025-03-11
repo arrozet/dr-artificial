@@ -1,0 +1,7 @@
+11/03/2025
+INPUT	| Tokens: 57	| Cost: $0.0001710
+OUTPUT	| Tokens: 96	| Cost: $0.0014400
+TOTAL	| Tokens: 153	| Cost: $0.0016110
+
+--------------------------------------------------
+TOTAL USAGE	| Tokens: 153	| Cost: $0.0016110

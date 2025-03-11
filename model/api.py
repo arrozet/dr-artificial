@@ -1,6 +1,7 @@
 import openai # openai v1.0.0+
 from api_key.private_key import API_KEY
 from expenditure.expenditure import update_expenditure
+from config import ACTIVE_MODEL
 
 client = openai.OpenAI(api_key=API_KEY, base_url="https://litellm.dccp.pbu.dedalus.com")
 
@@ -8,7 +9,8 @@ def chat_with_claude():
     # Mantener el historial de conversación
     messages = []
     
-    print("¡Bienvenido al chat con Claude! (Escribe 'salir' para terminar)")
+    print(f"¡Bienvenido al chat con Claude! (Usando modelo: {ACTIVE_MODEL})")
+    print("(Escribe 'salir' para terminar)")
     
     while True:
         # Obtener input del usuario
@@ -24,19 +26,16 @@ def chat_with_claude():
         
         # Realizar la llamada a la API
         response = client.chat.completions.create(
-            model="bedrock/anthropic.claude-3-5-sonnet-20240620-v1:0",
+            model=ACTIVE_MODEL,
             messages=messages
         )
         
         # Extraer solo el mensaje de respuesta
         assistant_response = response.choices[0].message.content
 
-
         # Guardar información de uso correctamente
-        # Esto es una cutrada, ya que llama a la función tras cada mensaje de claude, lo cual no es muy eficiente
         print(f"PROMPT: {response.usage.prompt_tokens}, ANSWER: {response.usage.completion_tokens}")
         update_expenditure(response.usage.prompt_tokens, response.usage.completion_tokens)
-
 
         # Añadir respuesta del asistente al historial
         messages.append({"role": "assistant", "content": assistant_response})
