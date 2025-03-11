@@ -1,283 +1,302 @@
+/* Definimos las variables de colores y estilos que usaremos en toda la página */
 :root {
-    --primary-color: #6C47FF;
-    --secondary-color: #F0EDFF;
-    --text-color: #FFFFFF;
-    --bg-color: #343541;
-    --sidebar-bg: #202123;
-    --border-color: #444654;
-    --user-msg-bg: #0a84ff;
-    --ai-msg-bg: #444654;
-    --hover-color: #5432d3;
+    --primary-color: #6C47FF;  /* Color principal (morado) para botones y elementos destacados */
+    --secondary-color: #F0EDFF;  /* Color secundario (morado claro) para fondos sutiles */
+    --text-color: #FFFFFF;  /* Color del texto (blanco) */
+    --bg-color: #343541;  /* Color de fondo principal (gris oscuro) */
+    --sidebar-bg: #202123;  /* Color de fondo de la barra lateral (negro grisáceo) */
+    --border-color: #444654;  /* Color de los bordes (gris) */
+    --user-msg-bg: #0a84ff;  /* Color de fondo para mensajes del usuario (azul) */
+    --ai-msg-bg: #444654;  /* Color de fondo para mensajes de la IA (gris) */
+    --hover-color: #5432d3;  /* Color para efectos al pasar el ratón (morado más oscuro) */
 }
 
+/* Reseteo básico para todos los elementos: quita márgenes, padding y establece el modelo de caja */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Segoe UI", Roboto, sans-serif;
+    margin: 0;  /* Elimina todos los márgenes */
+    padding: 0;  /* Elimina todos los rellenos */
+    box-sizing: border-box;  /* Hace que el ancho incluya el padding y los bordes */
+    font-family: "Segoe UI", Roboto, sans-serif;  /* Establece las fuentes a utilizar */
 }
 
+/* Estilo para el cuerpo de la página */
 body {
-    display: flex;
-    height: 100vh;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    display: flex;  /* Usa flexbox para organizar los elementos */
+    height: 100vh;  /* Altura al 100% de la ventana */
+    background-color: var(--bg-color);  /* Color de fondo gris oscuro */
+    color: var(--text-color);  /* Color de texto blanco */
 }
 
-/* Sidebar */
+/* Estilos para la barra lateral */
 .sidebar {
-    width: 250px;
-    background-color: var(--sidebar-bg);
-    display: flex;
-    flex-direction: column;
-    padding: 16px;
-    border-right: 1px solid var(--border-color);
+    width: 250px;  /* Ancho fijo de la barra lateral */
+    background-color: var(--sidebar-bg);  /* Fondo más oscuro que el principal */
+    display: flex;  /* Usa flexbox para organizar elementos internos */
+    flex-direction: column;  /* Coloca los elementos en columna (uno debajo de otro) */
+    padding: 16px;  /* Espacio interno alrededor del contenido */
+    border-right: 1px solid var(--border-color);  /* Borde derecho para separar del contenido */
 }
 
+/* Agrega texto "DrArtificial" después del elemento con clase .logo en la barra lateral */
 .sidebar .logo::after {
-    content: "DrArtificial";
-    text-indent: 0;
-    display: block;
+    content: "DrArtificial";  /* Texto a mostrar */
+    text-indent: 0;  /* Sin indentación */
+    display: block;  /* Muestra como bloque */
 }
 
-/* New chat button styling */
+/* Estilo para el botón de nuevo chat */
 .new-chat-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-bottom: 16px;
-    width: 100%;
-    justify-content: center;
+    display: flex;  /* Permite organizar icono y texto */
+    align-items: center;  /* Centra verticalmente el contenido */
+    gap: 8px;  /* Espacio entre el icono y el texto */
+    background-color: var(--primary-color);  /* Fondo morado */
+    color: white;  /* Texto blanco */
+    border: none;  /* Sin borde */
+    border-radius: 8px;  /* Bordes redondeados */
+    padding: 12px;  /* Espacio interno */
+    font-size: 14px;  /* Tamaño de fuente */
+    font-weight: 500;  /* Grosor de fuente (semi-negrita) */
+    cursor: pointer;  /* Cambia el cursor a mano al pasar sobre él */
+    transition: background-color 0.3s ease;  /* Animación suave al cambiar color */
+    margin-bottom: 16px;  /* Espacio debajo del botón */
+    width: 100%;  /* Ocupa todo el ancho disponible */
+    justify-content: center;  /* Centra horizontalmente el contenido */
 }
 
+/* Cambia el color de fondo del botón al pasar el ratón */
 .new-chat-btn:hover {
-    background-color: var(--hover-color);
+    background-color: var(--hover-color);  /* Morado más oscuro al pasar el ratón */
 }
 
-/* Chat history styling */
+/* Estilo para la sección de historial de chats */
 .history {
-    flex: 1;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 16px;
+    flex: 1;  /* Ocupa el espacio disponible */
+    overflow-y: auto;  /* Permite scroll vertical si hay muchos elementos */
+    display: flex;  /* Organiza los elementos con flexbox */
+    flex-direction: column;  /* Elementos uno debajo de otro */
+    gap: 8px;  /* Espacio entre elementos */
+    margin-bottom: 16px;  /* Espacio debajo de la sección */
 }
 
+/* Estilo para cada elemento del historial de chats */
 .chat-item {
-    padding: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    font-size: 14px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    border-left: 3px solid transparent;
+    padding: 10px;  /* Espacio interno */
+    border-radius: 8px;  /* Bordes redondeados */
+    cursor: pointer;  /* Cursor tipo mano */
+    transition: background-color 0.2s ease;  /* Animación suave */
+    font-size: 14px;  /* Tamaño de texto */
+    white-space: nowrap;  /* Evita saltos de línea */
+    overflow: hidden;  /* Oculta el texto que no cabe */
+    text-overflow: ellipsis;  /* Muestra "..." si el texto no cabe */
+    border-left: 3px solid transparent;  /* Borde izquierdo invisible por defecto */
 }
 
+/* Efecto al pasar el ratón sobre un elemento del historial */
 .chat-item:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-left-color: var(--primary-color);
+    background-color: rgba(255, 255, 255, 0.1);  /* Fondo ligeramente blanco */
+    border-left-color: var(--primary-color);  /* Borde izquierdo morado */
 }
 
-/* Main content area */
+/* Contenedor principal donde está el chat */
 .main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+    flex: 1;  /* Ocupa todo el espacio disponible */
+    display: flex;  /* Usa flexbox */
+    flex-direction: column;  /* Elementos uno debajo de otro */
+    height: 100%;  /* Altura completa */
 }
 
-/* Unified chat container */
+/* Contenedor unificado del chat */
 .chat-box {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: calc(100vh - 60px); /* Adjust based on header height */
-    overflow: hidden;
+    flex: 1;  /* Ocupa el espacio disponible */
+    display: flex;  /* Usa flexbox */
+    flex-direction: column;  /* Mensajes y entrada uno debajo de otro */
+    width: 100%;  /* Ancho completo */
+    height: calc(100vh - 60px);  /* Altura = altura de ventana menos altura del header */
+    overflow: hidden;  /* Oculta contenido que se salga */
 }
 
-/* Chat messages area */
+/* Área de mensajes del chat */
 .chat-container {
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    scroll-behavior: smooth;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 900px; /* Limit the width for better readability */
+    flex: 1;  /* Ocupa el espacio disponible */
+    overflow-y: auto;  /* Permite scroll vertical */
+    padding: 20px;  /* Espacio interno */
+    display: flex;  /* Usa flexbox */
+    flex-direction: column;  /* Mensajes uno debajo de otro */
+    gap: 12px;  /* Espacio entre mensajes */
+    scroll-behavior: smooth;  /* Scroll suave */
+    margin: 0 auto;  /* Centrado horizontal */
+    width: 100%;  /* Ancho completo */
+    max-width: 900px;  /* Ancho máximo para mejor legibilidad */
 }
 
-/* Message styling */
+/* Estilo común para todos los mensajes (usuario y AI) */
 .UserMessage, .AiMessage {
-    display: flex;
-    gap: 12px;
-    margin: 5px 0;
-    align-items: flex-start;
-    cursor: pointer;
-    width: 100%;
+    display: flex;  /* Usa flexbox para avatar y contenido */
+    gap: 12px;  /* Espacio entre avatar y texto */
+    margin: 5px 0;  /* Margen arriba y abajo */
+    align-items: flex-start;  /* Alinea elementos al inicio */
+    cursor: pointer;  /* Cursor tipo mano */
+    width: 100%;  /* Ancho completo */
 }
 
-/* User messages */
+/* Posiciona los mensajes del usuario a la derecha */
 .UserMessage {
-    justify-content: flex-end;
+    justify-content: flex-end;  /* Alinea a la derecha */
 }
 
-/* AI messages */
+/* Posiciona los mensajes de la IA a la izquierda */
 .AiMessage {
-    justify-content: flex-start;
+    justify-content: flex-start;  /* Alinea a la izquierda */
 }
 
+/* Estilo para los avatares */
 .avatar {
-    width: 32px;
-    height: 32px;
-    min-width: 32px; /* Prevent shrinking */
-    border-radius: 6px;
-    background-color: var(--primary-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
+    width: 32px;  /* Ancho fijo */
+    height: 32px;  /* Alto fijo (cuadrado) */
+    min-width: 32px;  /* Ancho mínimo para evitar que se encoja */
+    border-radius: 6px;  /* Bordes redondeados */
+    background-color: var(--primary-color);  /* Fondo morado */
+    display: flex;  /* Usa flexbox */
+    align-items: center;  /* Centra verticalmente */
+    justify-content: center;  /* Centra horizontalmente */
+    color: white;  /* Texto blanco */
+    font-weight: bold;  /* Texto en negrita */
 }
 
+/* Color especial para el avatar del usuario */
 .avatarUser {
-    background-color: var(--user-msg-bg);
+    background-color: var(--user-msg-bg);  /* Fondo azul */
 }
 
+/* Estilo para el contenido de los mensajes */
 .message-content {
-    padding: 10px;
-    border-radius: 6px;
-    background-color: var(--ai-msg-bg);
-    line-height: 1.5;
-    max-width: 80%;
+    padding: 10px;  /* Espacio interno */
+    border-radius: 6px;  /* Bordes redondeados */
+    background-color: var(--ai-msg-bg);  /* Fondo gris (para mensajes de la IA) */
+    line-height: 1.5;  /* Espacio entre líneas de texto */
+    max-width: 80%;  /* Ancho máximo para no ocupar toda la pantalla */
 }
 
+/* Color especial para los mensajes del usuario */
 .UserMessage .message-content {
-    background-color: var(--user-msg-bg);
+    background-color: var(--user-msg-bg);  /* Fondo azul */
 }
 
-/* Input area styling */
+/* Contenedor del área de entrada de texto */
 .input-container {
-    padding: 16px;
-    border-top: 1px solid var(--border-color);
-    background-color: var(--sidebar-bg);
-    width: 100%;
+    padding: 16px;  /* Espacio interno */
+    border-top: 1px solid var(--border-color);  /* Borde superior */
+    background-color: var(--sidebar-bg);  /* Fondo oscuro */
+    width: 100%;  /* Ancho completo */
 }
 
+/* Caja que contiene el textarea y el botón de enviar */
 .input-box {
-    display: flex;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 8px;
-    background-color: var(--bg-color);
-    margin: 0 auto;
-    max-width: 900px; /* Match the chat container width */
+    display: flex;  /* Usa flexbox */
+    border: 1px solid var(--border-color);  /* Borde */
+    border-radius: 8px;  /* Bordes redondeados */
+    padding: 8px;  /* Espacio interno */
+    background-color: var(--bg-color);  /* Fondo */
+    margin: 0 auto;  /* Centrado horizontal */
+    max-width: 900px;  /* Ancho máximo igual que el chat */
 }
 
+/* Estilo para el área de texto */
 textarea {
-    flex: 1;
-    border: none;
-    outline: none;
-    resize: none;
-    padding: 8px;
-    font-size: 16px;
-    min-height: 24px;
-    background-color: transparent;
-    color: white;
+    flex: 1;  /* Ocupa el espacio disponible */
+    border: none;  /* Sin borde */
+    outline: none;  /* Sin contorno al hacer focus */
+    resize: none;  /* No permite cambiar tamaño */
+    padding: 8px;  /* Espacio interno */
+    font-size: 16px;  /* Tamaño de texto */
+    min-height: 24px;  /* Altura mínima */
+    background-color: transparent;  /* Fondo transparente */
+    color: white;  /* Texto blanco */
 }
 
+/* Estilo para el botón de enviar */
 .send-btn {
-    padding: 8px 16px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background 0.3s;
+    padding: 8px 16px;  /* Espacio interno */
+    background-color: var(--primary-color);  /* Fondo morado */
+    color: white;  /* Texto blanco */
+    border: none;  /* Sin borde */
+    border-radius: 6px;  /* Bordes redondeados */
+    cursor: pointer;  /* Cursor tipo mano */
+    font-weight: 500;  /* Texto semi-negrita */
+    transition: background 0.3s;  /* Animación suave */
 }
 
+/* Efecto al pasar el ratón sobre el botón de enviar */
 .send-btn:hover {
-    background-color: var(--hover-color);
+    background-color: var(--hover-color);  /* Morado más oscuro */
 }
 
+/* Estilo para el botón deshabilitado */
 .send-btn:disabled {
-    background-color: var(--border-color);
-    cursor: not-allowed;
+    background-color: var(--border-color);  /* Fondo gris */
+    cursor: not-allowed;  /* Cursor de prohibido */
 }
 
-/* Profile section */
+/* Estilo para la sección de perfil en la barra lateral */
 .profile {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px;
-    border-top: 1px solid var(--border-color);
-    margin-top: auto;
+    display: flex;  /* Usa flexbox */
+    align-items: center;  /* Centra verticalmente */
+    gap: 8px;  /* Espacio entre foto y nombre */
+    padding: 12px;  /* Espacio interno */
+    border-top: 1px solid var(--border-color);  /* Borde superior */
+    margin-top: auto;  /* Empuja al final de la barra lateral */
 }
 
+/* Imagen de perfil */
 .profile-img {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background-color: var(--primary-color);
+    width: 24px;  /* Ancho */
+    height: 24px;  /* Alto */
+    border-radius: 50%;  /* Forma circular */
+    background-color: var(--primary-color);  /* Fondo morado */
 }
 
-/* Header styling */
+/* Estilos para la cabecera */
 .header {
-    padding: 16px;
-    text-align: center;
-    border-bottom: 1px solid var(--border-color);
+    padding: 16px;  /* Espacio interno */
+    text-align: center;  /* Texto centrado */
+    border-bottom: 1px solid var(--border-color);  /* Borde inferior */
 }
 
+/* Estilo para el título en la cabecera */
 .title {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 18px;  /* Tamaño de texto */
+    font-weight: bold;  /* Texto en negrita */
 }
 
-/* Welcome screen */
+/* Estilos para la pantalla de bienvenida */
 .welcome {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    padding: 40px;
+    display: flex;  /* Usa flexbox */
+    flex-direction: column;  /* Elementos en columna */
+    align-items: center;  /* Centra horizontalmente */
+    justify-content: center;  /* Centra verticalmente */
+    gap: 16px;  /* Espacio entre elementos */
+    padding: 40px;  /* Espacio interno */
 }
 
+/* Logotipo en la pantalla de bienvenida */
 .logo {
-    font-size: 48px;
-    width: 80px;
-    height: 80px;
-    border-radius: 16px;
-    background-color: var(--primary-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 48px;  /* Tamaño de texto grande */
+    width: 80px;  /* Ancho */
+    height: 80px;  /* Alto */
+    border-radius: 16px;  /* Bordes redondeados */
+    background-color: var(--primary-color);  /* Fondo morado */
+    display: flex;  /* Usa flexbox */
+    align-items: center;  /* Centra verticalmente */
+    justify-content: center;  /* Centra horizontalmente */
 }
 
-/* Mobile responsiveness */
+/* Ajustes para pantallas pequeñas (móviles) */
 @media (max-width: 768px) {
     .sidebar {
-        display: none;
+        display: none;  /* Oculta la barra lateral */
     }
     
     .chat-container, .input-box {
-        max-width: 100%;
+        max-width: 100%;  /* Usa todo el ancho disponible */
     }
 }
