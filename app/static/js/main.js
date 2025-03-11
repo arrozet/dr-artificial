@@ -54,3 +54,14 @@ chatContainer.scrollTop = chatContainer.scrollHeight;
 });
 
 });
+
+function validarPrompt() {
+    var prompt = document.getElementById("prompt").value.trim();
+        
+        if (prompt === "") {
+            alert("El prompt no puede estar vacío.");
+            
+            return false;
+        }
+        return true;
+}
