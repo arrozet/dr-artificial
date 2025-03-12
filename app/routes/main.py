@@ -34,13 +34,14 @@ def procesarPost():
     new_chat_name = request.form.get("new_chat_name",None)
     mensajes_chat = []
     
-    if prompt != "":
+    if prompt != "" and prompt:
         prompt = request.form['prompt'] 
         
+        chat_id = request.form.get("chat_id",1)             # ESTO ESTÁ FATAL, TENEMOS QUE CAMBIARLO
         add_message(chat_id=chat_id, text=prompt, sender="usuario")
         add_message(chat_id=chat_id, text="OK", sender="IA") # METER IA
         
-    elif new_chat_name != "" :
+    elif new_chat_name != "" and new_chat_name:
         
         chat_id = create_chat(chat_name=new_chat_name)
         
@@ -48,10 +49,10 @@ def procesarPost():
         
         chat_id = request.form["chat_id"]
         
-        
+    chat_list = list_of_chats()
     mensajes_chat = list_of_messages(chat_id)
 
-    return render_template('index.html', mensajes_nuevo_chat=mensajes_chat)
+    return render_template('index.html', chat_list=chat_list,  mensajes_nuevo_chat=mensajes_chat)
 
 
 """ 

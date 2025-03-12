@@ -49,12 +49,12 @@
                 <p>No hay mensajes en este chat.</p>
             {% else %}
                 {% for msg in mensajes_nuevo_chat %}
-                    {% if msg.message_sender == "ia" %}
+                    {% if msg.message_sender == "IA" %}
                         <div class="message">
                             <div class="avatar">AI</div>
                             <div class="message-content">
                                 <div class="message-bubble">
-                                    
+                                    {{ msg.message}}
                                 </div>
                             </div>
                         </div> 

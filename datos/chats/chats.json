@@ -15,6 +15,66 @@
                     "sender": "ia",
                     "text": "Puedes usar la función json.load() para leer un JSON en Flask.",
                     "timestamp": "2025-03-12T10:00:05Z"
+                },
+                {
+                    "message_id": 3,
+                    "sender": "usuario",
+                    "text": "Hola"
+                },
+                {
+                    "message_id": 4,
+                    "sender": "IA",
+                    "text": "OK"
+                },
+                {
+                    "message_id": 5,
+                    "sender": "usuario",
+                    "text": "Hola"
+                },
+                {
+                    "message_id": 6,
+                    "sender": "IA",
+                    "text": "OK"
+                },
+                {
+                    "message_id": 7,
+                    "sender": "usuario",
+                    "text": "Hola"
+                },
+                {
+                    "message_id": 8,
+                    "sender": "IA",
+                    "text": "OK"
+                },
+                {
+                    "message_id": 9,
+                    "sender": "usuario",
+                    "text": "Hola"
+                },
+                {
+                    "message_id": 10,
+                    "sender": "IA",
+                    "text": "OK"
+                },
+                {
+                    "message_id": 11,
+                    "sender": "usuario",
+                    "text": "Hola"
+                },
+                {
+                    "message_id": 12,
+                    "sender": "IA",
+                    "text": "OK"
+                },
+                {
+                    "message_id": 13,
+                    "sender": "usuario",
+                    "text": "Hola"
+                },
+                {
+                    "message_id": 14,
+                    "sender": "IA",
+                    "text": "OK"
                 }
             ]
         },
@@ -75,6 +135,17 @@
         {
             "chat_id": 4,
             "chat_name": "Nuevo Chat 2",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "IA",
+                    "text": "¿En qué puedo ayudarte?"
+                }
+            ]
+        },
+        {
+            "chat_id": 5,
+            "chat_name": null,
             "messages": [
                 {
                     "message_id": 1,
