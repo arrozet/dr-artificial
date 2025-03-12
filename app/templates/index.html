@@ -44,59 +44,32 @@
         
         <!-- Chat Area -->
         <div class="chat-container">
-            <div class="message">
-                <div class="avatar user">U</div>
-                <div class="message-content">
-                    <div class="message-bubble">
-                        Hola, necesito ayuda para crear una presentación sobre energías renovables para mi clase.
-                    </div>
-                </div>
-            </div>
-            
-            <div class="message">
-                <div class="avatar">AI</div>
-                <div class="message-content">
-                    <div class="message-bubble">
-                        Claro, puedo ayudarte con tu presentación sobre energías renovables. Aquí tienes una estructura que podrías seguir:
-                        
-                        <br><br>1. <strong>Introducción</strong>
-                        <br>• Definición de energías renovables
-                        <br>• Importancia en el contexto actual del cambio climático
-                        <br>• Breve panorama de la situación energética global
-                        
-                        <br><br>2. <strong>Tipos de energías renovables</strong>
-                        <br>• Energía solar (fotovoltaica y térmica)
-                        <br>• Energía eólica
-                        <br>• Energía hidráulica
-                        <br>• Energía geotérmica
-                        <br>• Biomasa
-                        <br>• Energía mareomotriz
-                        
-                        <br><br>3. <strong>Ventajas y desafíos</strong>
-                        <br>• Beneficios ambientales
-                        <br>• Ventajas económicas a largo plazo
-                        <br>• Desafíos tecnológicos
-                        <br>• Barreras de implementación
-                        
-                        <br><br>4. <strong>Casos de éxito</strong>
-                        <br>• Países líderes en renovables (Dinamarca, Alemania, etc.)
-                        <br>• Proyectos innovadores
-                        
-                        <br><br>5. <strong>El futuro de las renovables</strong>
-                        <br>• Tendencias y avances tecnológicos
-                        <br>• Proyecciones de crecimiento
-                        
-                        <br><br>6. <strong>Conclusión</strong>
-                        <br>• Resumen de puntos clave
-                        <br>• Llamado a la acción
-                        
-                        <br><br>¿Te gustaría que profundice en alguna sección específica o que te ayude con el contenido detallado de alguna de ellas?
-                    </div>
-                </div>
-            </div>      
-            
-            {{ mi_mensaje | safe }}  <!-- Esto habrá que quitarlo -->
-            {{ respuesta | safe }}  <!-- Esto habrá que quitarlo -->
+
+            {% if mensajes_nuevo_chat|length == 0 %}
+                <p>No hay mensajes en este chat.</p>
+            {% else %}
+                {% for msg in mensajes_nuevo_chat %}
+                    {% if msg.message_sender == "ia" %}
+                        <div class="message">
+                            <div class="avatar">AI</div>
+                            <div class="message-content">
+                                <div class="message-bubble">
+                                    
+                                </div>
+                            </div>
+                        </div> 
+                    {% else %}
+                        <div class="message">
+                            <div class="avatar user">U</div>
+                            <div class="message-content">
+                                <div class="message-bubble">
+                                    {{ msg.message}}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
 
         </div>
         

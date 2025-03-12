@@ -90,32 +90,22 @@ function validarPrompt() {
 // FUNCIONES PARA CAMBIAR DE CHAT
 
 function cambiarChat(id) {
-    // Oculta todos los chats
-    document.querySelectorAll('.chat').forEach(chat => chat.style.display = 'none');
-    
-    // Muestra el chat seleccionado
-    document.getElementById('chat' + id).style.display = 'block';
 
-    // Guarda en la URL el chat actual
-    window.location.hash = 'chat' + id;
+    console.log("Cambiar chat a " + id);
+
+    // Enviar petición a Flask
+    fetch('/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ chat_id: id })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Respuesta del servidor:", data);
+    })
+    .catch(error => {
+        console.error("Error en la petición:", error);
+    });
 }
-
-// Detectar cambios en la URL
-window.addEventListener("hashchange", () => {
-    let chatId = window.location.hash.replace("#", "");
-    if (chatId) {
-        cambiarChat(chatId.replace("chat", ""));
-    }
-});
-
-// Cargar el chat correcto al abrir la página
-window.onload = () => {
-    if (window.location.hash) {
-        let chatId = window.location.hash.replace("#chat", "");
-        cambiarChat(chatId);
-    }
-};
-
-sessionStorage.setItem("chatActivo", id);
-
-
