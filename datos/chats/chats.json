@@ -75,6 +75,36 @@
                     "message_id": 14,
                     "sender": "IA",
                     "text": "OK"
+                },
+                {
+                    "message_id": 15,
+                    "sender": "usuario",
+                    "text": "ola que tal"
+                },
+                {
+                    "message_id": 16,
+                    "sender": "IA",
+                    "text": "OK"
+                },
+                {
+                    "message_id": 17,
+                    "sender": "usuario",
+                    "text": "a\r\n"
+                },
+                {
+                    "message_id": 18,
+                    "sender": "IA",
+                    "text": "OK"
+                },
+                {
+                    "message_id": 19,
+                    "sender": "usuario",
+                    "text": "a"
+                },
+                {
+                    "message_id": 20,
+                    "sender": "IA",
+                    "text": "OK"
                 }
             ]
         },

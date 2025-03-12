@@ -98,6 +98,7 @@ body {
 
 .chat-item:hover {
     background-color: var(--border-color);
+    border-left-color: var(--primary-color);  /* Borde izquierdo morado */
 }
 
 .profile {
@@ -180,7 +181,8 @@ body {
 .input-container {
     padding: 16px;
     border-top: 1px solid var(--border-color);
-    margin: 0 16px 16px;
+    margin: 0; /* He quitado el 16px 16px porque quedaba HORRENDO */
+    background-color: var(--sidebar-bg);
 }
 
 .input-box {
@@ -201,19 +203,23 @@ textarea {
     min-height: 24px;
     max-height: 200px;
     line-height: 1.5;
+    color: var(--text-color);  
+    background-color: var(--bg-color);
 }
 
 .send-btn {
-    align-self: flex-end;
-    padding: 6px 12px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 500;
+    padding: 8px 16px;  /* Espacio interno */
+    background-color: var(--primary-color);  /* Fondo morado */
+    color: white;  /* Texto blanco */
+    border: none;  /* Sin borde */
+    border-radius: 6px;  /* Bordes redondeados */
+    cursor: pointer;  /* Cursor tipo mano */
+    font-weight: 500;  /* Texto semi-negrita */
+    transition: background 0.3s;  /* Animación suave */
 }
-
+.send-btn:hover {
+    background-color: var(--hover-color);  /* Morado más oscuro */
+}
 .send-btn:disabled {
     background-color: var(--border-color);
     cursor: not-allowed;
