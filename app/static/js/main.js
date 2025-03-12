@@ -60,3 +60,67 @@ document.addEventListener("DOMContentLoaded", function () {
         themeIcon.src = theme === "dark" ? "/static/images/sun.png" : "/static/images/moon.png";
     }
 });
+
+// FUNCION PARA MICROFONO NO FUNCIONA LA HE COPIADO Y PEGADO A PRISAS DE CLAUDE
+/*
+document.addEventListener('DOMContentLoaded', function() {
+    const micButton = document.getElementById('mic-btn');
+    const textarea = document.getElementById('prompt');
+    
+    // Verificar si el navegador soporta la API de reconocimiento de voz
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        // Inicializar el reconocimiento de voz
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        
+        // Configurar opciones
+        recognition.lang = 'es-ES'; // Idioma español
+        recognition.continuous = false; // No continúa escuchando después de terminar
+        recognition.interimResults = false; // Solo regresa resultados finales
+        
+        let isListening = false;
+        
+        // Evento al hacer clic en el botón de micrófono
+        micButton.addEventListener('click', function() {
+            if (isListening) {
+                // Detener el reconocimiento
+                recognition.stop();
+                micButton.classList.remove('active');
+            } else {
+                // Iniciar el reconocimiento
+                recognition.start();
+                micButton.classList.add('active');
+            }
+            isListening = !isListening;
+        });
+        
+        // Evento cuando se reconoce la voz
+        recognition.onresult = function(event) {
+            const transcript = event.results[0][0].transcript;
+            // Añadir el texto reconocido al área de texto
+            textarea.value += transcript;
+        };
+        
+        // Eventos para manejar el inicio y fin del reconocimiento
+        recognition.onstart = function() {
+            isListening = true;
+            micButton.classList.add('active');
+        };
+        
+        recognition.onend = function() {
+            isListening = false;
+            micButton.classList.remove('active');
+        };
+        
+        recognition.onerror = function(event) {
+            console.error('Error en reconocimiento de voz:', event.error);
+            isListening = false;
+            micButton.classList.remove('active');
+        };
+    } else {
+        // Ocultar el botón si no hay soporte
+        micButton.style.display = 'none';
+        console.warn('Tu navegador no soporta reconocimiento de voz');
+    }
+});
+*/
