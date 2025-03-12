@@ -80,6 +80,7 @@ body {
 
 /* Estilo para cada elemento del historial de chats */
 .chat-item {
+    display: block; /* Mantiene el comportamiento de bloque */
     padding: 10px;  /* Espacio interno */
     border-radius: 8px;  /* Bordes redondeados */
     cursor: pointer;  /* Cursor tipo mano */
@@ -89,6 +90,8 @@ body {
     overflow: hidden;  /* Oculta el texto que no cabe */
     text-overflow: ellipsis;  /* Muestra "..." si el texto no cabe */
     border-left: 3px solid transparent;  /* Borde izquierdo invisible por defecto */
+    text-decoration: none; /* Quita el subrayado */
+    color: inherit; /* Usa el color del texto del contenedor padre */
 }
 
 /* Efecto al pasar el ratón sobre un elemento del historial */
