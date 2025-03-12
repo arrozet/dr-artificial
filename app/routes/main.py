@@ -46,10 +46,14 @@ def procesarPrompt():
         """
 
     if not prompt:  # Validación para evitar enviar texto vacío
-        return render_template('interfaz1.html', mensaje='No puedes enviar un texto vacío.') #AQUI
+        return render_template('index.html', mensaje='No puedes enviar un texto vacío.') #AQUI
 
 
 
 @main_bp.route("/new_chat", methods=['POST'])
 def new_chat():
     create_chat("Nuevo Chat") # Esto tenemos que cambiarlo    
+
+@main_bp.route('/<chat_name>') #dejar para que no explote
+def mostrar_chat(chat_name):
+    return render_template(f'{chat_name}.html')
