@@ -8,7 +8,30 @@
     --message-user-bg: #F7F7F8;
     --message-assistant-bg: #FFFFFF;
 }
-
+[data-theme="light"] {
+    --primary-color: #6C47FF; /* Morado */
+    --secondary-color: #EDEAFF; /* Morado más suave */
+    --text-color: #000000; /* Negro */
+    --bg-color: #FFFFFF; /* Blanco */
+    --sidebar-bg: #F5F5F5; /* Gris claro */
+    --border-color: #DDDDDD; /* Gris más suave */
+    --message-user-bg: #509beb; /* Azul más fuerte */
+    --message-assistant-bg: #E0E0E0; /* Gris más claro */
+    --hover-color: #4A2BAF; /* Morado más oscuro */
+    --color-user-message:#FFFFFF;
+}
+[data-theme="dark"] {
+    --primary-color: #8A6CFF;  /* Morado suave, menos saturado */
+    --secondary-color: #E0DAFF;  /* Morado claro para fondos suaves */
+    --text-color: #E4E6EB;  /* Blanco suave, menos agresivo para la vista */
+    --bg-color: #1E1F25;  /* Gris oscuro azulado, menos agresivo que negro puro */
+    --sidebar-bg: #16171D;  /* Un tono más oscuro para la barra lateral */
+    --border-color: #3A3B3C;  /* Gris más suave para bordes */
+    --message-user-bg: #007AFF;  /* Azul vibrante pero no agresivo */
+    --message-assistant-bg: #2E2F36;  /* Gris neutro para mensajes de la IA */
+    --hover-color: #735DD0;  /* Un morado más brillante para efectos */;
+    --color-user-message:#FFFFFF;
+}
 * {
     margin: 0;
     padding: 0;
@@ -30,6 +53,16 @@ body {
     display: flex;
     flex-direction: column;
     border-right: 1px solid var(--border-color);
+}
+#theme-icon {
+    width: 32px;  /* Ajusta el tamaño según necesites */
+    height: 30px;
+}
+#toggle-theme {
+    background: none;  /* Quita el fondo */
+    border: none;      /* Quita el borde */
+    padding: 5px;      /* Ajusta el espacio si es necesario */
+    cursor: pointer;   /* Mantiene el cursor de botón */
 }
 
 .new-chat-btn {

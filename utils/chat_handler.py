@@ -41,14 +41,20 @@ def add_message(chat_id, sender, text):
     return None  # Si no se encuentra el chat
 
 def list_of_messages(chat_id):
-    """Devuelve la lista de mensajes del chat con el chat_id dado."""
+    """Devuelve la lista de mensajes, con el rol de la persona que envió el mensaje, para el chat con el chat_id dado."""
     data = load_json()  # Cargar el JSON que contiene todos los chats
+    mensajes = []  # Inicializar lista de mensajes
     
     for chat in data.get("chats", []):  # Iterar sobre los chats
         if chat.get("chat_id") == chat_id:
-            return chat.get("messages", [])  # Devolver mensajes o lista vacía si no hay
+            for message in chat.get("messages", []):
+                mensajes.append({
+                    "message": message.get("text"),
+                    "message_sender": message.get("sender")
+                })
+            return mensajes  # Devolver todos los mensajes del chat encontrado
     
-    return None  # Si no se encuentra el chat_id
+    return []  # Si no se encuentra el chat_id, devolver una lista vacía
 
 def list_of_chats():
     data = load_json()
@@ -61,4 +67,7 @@ def list_of_chats():
         }
         chats.append(chat_info)  # Agrega el chat con sus datos
     return chats
+
+
+
 

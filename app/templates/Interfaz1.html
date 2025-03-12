@@ -29,6 +29,13 @@
             <div class="profile-img"></div>
             <div>Usuario</div>
         </div>
+        
+        <div class="configuracion">
+            <button id="toggle-theme">
+                <img id="theme-icon" src="{{ url_for('static', filename='images/moon.png') }}" alt="Modo Oscuro">
+            </button>            
+        </div>
+        
     </div>
     
     <!-- Main Content -->
@@ -92,6 +99,6 @@
             </div>
         </div>
     </div>
-<script src="../static/js/main.js"></script> <!-- Enlace al JS -->
+<script src="{{ url_for('static', filename='js/interfaces.js') }}"></script>
 </body>
 </html>

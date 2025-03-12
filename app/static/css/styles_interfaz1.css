@@ -10,6 +10,42 @@
     --ai-msg-bg: #444654;  /* Color de fondo para mensajes de la IA (gris) */
     --hover-color: #5432d3;  /* Color para efectos al pasar el ratón (morado más oscuro) */
 }
+[data-theme="light"] {
+    --primary-color: #6C47FF; /* Morado */
+    --secondary-color: #EDEAFF; /* Morado más suave */
+    --text-color: #000000; /* Negro */
+    --bg-color: #FFFFFF; /* Blanco */
+    --sidebar-bg: #F5F5F5; /* Gris claro */
+    --border-color: #DDDDDD; /* Gris más suave */
+    --user-msg-bg: #509beb; /* Azul más fuerte */
+    --ai-msg-bg: #E0E0E0; /* Gris más claro */
+    --hover-color: #4A2BAF; /* Morado más oscuro */
+    --color-user-message:#FFFFFF;
+}
+[data-theme="dark"] {
+    --primary-color: #8A6CFF;  /* Morado suave, menos saturado */
+    --secondary-color: #E0DAFF;  /* Morado claro para fondos suaves */
+    --text-color: #E4E6EB;  /* Blanco suave, menos agresivo para la vista */
+    --bg-color: #1E1F25;  /* Gris oscuro azulado, menos agresivo que negro puro */
+    --sidebar-bg: #16171D;  /* Un tono más oscuro para la barra lateral */
+    --border-color: #3A3B3C;  /* Gris más suave para bordes */
+    --user-msg-bg: #007AFF;  /* Azul vibrante pero no agresivo */
+    --ai-msg-bg: #2E2F36;  /* Gris neutro para mensajes de la IA */
+    --hover-color: #735DD0;  /* Un morado más brillante para efectos */;
+    --color-user-message:#FFFFFF;
+}
+
+/* la luna y el sol chiquititos*/
+#theme-icon {
+    width: 32px;  /* Ajusta el tamaño según necesites */
+    height: 30px;
+}
+#toggle-theme {
+    background: none;  /* Quita el fondo */
+    border: none;      /* Quita el borde */
+    padding: 5px;      /* Ajusta el espacio si es necesario */
+    cursor: pointer;   /* Mantiene el cursor de botón */
+}
 
 /* Reseteo básico para todos los elementos: quita márgenes, padding y establece el modelo de caja */
 * {
@@ -170,6 +206,9 @@ body {
 .avatarUser {
     background-color: var(--user-msg-bg);  /* Fondo azul */
 }
+.avatarIa {
+    background-color: var(--user-msg-bg);  /* Fondo azul */
+}
 
 /* Estilo para el contenido de los mensajes */
 .message-content {
@@ -183,6 +222,10 @@ body {
 /* Color especial para los mensajes del usuario */
 .UserMessage .message-content {
     background-color: var(--user-msg-bg);  /* Fondo azul */
+}
+
+.UserMessage .message-bubble {
+    color: var(--color-user-message); /* O usa un color fijo como #FFFFFF */
 }
 
 /* Contenedor del área de entrada de texto */
@@ -214,7 +257,7 @@ textarea {
     font-size: 16px;  /* Tamaño de texto */
     min-height: 24px;  /* Altura mínima */
     background-color: transparent;  /* Fondo transparente */
-    color: white;  /* Texto blanco */
+    color: var(--text-color);  /* Texto blanco */
 }
 
 /* Estilo para el botón de enviar */
