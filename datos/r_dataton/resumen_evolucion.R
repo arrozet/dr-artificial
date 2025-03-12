@@ -4,13 +4,6 @@ datos_temp <- read.csv("datos_sinteticos/resumen_evolucion.csv", header = FALSE)
 # Extraer los nombres de columnas de la primera fila
 nombres_columnas <- as.character(datos_temp[1, ])
 
-# Verificar si hay una columna adicional vacía al final (que generaría la columna NA)
-if (nombres_columnas[length(nombres_columnas)] == "") {
-  # Si el último nombre está vacío, eliminar esa columna
-  datos_temp <- datos_temp[, -ncol(datos_temp)]
-  nombres_columnas <- nombres_columnas[-length(nombres_columnas)]
-}
-
 # Crear el dataframe final sin la primera fila
 Resumen_Evolucion <- datos_temp[-1, ]
 
@@ -41,5 +34,12 @@ Resumen_Evolucion$Fecha <- as.Date(Resumen_Evolucion$Fecha, format="%d/%m/%Y")
 # Mostrar información sobre el dataframe resultante
 str(Resumen_Evolucion)
 
-Resumen_Evolucion
+
+#IMPORTANTE: Problema en el dataset por culpa de una columna extra en ciertas filas (no hay información sobre qué es esa columna, así
+#que la vamos a borrar)
+
+Resumen_Evolucion$`NA`=NULL
+
+#El exceso de columnas también ha generado filas extra, por ejemplo la fila 18:
+Resumen_Evolucion[18,]
 

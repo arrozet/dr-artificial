@@ -1,0 +1,128 @@
+---
+title: "Procesamiento_resumen_evolucion"
+author: "edugbau"
+date: "2025-03-12"
+output: html_document
+---
+
+# Carga de Datos
+
+Los datos se encuentran en el archivo `resumen_evolucion.csv` dentro del directorio `datos_sinteticos`. En esta sección, cargamos los datos sin considerar la cabecera original.
+
+```{r}
+datos_temp <- read.csv("datos_sinteticos/resumen_evolucion.csv", header = FALSE)
+```
+
+# Asignación de Nombres de Columnas
+
+Extraemos los nombres de las columnas de la primera fila y los asignamos correctamente al dataframe.
+
+```{r}
+nombres_columnas <- as.character(datos_temp[1, ])
+Resumen_Evolucion <- datos_temp[-1, ]
+colnames(Resumen_Evolucion) <- nombres_columnas
+```
+
+# Conversión de Tipos de Datos
+
+Para facilitar el análisis, convertimos ciertas columnas a tipos adecuados:
+
+-   Columnas numéricas a `numeric`.
+-   `PacienteID` a `factor`.
+-   `Fecha` a `Date`.
+
+```{r}
+columnas_numericas <- c("PresionSistolica", "PresionDiastolica", "FrecuenciaCardiaca", "Temperatura", 
+                        "FrecuenciaRespiratoria", "SaturacionOxigeno", "Glucosa", "Leucocitos", 
+                        "Hemoglobina", "Plaquetas", "Colesterol", "HDL", "LDL", "Trigliceridos", "Sodio", 
+                        "Potasio", "ClNa", "Creatinina", "Urea", "AST", "ALT", "Bilirrubina", "pH", 
+                        "pCO2", "pO2", "HCO3", "Lactato", "Cloro")
+
+for (col in columnas_numericas) {
+  if (col %in% colnames(Resumen_Evolucion)) {
+    Resumen_Evolucion[[col]] <- as.numeric(as.character(Resumen_Evolucion[[col]]))
+  }
+}
+```
+
+```{r}
+Resumen_Evolucion$PacienteID <- as.factor(Resumen_Evolucion$PacienteID)
+Resumen_Evolucion$Fecha <- as.Date(Resumen_Evolucion$Fecha, format="%d/%m/%Y")
+```
+
+# Verificación del Dataframe
+
+Mostramos la estructura del dataframe resultante para verificar que las conversiones fueron exitosas.
+
+```{r}
+str(Resumen_Evolucion)
+```
+
+# Corrección de Problemas en el Dataset
+
+Se ha detectado una columna extra en algunas filas sin información clara. La eliminamos para evitar inconsistencias.
+
+```{r}
+Resumen_Evolucion$`NA` <- NULL
+```
+
+También se han generado filas extra debido al exceso de columnas, como la fila 18, que inspeccionamos a continuación:
+
+```{r}
+Resumen_Evolucion[18,]
+```
+
+Esta no es la única fila anómala que encontramos. Ya que el dataset inicial es pequeño, podríamos eliminar estas filas de forma manual, pero esta solución no sería óptima en un caso a mayor escala.
+
+Observando el dataset, vemos que algunos de los datos que nunca faltan en ninguna fila son la fecha y la hora. Para solucionar este problema, borraremos todas las filas que contengan Fecha=NA.
+
+```{r}
+# Eliminar filas donde la Fecha es NA
+Resumen_Evolucion <- Resumen_Evolucion[!is.na(Resumen_Evolucion$Fecha), ]
+Resumen_Evolucion
+```
+
+# Corrección de columna "Creatina"
+
+Vamos a seguir normalizando el dataset. Hemos encontrado, observando la columa Creatinina, que existe una anomalía entre las unidades de medida de los datos.
+
+```{r}
+library(dplyr)
+Resumen_Evolucion |> select(PacienteID, Fecha,Hora, Creatinina)
+```
+
+Hemos visto que, en tan solo 8 horas, la creatinina del paciente 1 pasa de 1.1 a 134. Esto nos indica una posible incongruencia en las unidades de medida usadas. Los valores mayores podrían corresponder a micromoles/L, y los valores menores podrían corresponder a mg/dL. Aplicaremos factores de conversión para ver si esta suposición tiene sentido.
+
+```{r}
+umol_a_mgdl <- function(valor_umol) {
+  # Factor de conversión: 1 mg/dL = 88.4 µmol/L
+  # Por lo tanto, para convertir de µmol/L a mg/dL, dividimos por 88.4
+  mgdl <- valor_umol / 88.4
+  return(round(mgdl, 2))
+}
+
+Resumen_Evolucion <- Resumen_Evolucion |>
+  mutate(Creatinina_mgdl = ifelse(Creatinina > 10, umol_a_mgdl(Creatinina), Creatinina))
+
+Resumen_Evolucion |> select(PacienteID, Fecha,Hora, Creatinina, Creatinina_mgdl)
+```
+
+Esto ahora tiene un poco más de sentido, pero igualmente seguimos teniendo outliers. Alguna celda contiene un valor de creatinina mayor o cercano a 4, cuando con la unidad con la que supuestamente estamos trabajando, los valores rondan la unidad.
+
+Veamos si encontramos algún patrón con estas anomalías:
+
+```{r}
+Resumen_Evolucion |> 
+  select(PacienteID, Fecha, Hora, Creatinina_mgdl) |>
+  filter(Creatinina_mgdl > 3.5)
+```
+
+Anda! Todas las mediciones son a las 6 de la mañana. Ya que no soy ningún experto en medicina, voy a preguntarle a un amigo mío que tiene un poquillo más de idea en esto.
+
+Su respuesta fue la siguiente:
+
+**Conclusión**
+
+El patrón que describes (valores de \~4 mg/dL en la mañana y \~1.1-1.5 mg/dL en otras horas) sugiere una combinación de **deshidratación matutina, cambios en la filtración renal nocturna y posiblemente un efecto ortostático**.
+
+Viendo esto, parece que ya hemos solucionado este problema.
