@@ -1,4 +1,11 @@
 from flask import Blueprint, render_template, request
+import sys
+from pathlib import Path
+
+# Calcula la ruta absoluta a la carpeta "utils"
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+sys.path.append(str(BASE_DIR / "utils"))  # Agregar "utils" al path
+from chat_handler import *  # Importa solo lo necesario
 
 main_bp = Blueprint("main", __name__)
 
@@ -38,8 +45,8 @@ def procesarPrompt():
     if not prompt:  # Validación para evitar enviar texto vacío
         return render_template('interfaz1.html', mensaje='No puedes enviar un texto vacío.') #AQUI
 
-    return render_template('interfaz1.html', mi_mensaje=mi_mensaje, respuesta=respuesta_html) #AQUI
 
-@main_bp.route('/<chat_name>')
-def mostrar_chat(chat_name):
-    return render_template(f'{chat_name}.html')
+
+@main_bp.route("/new_chat", methods=['POST'])
+def new_chat():
+    create_chat("Nuevo Chat") # Esto tenemos que cambiarlo    

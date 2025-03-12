@@ -1,0 +1,87 @@
+{
+    "chats": [
+        {
+            "chat_id": 1,
+            "chat_name": "Conversación sobre Flask",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "¿Cómo puedo cargar un JSON en Flask?",
+                    "timestamp": "2025-03-12T10:00:00Z"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "ia",
+                    "text": "Puedes usar la función json.load() para leer un JSON en Flask.",
+                    "timestamp": "2025-03-12T10:00:05Z"
+                }
+            ]
+        },
+        {
+            "chat_id": 2,
+            "chat_name": "Proyecto Tower Defense",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "¿Cómo hago que los enemigos sigan un camino en mi juego?",
+                    "timestamp": "2025-03-12T11:30:00Z"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "ia",
+                    "text": "Puedes usar coordenadas predefinidas y moverlos con setInterval o requestAnimationFrame en JavaScript.",
+                    "timestamp": "2025-03-12T11:30:10Z"
+                },
+                {
+                    "message_id": 3,
+                    "sender": "User",
+                    "text": "GRACIAS"
+                },
+                {
+                    "message_id": 4,
+                    "sender": "User",
+                    "text": "GRACIAS"
+                },
+                {
+                    "message_id": 5,
+                    "sender": "User",
+                    "text": "GRACIAS"
+                },
+                {
+                    "message_id": 6,
+                    "sender": "User",
+                    "text": "GRACIAS"
+                },
+                {
+                    "message_id": 7,
+                    "sender": "User",
+                    "text": "GRACIAS"
+                }
+            ]
+        },
+        {
+            "chat_id": 3,
+            "chat_name": "Nuevo Chat",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "IA",
+                    "text": "¿En qué puedo ayudarte?"
+                }
+            ]
+        },
+        {
+            "chat_id": 4,
+            "chat_name": "Nuevo Chat 2",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "IA",
+                    "text": "¿En qué puedo ayudarte?"
+                }
+            ]
+        }
+    ]
+}
