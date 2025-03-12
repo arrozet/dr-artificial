@@ -62,4 +62,3 @@ def list_of_chats():
         chats.append(chat_info)  # Agrega el chat con sus datos
     return chats
 
-print(list_of_chats())

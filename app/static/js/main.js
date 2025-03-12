@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const textarea = document.querySelector("textarea");
     const sendBtn = document.querySelector(".send-btn");
     const chatContainer = document.querySelector(".chat-container");
-    const newChatBtn = document.querySelector(".new-chat-btn");
     
     // Adjust textarea height based on content
     textarea.addEventListener("input", function() {
@@ -24,8 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <div class="avatar user">U</div>
             <div class="message-content">
                 <div class="message-bubble">${textarea.value.replace(/\n/g, "<br>")}</div>
-            </div>
-        `;
+            </div>`;
         chatContainer.appendChild(userMsg);
         
         // Create assistant message (simulated response)
@@ -65,3 +63,35 @@ function validarPrompt() {
         }
         return true;
 }
+
+// FUNCIONES PARA CAMBIAR DE CHAT
+
+function cambiarChat(id) {
+    // Oculta todos los chats
+    document.querySelectorAll('.chat').forEach(chat => chat.style.display = 'none');
+    
+    // Muestra el chat seleccionado
+    document.getElementById('chat' + id).style.display = 'block';
+
+    // Guarda en la URL el chat actual
+    window.location.hash = 'chat' + id;
+}
+
+// Detectar cambios en la URL
+window.addEventListener("hashchange", () => {
+    let chatId = window.location.hash.replace("#", "");
+    if (chatId) {
+        cambiarChat(chatId.replace("chat", ""));
+    }
+});
+
+// Cargar el chat correcto al abrir la página
+window.onload = () => {
+    if (window.location.hash) {
+        let chatId = window.location.hash.replace("#chat", "");
+        cambiarChat(chatId);
+    }
+};
+
+sessionStorage.setItem("chatActivo", id);
+

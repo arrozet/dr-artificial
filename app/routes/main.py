@@ -15,7 +15,7 @@ def home():
     
     chat_list = list_of_chats()
     
-    return render_template("interfaz1.html") # AQUI
+    return render_template("index.html", chat_list=chat_list) # AQUI
 
 
 @main_bp.route('/', methods=['POST'])

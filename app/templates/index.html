@@ -18,10 +18,9 @@
         </button>
         
         <div class="history">
-            <div class="chat-item">Recetas fáciles para cena</div>
-            <div class="chat-item">Ideas para mi presentación</div>
-            <div class="chat-item">Ayuda con mi código Python</div>
-            <div class="chat-item">Resumen de la Guerra Fría</div>
+            {% for chat in chat_list %}
+            <div class="chat-item" onclick="cambiarChat({{ chat.chat_id }})">{{ chat.chat_name }}</div>
+            {% endfor %}
         </div>
         
         <div class="profile">
