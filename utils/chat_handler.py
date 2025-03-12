@@ -50,4 +50,16 @@ def list_of_messages(chat_id):
     
     return None  # Si no se encuentra el chat_id
 
-add_message("2","User", "GRACIAS")
+def list_of_chats():
+    data = load_json()
+    
+    chats = []  # Lista para guardar los chats con chat_id y name
+    for chat in data.get("chats", []):  # Itera sobre los chats
+        chat_info = {
+            "chat_id": chat.get("chat_id"),
+            "chat_name": chat.get("chat_name")
+        }
+        chats.append(chat_info)  # Agrega el chat con sus datos
+    return chats
+
+print(list_of_chats())
