@@ -225,6 +225,16 @@
                     "message_id": 44,
                     "sender": "IA",
                     "text": "OK"
+                },
+                {
+                    "message_id": 45,
+                    "sender": "usuario",
+                    "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaayo tengo la pregunta de cómo puedo ir esto tan duro tío"
+                },
+                {
+                    "message_id": 46,
+                    "sender": "IA",
+                    "text": "OK"
                 }
             ]
         },

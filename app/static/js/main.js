@@ -40,6 +40,7 @@ function cambiarChat(id) {
 
 // FUNCION DE MODO OSUCRO Y MODO CLARO
 document.addEventListener("DOMContentLoaded", function () { 
+    iniciarMicrófono();
     const themeToggle = document.getElementById("toggle-theme"); 
     const themeIcon = document.getElementById("theme-icon"); // Obtiene la imagen dentro del botón
 
@@ -60,6 +61,46 @@ document.addEventListener("DOMContentLoaded", function () {
         themeIcon.src = theme === "dark" ? "/static/images/sun.png" : "/static/images/moon.png";
     }
 });
+
+function iniciarMicrófono() {
+    const micBtn = document.getElementById("mic-btn");
+    const textArea = document.getElementById("prompt");
+
+    if (!("webkitSpeechRecognition" in window) && !("SpeechRecognition" in window)) {
+        alert("Tu navegador no soporta reconocimiento de voz.");
+        return;
+    }
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+
+    recognition.continuous = false; // Solo una frase a la vez
+    recognition.lang = "es-ES";
+    recognition.interimResults = false;
+
+    recognition.onresult = function (event) {
+        const transcript = event.results[0][0].transcript;
+        textArea.value += transcript; // Agregar el texto al textarea
+    };
+
+    recognition.onerror = function (event) {
+        console.error("Error en el reconocimiento de voz:", event.error);
+    };
+
+    // Cuando el reconocimiento se detiene, quitar el color del botón
+    recognition.onend = function () {
+        micBtn.classList.remove("active");
+    };
+
+    micBtn.addEventListener("click", function () {
+        if (micBtn.classList.contains("active")) {
+            recognition.stop(); // Si ya está activo, detenerlo
+        } else {
+            micBtn.classList.add("active");
+            recognition.start(); // Si está inactivo, iniciarlo
+        }
+    });
+}
 
 // FUNCION PARA MICROFONO NO FUNCIONA LA HE COPIADO Y PEGADO A PRISAS DE CLAUDE
 /*
