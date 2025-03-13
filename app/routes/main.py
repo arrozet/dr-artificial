@@ -28,10 +28,13 @@ def home():
 """ 
 Cuando enviamos un mensaje, el mensaje llega aquí
 """
-@main_bp.route('/', methods=['POST'])
-def procesarPost():
-    prompt = request.form.get('prompt',None)
-    new_chat_name = request.form.get("new_chat_name",None)
+@main_bp.route('/', methods=['GET','POST'])
+def procesarPeticiones():
+    
+    data = request.get_json()
+    
+    prompt = data.get('prompt',None)
+    new_chat_name = data.get("new_chat_name",None)
     mensajes_chat = []
     
     if prompt != "" and prompt:
@@ -73,3 +76,9 @@ def cambiar_chat():
     mensajes_nuevo_chat = list_of_messages(chat_id)
     
     return render_template("index.html", mensajes_nuevo_chat=mensajes_nuevo_chat)
+
+
+@main_bp.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static','images'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
