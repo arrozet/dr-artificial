@@ -22,7 +22,7 @@ class ConversationManager:
         """Cargar el CSV y generar embeddings para cada fila"""
         try:
             # Cargar el CSV
-            self.df = pd.read_csv("datos\\r_dataton\\datos_sinteticos\\resumen_pacientes.csv")
+            self.df = pd.read_csv(self.csv_path)
             
             # Generar representaciones textuales de cada fila
             text_representations = []
@@ -41,12 +41,42 @@ class ConversationManager:
     def get_embeddings(self, texts):
         """Obtener embeddings para una lista de textos"""
         embeddings = []
+        
         for text in texts:
-            response = client.embeddings.create(
-                model=self.embedding_model,
-                input=text  # No pasamos encoding_format explícitamente
-            )
-            embeddings.append(response.data[0].embedding)
+            try:
+                # Método alternativo directo usando requests
+                import json
+                import requests
+                
+                headers = {
+                    "Content-Type": "application/json",
+                    "Authorization": f"Bearer {API_KEY}"
+                }
+                
+                # Simplificamos el payload para evitar parámetros no soportados
+                payload = {
+                    "model": self.embedding_model,
+                    "input": text
+                }
+                
+                response = requests.post(
+                    f"{client.base_url}/embeddings",
+                    headers=headers,
+                    json=payload  # Usar json en lugar de data para manejar la serialización automáticamente
+                )
+                
+                if response.status_code == 200:
+                    result = response.json()
+                    embeddings.append(result["data"][0]["embedding"])
+                else:
+                    print(f"Error en solicitud: {response.status_code} - {response.text}")
+                    # Fallback a un vector de ceros
+                    embeddings.append([0.0] * 1536)  # Dimensión típica de embeddings
+            except Exception as e:
+                print(f"Error generando embedding: {e}")
+                # Fallback a un vector de ceros
+                embeddings.append([0.0] * 1536)  # Dimensión típica de embeddings
+                
         return embeddings
     
     def add_message(self, role, content):
@@ -88,8 +118,8 @@ class ConversationManager:
         return messages
 
 def chat_with_claude_embeddings():
-    # Inicializar el gestor de conversación
-    conversation_manager = ConversationManager("datos\\r_dataton\\datos_sinteticos\\resumen_pacientes.csv")
+    # Inicializar el gestor de conversación con la ruta correcta
+    conversation_manager = ConversationManager("datos/r_dataton/datos_sinteticos/resumen_pacientes.csv")
     
     print(f"¡Bienvenido al chat con Claude! (Usando modelo: {ACTIVE_MODEL})")
     print("(Escribe 'salir' para terminar)")
