@@ -34,7 +34,9 @@
     --hover-color: #735DD0;  /* Un morado más brillante para efectos */;
     --color-user-message:#FFFFFF;
 }
-
+html {
+    overflow-y: scroll; /* Asegura que el scrollbar ocupe todo el lado derecho */
+}
 /* la luna y el sol chiquititos*/
 #theme-icon {
     width: 32px;  /* Ajusta el tamaño según necesites */
@@ -61,6 +63,7 @@ body {
     height: 100vh;  /* Altura al 100% de la ventana */
     background-color: var(--bg-color);  /* Color de fondo gris oscuro */
     color: var(--text-color);  /* Color de texto blanco */
+    overflow-y: hidden; /* Evita doble scrollbar */
 }
 
 /* Estilos para la barra lateral */
@@ -146,28 +149,28 @@ body {
 
 /* Contenedor unificado del chat */
 .chat-box {
-    flex: 1;  /* Ocupa el espacio disponible */
-    display: flex;  /* Usa flexbox */
-    flex-direction: column;  /* Mensajes y entrada uno debajo de otro */
-    width: 100%;  /* Ancho completo */
-    height: calc(100vh - 60px);  /* Altura = altura de ventana menos altura del header */
-    overflow: hidden;  /* Oculta contenido que se salga */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: calc(100vh - 60px);
+    overflow: hidden; /* Oculta el desbordamiento */
+    position: relative;
 }
 
-/* Área de mensajes del chat */
+/* Ajustar el área de mensajes */
 .chat-container {
-    flex: 1;  /* Ocupa el espacio disponible */
-    overflow-y: auto;  /* Permite scroll vertical */
-    padding: 20px;  /* Espacio interno */
-    display: flex;  /* Usa flexbox */
-    flex-direction: column;  /* Mensajes uno debajo de otro */
-    gap: 12px;  /* Espacio entre mensajes */
-    scroll-behavior: smooth;  /* Scroll suave */
-    margin: 0 auto;  /* Centrado horizontal */
-    width: 100%;  /* Ancho completo */
-    max-width: 900px;  /* Ancho máximo para mejor legibilidad */
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    scroll-behavior: smooth;
+    margin: 0 auto; /* Mantiene los mensajes centrados */
+    width: 100%;
+    max-width: 900px;
 }
-
 /* Estilo común para todos los mensajes (usuario y AI) */
 .UserMessage, .AiMessage {
     display: flex;  /* Usa flexbox para avatar y contenido */
@@ -346,3 +349,61 @@ textarea {
         max-width: 100%;  /* Usa todo el ancho disponible */
     }
 }
+
+
+/* microfono*/
+.mic-btn {
+    padding: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.mic-btn:hover {
+    background-color: var(--border-color);
+}
+
+.mic-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Estilo personalizado para scrollbar */
+::-webkit-scrollbar {
+    width: 8px;  /* Ancho de la scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;  /* Fondo transparente para la pista */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);  /* Color para modo oscuro */
+    border-radius: 4px;  /* Bordes redondeados */
+}
+
+/* Scrollbar para tema claro */
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);  /* Color para modo claro */
+}
+
+/* Scrollbar para tema oscuro */
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.15);  /* Color para modo oscuro */
+}
+
+/* Efecto hover para la scrollbar */
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.3);  /* Color al pasar el cursor en modo oscuro */
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.3);  /* Color al pasar el cursor en modo claro */
+}
+

@@ -143,12 +143,24 @@ body {
     gap: 24px;
 }
 
-.message {
-    display: flex;
-    gap: 16px;
-    max-width: 800px;
-    margin: 0 auto;
-    width: 100%;
+/* Estilo común para todos los mensajes (usuario y AI) */
+.UserMessage, .AiMessage {
+    display: flex;  /* Usa flexbox para avatar y contenido */
+    gap: 12px;  /* Espacio entre avatar y texto */
+    margin: 5px 0;  /* Margen arriba y abajo */
+    align-items: flex-start;  /* Alinea elementos al inicio */
+    cursor: pointer;  /* Cursor tipo mano */
+    width: 100%;  /* Ancho completo */
+}
+
+/* Posiciona los mensajes del usuario a la derecha */
+.UserMessage {
+    justify-content: flex-end;  /* Alinea a la derecha */
+}
+
+/* Posiciona los mensajes de la IA a la izquierda */
+.AiMessage {
+    justify-content: flex-start;  /* Alinea a la izquierda */
 }
 
 .avatar {

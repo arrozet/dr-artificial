@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AsistenteIA - Tu Asistente de Inteligencia Artificial</title>
-    <link rel="stylesheet" href="../static/css/styles.css" > <!-- Enlace al CSS -->
+    <link rel="stylesheet" href="../static/css/styles_interfaz1.css" > <!-- Enlace al CSS -->
+    <!-- EL STYLES LE HE PUESTO EL DE INTERFAZ1 PORQUE SINO ES HORRIBLE -->
 </head>
 <body>
     <!-- Sidebar -->
@@ -47,7 +48,7 @@
             {% else %}
                 {% for msg in mensajes_nuevo_chat %}
                     {% if msg.message_sender == "IA" %}
-                        <div class="message">
+                        <div class="AiMessage">
                             <div class="avatar">AI</div>
                             <div class="message-content">
                                 <div class="message-bubble">
@@ -56,13 +57,13 @@
                             </div>
                         </div> 
                     {% else %}
-                        <div class="message">
-                            <div class="avatar user">U</div>
+                        <div class="UserMessage">
                             <div class="message-content">
                                 <div class="message-bubble">
                                     {{ msg.message}}
                                 </div>
                             </div>
+                            <div class="avatar avatarUser">U</div>
                         </div>
                     {% endif %}
                 {% endfor %}
