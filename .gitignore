@@ -370,3 +370,4 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 
+model/config/private_key.env

@@ -1,32 +1,28 @@
+import sys
+import os
+
+# Sube un nivel (de api/ a model/) y agrégalo al PYTHONPATH
+current_dir = os.path.dirname(os.path.abspath(__file__))        # .../model/api
+parent_dir = os.path.dirname(current_dir)                       # .../model
+sys.path.append(parent_dir)
+
 import openai # openai v1.0.0+
 import pandas as pd
-from api_key.private_key import API_KEY
-from expenditure.expenditure import update_expenditure
-from config import ACTIVE_MODEL
+from config import config as cfg
+from utils.csv import load_csv_context
+from utils.expenditure import update_expenditure
 
-client = openai.OpenAI(api_key=API_KEY, base_url="https://litellm.dccp.pbu.dedalus.com")
 
-def load_csv_context(file_path):
-    """Load CSV file and convert it to a string context"""
-    try:
-        # Read the CSV file
-        df = pd.read_csv(file_path)
-        
-        # Convert to string representation
-        context = f"CSV Data Context:\n{df.to_string()}\n\n"
-        
-        print(f"Loaded context from {file_path} successfully.")
-        return context
-    except Exception as e:
-        print(f"Error loading CSV file: {e}")
-        return None
+client = openai.OpenAI(api_key=cfg.API_KEY, base_url="https://litellm.dccp.pbu.dedalus.com")
+
+
 
 def chat_with_claude():
     # Mantener el historial de conversación
     messages = []
     
     # Cargar contexto CSV
-    csv_context = load_csv_context("datos\\r_dataton\\datos_sinteticos\\resumen_pacientes.csv")
+    csv_context = load_csv_context(cfg.CSV_PATH)
     
     if csv_context:
         # Añadir el contexto como primer mensaje del sistema
@@ -36,7 +32,7 @@ def chat_with_claude():
         }
         messages.append(system_message)
     
-    print(f"¡Bienvenido al chat con Claude! (Usando modelo: {ACTIVE_MODEL})")
+    print(f"¡Bienvenido al chat con Claude! (Usando modelo: {cfg.ACTIVE_MODEL})")
     print("(Escribe 'salir' para terminar)")
     
     while True:
@@ -54,7 +50,7 @@ def chat_with_claude():
         # Realizar la llamada a la API
         try:
             response = client.chat.completions.create(
-                model=ACTIVE_MODEL,
+                model=cfg.ACTIVE_MODEL,
                 messages=messages
             )
             
