@@ -1,0 +1,11 @@
+"PacienteID","EstadoAlIngreso_1","EstadoAlIngreso_2","EstadoAlIngreso_3","EstadoAlIngreso_4","EstadoAlIngreso_5","EstadoAlIngreso_6","EstadoAlIngreso_7","EstadoAlIngreso_8","EstadoAlIngreso_9","EstadoAlIngreso_10"
+1,"Estable","Disnea Moderada",NA,NA,NA,NA,NA,NA,NA,NA
+2,"Hipotensa","Diaforética (Pa 90/60)",NA,NA,NA,NA,NA,NA,NA,NA
+3,"Deshidratación Severa","Respiración De Kussmaul",NA,NA,NA,NA,NA,NA,NA,NA
+4,"Dolor Abdominal Severo","Febril",NA,NA,NA,NA,NA,NA,NA,NA
+5,"Taquipneico","Sato2 82% Al Aire Ambiente",NA,NA,NA,NA,NA,NA,NA,NA
+6,"Hipotensa (Pa 75/45)","Confusa (Shock Séptico)",NA,NA,NA,NA,NA,NA,NA,NA
+7,"Consciente","Hemiparesia Derecha","Afasia De Broca",NA,NA,NA,NA,NA,NA,NA
+8,"Taquipneica","Sibilancias","Sato2 85% (Aa)",NA,NA,NA,NA,NA,NA,NA
+9,"Taquipneico","Sibilancias Audibles","Habla Entrecortada",NA,NA,NA,NA,NA,NA,NA
+10,"Dolor Intenso","Taquicárdico","Vómitos",NA,NA,NA,NA,NA,NA,NA

@@ -1,0 +1,11 @@
+"PacienteID","CondicionesPrevias_1","CondicionesPrevias_2","CondicionesPrevias_3","CondicionesPrevias_4","CondicionesPrevias_5","CondicionesPrevias_6","CondicionesPrevias_7","CondicionesPrevias_8","CondicionesPrevias_9","CondicionesPrevias_10"
+1,"Epoc (Fumador Crónico)","Hipertensión Arterial",NA,NA,NA,NA,NA,NA,NA,NA
+2,"Hipertensión Arterial","Hipercolesterolemia",NA,NA,NA,NA,NA,NA,NA,NA
+3,"Diabetes Mellitus Tipo 1 Mal Controlada",NA,NA,NA,NA,NA,NA,NA,NA,NA
+4,"Sin Antecedentes Médicos Relevantes",NA,NA,NA,NA,NA,NA,NA,NA,NA
+5,"Hipertensión Arterial","Fibrilación Auricular Crónica",NA,NA,NA,NA,NA,NA,NA,NA
+6,"Diabetes Mellitus Tipo 2","Nefrolitiasis Recurrente",NA,NA,NA,NA,NA,NA,NA,NA
+7,"Hipertensión Arterial","Diabetes Mellitus Tipo 2",NA,NA,NA,NA,NA,NA,NA,NA
+8,"Epoc Gold Iii (Exfumadora)","Hipertensión Arterial",NA,NA,NA,NA,NA,NA,NA,NA
+9,"Asma Desde La Niñez","Rinitis Alérgica",NA,NA,NA,NA,NA,NA,NA,NA
+10,"Hipertrigliceridemia","Consumo Crónico De Alcohol",NA,NA,NA,NA,NA,NA,NA,NA

@@ -1,0 +1,147 @@
+---
+title: "Resumen_pacientes"
+author: "edugbau"
+date: "2025-03-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Procesamiento de datos con múltiples valores por columna
+
+En este documento, procesaremos el archivo CSV de pacientes para crear dataframes separados para las columnas "Alergias", "MotivoIngreso", "CondicionesPrevias" y "EstadoAlIngreso". Para cada una de estas columnas, separaremos los valores usando como delimitadores las comas (,) y/o la letra "y".
+
+### 1. Carga de librerías y datos
+
+```{r cargar-librerias}
+library(tidyverse)  # Para manipulación de datos
+library(stringr)    # Para manipulación de cadenas de texto
+```
+
+```{r cargar-datos}
+# Ruta al archivo CSV
+ruta_archivo <- "datos_sinteticos/resumen_pacientes.csv"
+
+# Cargar el CSV con configuración para manejar correctamente las comillas
+datos_pacientes <- read.csv(ruta_archivo, stringsAsFactors = FALSE, 
+                           encoding = "UTF-8", quote = "\"")
+
+# Mostrar las primeras filas para verificar la carga correcta
+head(datos_pacientes)
+```
+
+### 2. Función para separar valores en múltiples columnas
+
+Crearemos una función reutilizable que: 1. Tome un dataframe y el nombre de una columna 2. Separe los valores de esa columna usando comas y/o "y" como separadores 3. Cree un nuevo dataframe con PacienteID y hasta 10 columnas para los valores separados
+
+```{r funcion-separar}
+separar_valores <- function(df, nombre_columna) {
+  # Crear un nuevo dataframe con solo PacienteID y la columna a procesar
+  df_resultado <- data.frame(PacienteID = df$PacienteID)
+  
+  # Preprocesar la columna: reemplazar " y " por ", " solo cuando NO va seguido de una coma
+  valores <- df[[nombre_columna]]
+  valores <- sapply(valores, function(texto) {
+    if (is.na(texto) || texto == "") {
+      return(texto)
+    }
+    # Reemplazar " y " solo cuando no sigue una coma más adelante
+    return(str_replace_all(texto, " y (?![^,]*,)", ", "))
+  })
+  
+  # Dividir cada cadena en piezas separadas por comas
+  valores_separados <- str_split(valores, ",\\s*")
+  
+  # Determinar el número máximo de elementos (limitado a 10)
+  max_elementos <- min(10, max(sapply(valores_separados, length)))
+  
+  # Crear columnas para cada uno de los valores separados
+  for (i in 1:max_elementos) {
+    nombre_nueva_col <- paste0(nombre_columna, "_", i)
+    # Aplicar trim y convertir a título (primera letra mayúscula)
+    df_resultado[[nombre_nueva_col]] <- sapply(valores_separados, 
+                                             function(x) {
+                                               if(length(x) >= i) {
+                                                 valor_trimmed <- trimws(x[i])
+                                                 return(str_to_title(valor_trimmed))
+                                               } else {
+                                                 return(NA)
+                                               }
+                                             })
+  }
+  
+  # Rellenar las columnas restantes con NA hasta llegar a 10
+  if (max_elementos < 10) {
+    for (i in (max_elementos+1):10) {
+      nombre_nueva_col <- paste0(nombre_columna, "_", i)
+      df_resultado[[nombre_nueva_col]] <- NA
+    }
+  }
+  
+  return(df_resultado)
+}
+```
+
+### 3. Procesar cada columna y generar los dataframes correspondientes
+
+Primero, empezaremos por las alergias. Empezaremos visualizando los datos a ver si encontramos alguna fila problemática.
+
+```{r}
+datos_pacientes |> select(PacienteID, Alergias)
+```
+
+La primera en la frente. Ya que el dataset es pequeño, ha coincidido que ninguno de nuestros pacientes tiene varias alergias. Sin embargo, de primera mano puedo confirmar que algunas personas tienen bastantes (yo parece que las colecciono), por lo que, por motivos de escalabilidad del sistema, también la procesaremos.
+
+```{r}
+df_alergias <- separar_valores(datos_pacientes, "Alergias")
+```
+
+Vamos a probar con otra columna a ver si encontramos ejemplos de nuestro problema:
+
+```{r}
+datos_pacientes |> select(PacienteID, MotivoIngreso)
+```
+
+Magnífico, aquí tenemos muchos problemas. Probemos con nuestro código a ver si conseguimos solucionar esto.
+
+```{r}
+df_motivo_ingreso <- separar_valores(datos_pacientes, "MotivoIngreso")
+df_motivo_ingreso
+```
+
+Guay! Nuestro código funciona a la perfección. Hora de aplicarlo a los otros dos data frames y comprobar que funciona bien.
+
+```{r procesar-columnas}
+# Crear dataframe para CondicionesPrevias
+df_condiciones_previas <- separar_valores(datos_pacientes, "CondicionesPrevias")
+
+
+# Crear dataframe para EstadoAlIngreso
+df_estado_al_ingreso <- separar_valores(datos_pacientes, "EstadoAlIngreso")
+```
+
+La hora de la verdad:
+
+```{r}
+df_condiciones_previas
+```
+
+```{r}
+df_estado_al_ingreso
+```
+
+### 4. Guardar los dataframes resultantes
+
+Viendo que nuestro trabajo ha sido todo un éxito, es momento de guardar los datos.
+
+```{r guardar-datos}
+# Guardar los dataframes como archivos CSV
+write.csv(df_alergias, "alergias_separadas.csv", row.names = FALSE)
+write.csv(df_motivo_ingreso, "motivos_ingreso_separados.csv", row.names = FALSE)
+write.csv(df_condiciones_previas, "condiciones_previas_separadas.csv", row.names = FALSE)
+write.csv(df_estado_al_ingreso, "estados_ingreso_separados.csv", row.names = FALSE)
+
+print("Los archivos se han guardado correctamente.")
+```

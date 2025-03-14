@@ -1,0 +1,11 @@
+"PacienteID","MotivoIngreso_1","MotivoIngreso_2","MotivoIngreso_3","MotivoIngreso_4","MotivoIngreso_5","MotivoIngreso_6","MotivoIngreso_7","MotivoIngreso_8","MotivoIngreso_9","MotivoIngreso_10"
+1,"Fiebre Alta","Tos Productiva",NA,NA,NA,NA,NA,NA,NA,NA
+2,"Dolor Torácico Opresivo Irradiado A Brazo Izquierdo",NA,NA,NA,NA,NA,NA,NA,NA,NA
+3,"Polidipsia","Poliuria","Vómitos","Confusión",NA,NA,NA,NA,NA,NA
+4,"Dolor Agudo En Fosa Ilíaca Derecha","Fiebre","Vómitos",NA,NA,NA,NA,NA,NA,NA
+5,"Disnea Aguda En Reposo","Ortopnea","Edema En Miembros Inferiores",NA,NA,NA,NA,NA,NA,NA
+6,"Fiebre Alta","Taquicardia","Bajo Nivel De Conciencia",NA,NA,NA,NA,NA,NA,NA
+7,"Déficit Motor Súbito En Hemicuerpo Derecho","Afasia",NA,NA,NA,NA,NA,NA,NA,NA
+8,"Disnea En Aumento","Tos Productiva Con Esputo Purulento",NA,NA,NA,NA,NA,NA,NA,NA
+9,"Crisis Asmática Severa Con Sibilancias","Uso De Músculos Accesorios",NA,NA,NA,NA,NA,NA,NA,NA
+10,"Dolor Epigástrico Intenso Irradiado A Espalda","Náuseas","Vómitos",NA,NA,NA,NA,NA,NA,NA
