@@ -1,8 +1,28 @@
 import os
 import pandas as pd
+from config import config as cfg
 
 def load_csv_context(directory_path):
-    """Load all CSV files from the given directory and its subdirectories, and convert them to a string context"""
+    """
+    Load all CSV files from a directory and its subdirectories and convert them to a string context.
+    This function recursively searches for CSV files in the specified directory and all its
+    subdirectories. Each CSV file is read into a pandas DataFrame and then converted to a 
+    string representation that is concatenated into a single context string.
+    Parameters:
+    -----------
+    directory_path : str
+        Path to the directory containing CSV files to load
+    Returns:
+    --------
+    str or None
+        A string containing the concatenated contents of all CSV files found, with each file
+        prefaced by its path. Returns None if an error occurs during directory traversal.
+    Notes:
+    ------
+    - Each CSV file's content is prefixed with "CSV Data Context from {file_path}:"
+    - Errors reading individual files are caught and logged but don't stop processing
+    - Uses pandas to read CSV files and the to_string() method for text representation
+    """
     context = ""
     try:
         # Walk through the directory and its subdirectories
@@ -14,7 +34,7 @@ def load_csv_context(directory_path):
                         # Read the CSV file
                         df = pd.read_csv(file_path)
                         # Convert to string representation and append to context
-                        context += f"CSV Data Context from {file_path}:\n{df.to_string()}\n\n"
+                        context += f"{cfg.CONTEXT_PREFIX} {file_path}: {df.to_string()}\n"
                     except Exception as e:
                         relative_path = os.path.relpath(file_path, directory_path)
                         print(f"Error reading {relative_path}: {e}")

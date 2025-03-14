@@ -17,7 +17,10 @@ import requests
 import hashlib
 from datetime import datetime
 import pickle
+import re
 
+RESET = "\033[0m" 
+YELLOW = "\033[33m"
 
 client = openai.OpenAI(api_key=cfg.API_KEY, base_url="https://litellm.dccp.pbu.dedalus.com")
 
@@ -55,6 +58,7 @@ class ConversationManager:
             self.embedding_model = embedding_model
             self.max_context_messages = max_context_messages
             self.chunk_size = chunk_size
+            
             self.df = None
             self.text_chunks = []
             self.df_embeddings = []
@@ -64,11 +68,10 @@ class ConversationManager:
             self.cache_dir = os.path.join(parent_dir, "cache")
             os.makedirs(self.cache_dir, exist_ok=True)
             
-            # Nombre de archivo basado en el directorio de datos y modelo de embedding
-            data_dir_hash = hashlib.md5(self.data_directory.encode()).hexdigest()[:8]
+            # Nombre de archivo de cache basado en el modelo de embedding
             self.embeddings_cache_file = os.path.join(
                 self.cache_dir, 
-                f"embeddings_{data_dir_hash}_{self.embedding_model.replace('/', '_').replace('.', '__').replace(':', '--')}.pkl"
+                f"embeddings_{self.embedding_model.replace('/', '_').replace('.', '__').replace(':', '--')}.pkl"
             )
             
             # Cargar embeddings o calcular nuevos si es necesario
@@ -90,7 +93,18 @@ class ConversationManager:
         return hash_value.hexdigest()
     
     def load_cached_embeddings(self):
-        """Intenta cargar embeddings previamente calculados"""
+        """
+        Attempts to load previously calculated embeddings from the cache file.
+        This method tries to load text chunks and their corresponding embeddings from a
+        previously saved cache file. It also verifies if the source data has changed since
+        the embeddings were calculated by comparing hash values.
+        Returns:
+            bool: True if embeddings were successfully loaded from cache, False otherwise.
+                  Returns False in the following cases:
+                  - Cache file doesn't exist
+                  - Source data has changed (different hash value)
+                  - Any error occurs during the loading process
+        """
         try:
             if not os.path.exists(self.embeddings_cache_file):
                 print("No se encontró caché de embeddings")
@@ -136,7 +150,16 @@ class ConversationManager:
             return False
     
     def load_and_embed_all_csvs(self):
-        """Cargar todos los CSV del directorio y generar embeddings"""
+        """
+        Load all CSVs from the data directory and generate embeddings.
+        
+        This method reads all CSV files from the data directory, processes them
+        into text chunks, and then generates vector embeddings for each chunk.
+        The resulting embeddings are cached for future use.
+        
+        Returns:
+            bool: True if the process completes successfully, False otherwise.
+        """
         try:
             # Código existente para cargar y procesar CSVs
             full_context = load_csv_context(self.data_directory)
@@ -145,7 +168,7 @@ class ConversationManager:
                 print("No se pudo cargar el contexto de los CSVs")
                 return False
             
-            # Dividir y generar embeddings como antes
+            # Dividir y generar embeddings
             self.text_chunks = self._split_into_chunks(full_context)
             print(f"Contexto dividido en {len(self.text_chunks)} fragmentos")
             
@@ -161,44 +184,102 @@ class ConversationManager:
             return False
     
     def _split_into_chunks(self, text):
-        """Divide el texto en fragmentos basados en filas de CSV"""
+        """
+        Splits text into chunks based on CSV rows.
+        This method processes text containing CSV data by identifying different 
+        CSV sections, extracting the file names, and creating individual chunks 
+        for each data row. It ignores empty sections, separator lines, and creates 
+        chunks that include information about the source CSV file.
+        
+        Additionally, it writes debug information about all created chunks to a 
+        file in the cache directory for development and troubleshooting purposes.
+        
+        Args:
+            text (str): The input text containing CSV data sections prefixed with the CONTEXT_PREFIX
+        Returns:
+            list: A list of string chunks where each chunk contains a CSV row prefixed with its source file information
+        Note:
+            - CSV sections are identified by the CONTEXT_PREFIX
+            - The method assumes the first line contains header information
+            - Separator lines (starting with '-') are ignored
+            - Row numbers are automatically removed from the beginning of each line
+            - Debug information is saved to chunks_debug.txt in the cache directory
+        """
         chunks = []
         
+        # Para debuggear la creacion de chunks
+        chunks_file_path = os.path.join(self.cache_dir, "chunks_debug.txt")
+
+        
         # Buscar secciones que corresponden a CSVs diferentes
-        csv_sections = text.split("CSV Data Context from ")
+        csv_sections = text.split(cfg.CONTEXT_PREFIX)
         
         # Eliminar la primera sección vacía si existe
         if csv_sections and not csv_sections[0].strip():
             csv_sections = csv_sections[1:]
         
-        # Procesar cada sección de CSV
-        for section in csv_sections:
-            if not section.strip():
-                continue
-                
-            # Separar la primera línea (nombre del archivo) del resto
-            lines = section.strip().split('\n')
-            if not lines:
-                continue
-                
-            csv_name = lines[0]
+        # Abrir archivo para guardar chunks
+        with open(chunks_file_path, 'w', encoding='utf-8') as f:
+            f.write(f"=== CHUNKS GENERADOS: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} ===\n\n")
             
-            # Las primeras líneas suelen ser el encabezado
-            header_end = 2  # Ajustar según sea necesario
+            # Procesar cada sección de CSV
+            for section in csv_sections:
+                if not section.strip():
+                    continue
+                    
+                # Separar la primera línea (nombre del archivo) del resto
+                lines = section.strip().split('\n')
+                if not lines:
+                    continue
+                    
+                # Extraer el nombre del archivo CSV, quitando la parte 'data/'
+                csv_name = lines[0]
+                if '/' in csv_name:
+                    csv_name = csv_name.split('data/', 1)[1] if 'data/' in csv_name else csv_name
+                    csv_name = re.sub(r'\s+', ' ', csv_name)
+                
+                # Las primeras líneas suelen ser el encabezado
+                header_end = 1  # Ajustar según sea necesario
+                
+                # Cada línea después del encabezado es posiblemente una fila
+                for i in range(header_end, len(lines)):
+                    line = lines[i].strip()
+                    if line and not line.startswith('-'):  # Ignorar líneas de separación
+                        # Eliminar el índice de fila (primer número seguido de espacios)
+                        line = re.sub(r'^\d+\s+', '', line)
+                        
+                        # Normalizar espacios múltiples a uno solo
+                        line = re.sub(r'\s+', ' ', line)
+
+                        # Creamos un chunk que incluye información sobre el origen del CSV
+                        chunk = f"{csv_name}:{line}"
+                        
+                        # Guardar chunk en archivo
+                        f.write(f"--- CHUNK #{len(chunks) + 1} ---\n")
+                        f.write(chunk)
+                        f.write("\n\n" + "=" * 50 + "\n\n")
+                        
+                        # Añadir a la lista
+                        chunks.append(chunk)
             
-            # Cada línea después del encabezado es posiblemente una fila
-            for i in range(header_end, len(lines)):
-                line = lines[i].strip()
-                if line and not line.startswith('-'):  # Ignorar líneas de separación
-                    # Creamos un chunk que incluye información sobre el origen del CSV
-                    chunk = f"Del archivo {csv_name}:\n{line}"
-                    chunks.append(chunk)
-        
-        print(f"Se crearon {len(chunks)} chunks a partir de las filas de CSV")
-        return chunks
+            print(f"Se crearon {len(chunks)} chunks a partir de las filas de CSV")
+            return chunks
     
     def get_embeddings(self, texts):
-        """Obtener embeddings para una lista de textos"""
+        """
+        Generate embeddings for a list of texts using the specified embedding model.
+        The method makes API calls to create vector representations for each text.
+        If an error occurs during the API call or processing, a fallback vector
+        of zeros with 1536 dimensions is used instead.
+        Args:
+            texts (list): A list of strings for which to generate embeddings
+        Returns:
+            list: A list of embedding vectors, where each vector is a list of floats.
+                  Each vector corresponds to the input text at the same index.
+        Raises:
+            No exceptions are raised as errors are caught internally and fallback
+            vectors are provided instead.
+        """
         embeddings = []
         
         for text in texts:
@@ -225,19 +306,48 @@ class ConversationManager:
                 else:
                     print(f"Error en solicitud: {response.status_code} - {response.text}")
                     # Fallback a un vector de ceros
-                    embeddings.append([0.0] * 1536)
+                    embeddings.append([0.0] * cfg.OUTPUT_VECTOR_SIZE)
             except Exception as e:
                 print(f"Error generando embedding: {e}")
-                embeddings.append([0.0] * 1536)
+                embeddings.append([0.0] * cfg.OUTPUT_VECTOR_SIZE)
                 
         return embeddings
     
     def add_message(self, role, content):
-        """Añadir un mensaje al historial de conversación"""
+        """
+        Add a message to the conversation history.
+        
+        Parameters:
+        -----------
+        role : str
+            The role of the message sender (e.g., 'user', 'assistant', 'system').
+        content : str
+            The content of the message.
+        
+        Returns:
+        --------
+        None
+            The message is appended to the conversation history.
+        """
         self.conversation_history.append({"role": role, "content": content})
     
-    def get_relevant_context(self, query, top_k=3):
-        """Encontrar los fragmentos de texto más relevantes para la consulta actual"""
+    def get_relevant_context(self, query, top_k=5):
+        """
+        Retrieves the most relevant text chunks for a given query using cosine similarity.
+        This method computes the embedding for the input query and finds the most 
+        similar text chunks by comparing their embeddings through cosine similarity.
+        Parameters:
+        -----------
+        query : str
+            The query text for which to find relevant context
+        top_k : int, default=5
+            The number of most relevant chunks to return
+        Returns:
+        --------
+        str
+            Formatted string containing the top_k most relevant text chunks
+            with their similarity scores, separated by chunk identifiers
+        """
         # Obtener embedding para la consulta
         query_embedding = self.get_embeddings([query])[0]
         
@@ -250,13 +360,28 @@ class ConversationManager:
         # Generar contexto con los fragmentos más relevantes
         relevant_context = ""
         for idx in top_indices:
-            relevant_context += f"--- Fragmento {idx+1} (Similitud: {similarities[idx]:.4f}) ---\n"
-            relevant_context += f"{self.text_chunks[idx]}\n\n"
+            print(YELLOW + f"--- Fragmento {idx+1} (Similitud: {similarities[idx]:.4f}) ---" + RESET)
+            relevant_context += f"--- {self.text_chunks[idx]}--- "
         
         return relevant_context
     
     def prepare_messages_for_api(self, current_query):
-        """Preparar mensajes para enviar a la API, incluyendo contexto relevante"""
+        """
+        Prepares messages to send to the API, including relevant context from the conversation history.
+        This method generates a structured message payload for the API by:
+        1. Retrieving relevant context based on the current query
+        2. Creating a system message that includes the prompt and context
+        3. Adding recent conversation history messages (limited to save tokens)
+        Parameters:
+        -----------
+        current_query : str
+            The current user query to process
+        Returns:
+        --------
+        list
+            A list of message objects formatted for the API, including the system message
+            with context and recent conversation history
+        """
         # Obtener contexto relevante de los CSVs
         relevant_context = self.get_relevant_context(current_query)
         

@@ -9,9 +9,9 @@ OUTPUT	| Tokens: 6446	| Cost: $0.0966900
 TOTAL	| Tokens: 124634	| Cost: $0.4512540
 
 14/03/2025
-INPUT	| Tokens: 1639	| Cost: $0.0049170
-OUTPUT	| Tokens: 1033	| Cost: $0.0154950
-TOTAL	| Tokens: 2672	| Cost: $0.0204120
+INPUT	| Tokens: 16578	| Cost: $0.0497340
+OUTPUT	| Tokens: 6774	| Cost: $0.1016100
+TOTAL	| Tokens: 23352	| Cost: $0.1513440
 
 --------------------------------------------------
-TOTAL USAGE	| Tokens: 127350	| Cost: $0.4722060
+TOTAL USAGE	| Tokens: 148030	| Cost: $0.6031380
