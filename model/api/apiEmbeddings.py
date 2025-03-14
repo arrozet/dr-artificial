@@ -15,6 +15,7 @@ client = openai.OpenAI(api_key=cfg.API_KEY, base_url="https://litellm.dccp.pbu.d
 
 # Colores para poder leer la salida
 GREEN = "\033[92m"
+MAGENTA = "\033[35m"
 RESET = "\033[0m" 
 
 def chat_with_claude_embeddings():
@@ -38,7 +39,7 @@ def chat_with_claude_embeddings():
         
         # Preparar mensajes para la API incluyendo solo contexto relevante
         messages = conversation_manager.prepare_messages_for_api(user_input)
-        print(f"{GREEN}PROMPT: {messages}{RESET}")
+        print(f"{MAGENTA}PROMPT:{RESET} {GREEN}{messages}{RESET}")
         
         # Realizar la llamada a la API
         try:
@@ -51,7 +52,7 @@ def chat_with_claude_embeddings():
             assistant_response = response.choices[0].message.content
             
             # Guardar información de uso correctamente
-            print(f"PROMPT: {response.usage.prompt_tokens}, ANSWER: {response.usage.completion_tokens}")
+            print(f"{MAGENTA}INPUT: {response.usage.prompt_tokens}, OUTPUT: {response.usage.completion_tokens}{RESET}")
             update_expenditure(response.usage.prompt_tokens, response.usage.completion_tokens)
             
             # Añadir respuesta del asistente al historial
