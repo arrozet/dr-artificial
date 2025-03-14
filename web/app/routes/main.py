@@ -26,57 +26,41 @@ def home():
 
 
 """ 
-Cuando enviamos un mensaje, el mensaje llega aquí
+Cuando recibe una petición POST la página web, esta función resuelve
 """
 @main_bp.route('/', methods=['GET','POST'])
 def procesarPeticiones():
+
+    data = request.get_json()                       # Cargamos el JSON
     
-    data = request.get_json()
-    
-    prompt = data.get('prompt',None)
+    prompt = data.get('prompt',None)                
     new_chat_name = data.get("new_chat_name",None)
-    mensajes_chat = []
     
-    if prompt != "" and prompt:
+    if prompt and prompt != "":                     # Por tanto la petición es de un nuevo mensaje
         prompt = data.get('prompt') 
         
         chat_id = data.get("chat_id",datos_guardados["chat_id"])             
         add_message(chat_id=chat_id, text=prompt, sender="usuario")
         add_message(chat_id=chat_id, text="OK", sender="IA") # METER IA
         
-    elif new_chat_name != "" and new_chat_name:
+    elif new_chat_name and new_chat_name != "":     # La petición es de crear un nuevo chat
         
         chat_id = create_chat(chat_name=new_chat_name)
         datos_guardados["chat_id"] = chat_id;
-    else :
+    else :                                          # La petición es de cargar un chat existente
         
         chat_id = data.get("chat_id")
         datos_guardados["chat_id"] = chat_id;
 
-        
+
     chat_list = list_of_chats()
     mensajes_chat = list_of_messages(chat_id)
 
     return render_template('index.html', chat_list=chat_list,  mensajes_nuevo_chat=mensajes_chat)
-
-
-""" 
-Cuando creamos un nuevo chat, esta función procesa esa petición
-"""
-@main_bp.route("/new_chat", methods=['POST'])
-def new_chat():
-    create_chat("Nuevo Chat") # Esto tenemos que cambiarlo    
+   
 
 @main_bp.route('/<chat_name>') #dejar para que no explote
 def mostrar_chat(chat_name):
     return render_template(f'{chat_name}.html')
-
-@main_bp.route("/cambiar_chat", methods=['POST'])
-def cambiar_chat():
-    data = request.get_json()
-    chat_id = data.get("chat_id")
-    mensajes_nuevo_chat = list_of_messages(chat_id)
-    
-    return render_template("index.html", mensajes_nuevo_chat=mensajes_nuevo_chat)
 
 

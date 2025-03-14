@@ -45,7 +45,7 @@
         <div class="chat-container">
 
             {% if mensajes_nuevo_chat|length == 0 %}
-                <p>No hay mensajes en este chat.</p>
+                <p>Cargue un chat o cree uno nuevo </p>
             {% else %}
                 {% for msg in mensajes_nuevo_chat %}
                     {% if msg.message_sender == "IA" %}
