@@ -14,38 +14,147 @@ from utils.csv import load_csv_context
 from sklearn.metrics.pairwise import cosine_similarity
 import json
 import requests
+import hashlib
+from datetime import datetime
+import pickle
+
 
 client = openai.OpenAI(api_key=cfg.API_KEY, base_url="https://litellm.dccp.pbu.dedalus.com")
 
 class ConversationManager:
     def __init__(self, data_directory, embedding_model="bedrock/amazon.titan-embed-text-v2:0", max_context_messages=10, chunk_size=100):
-        self.data_directory = data_directory
-        self.embedding_model = embedding_model
-        self.max_context_messages = max_context_messages
-        self.chunk_size = chunk_size  # Tamaño para dividir el texto en chunks
-        self.df = None
-        self.text_chunks = []  # Almacenará los fragmentos de texto
-        self.df_embeddings = []  # Almacenará los embeddings de cada chunk
-        self.conversation_history = []
-        self.load_and_embed_all_csvs()
+            """
+            Initialize the embedding processor.
+            This class handles the processing, embedding, and caching of text data from CSV files.
+            Parameters:
+            ----------
+            data_directory : str
+                Path to the directory containing CSV files to process
+            embedding_model : str, default="bedrock/amazon.titan-embed-text-v2:0"
+                Name of the embedding model to use
+            max_context_messages : int, default=10
+                Maximum number of conversation messages to maintain in context
+            chunk_size : int, default=100
+                Size of text chunks for embedding processing
+            Attributes:
+            ----------
+            df : pandas.DataFrame
+                Dataframe containing the processed data
+            text_chunks : list
+                List of text chunks extracted from the data
+            df_embeddings : list
+                List of embeddings generated from text chunks
+            conversation_history : list
+                History of conversation messages
+            cache_dir : str
+                Directory where embeddings are cached
+            embeddings_cache_file : str
+                File path for cached embeddings
+            """
+            self.data_directory = data_directory
+            self.embedding_model = embedding_model
+            self.max_context_messages = max_context_messages
+            self.chunk_size = chunk_size
+            self.df = None
+            self.text_chunks = []
+            self.df_embeddings = []
+            self.conversation_history = []
+            
+            # Ruta donde guardaremos los embeddings
+            self.cache_dir = os.path.join(parent_dir, "cache")
+            os.makedirs(self.cache_dir, exist_ok=True)
+            
+            # Nombre de archivo basado en el directorio de datos y modelo de embedding
+            data_dir_hash = hashlib.md5(self.data_directory.encode()).hexdigest()[:8]
+            self.embeddings_cache_file = os.path.join(
+                self.cache_dir, 
+                f"embeddings_{data_dir_hash}_{self.embedding_model.replace('/', '_').replace('.', '__').replace(':', '--')}.pkl"
+            )
+            
+            # Cargar embeddings o calcular nuevos si es necesario
+            if not self.load_cached_embeddings():
+                print("Calculando embeddings...")
+                self.load_and_embed_all_csvs()
+    
+    def get_data_hash(self):
+        """Genera un hash de los archivos CSV para detectar cambios"""
+        hash_value = hashlib.md5()
+        
+        for root, _, files in os.walk(self.data_directory):
+            for file in sorted(files):
+                if file.endswith('.csv'):
+                    filepath = os.path.join(root, file)
+                    mtime = os.path.getmtime(filepath)
+                    hash_value.update(f"{filepath}:{mtime}".encode())
+                    
+        return hash_value.hexdigest()
+    
+    def load_cached_embeddings(self):
+        """Intenta cargar embeddings previamente calculados"""
+        try:
+            if not os.path.exists(self.embeddings_cache_file):
+                print("No se encontró caché de embeddings")
+                return False
+                
+            with open(self.embeddings_cache_file, 'rb') as f:
+                cache_data = pickle.load(f)
+            
+            # Verificar si los datos han cambiado desde que se calcularon los embeddings
+            if cache_data.get('data_hash') != self.get_data_hash():
+                print("Los datos han cambiado desde el último cálculo de embeddings")
+                return False
+                
+            # Cargar datos del caché
+            self.text_chunks = cache_data['text_chunks']
+            self.df_embeddings = cache_data['embeddings']
+            
+            print(f"Embeddings cargados desde caché: {len(self.df_embeddings)} fragmentos")
+            return True
+            
+        except Exception as e:
+            print(f"Error al cargar embeddings en caché: {e}")
+            return False
+            
+    def save_embeddings_cache(self):
+        """Guarda embeddings calculados para uso futuro"""
+        try:
+            cache_data = {
+                'data_hash': self.get_data_hash(),
+                'text_chunks': self.text_chunks,
+                'embeddings': self.df_embeddings,
+                'timestamp': datetime.now().isoformat()
+            }
+            
+            with open(self.embeddings_cache_file, 'wb') as f:
+                pickle.dump(cache_data, f)
+                
+            print(f"Embeddings guardados en caché: {self.embeddings_cache_file}")
+            return True
+            
+        except Exception as e:
+            print(f"Error al guardar embeddings en caché: {e}")
+            return False
     
     def load_and_embed_all_csvs(self):
         """Cargar todos los CSV del directorio y generar embeddings"""
         try:
-            # Usar load_csv_context para obtener todo el contexto combinado
+            # Código existente para cargar y procesar CSVs
             full_context = load_csv_context(self.data_directory)
             
             if not full_context:
                 print("No se pudo cargar el contexto de los CSVs")
                 return False
             
-            # Dividir el contexto completo en chunks para procesar
+            # Dividir y generar embeddings como antes
             self.text_chunks = self._split_into_chunks(full_context)
             print(f"Contexto dividido en {len(self.text_chunks)} fragmentos")
             
-            # Generar embeddings para cada fragmento de texto
             self.df_embeddings = self.get_embeddings(self.text_chunks)
             print(f"Embeddings generados: {len(self.df_embeddings)} fragmentos procesados")
+            
+            # Guardar en caché para uso futuro
+            self.save_embeddings_cache()
+            
             return True
         except Exception as e:
             print(f"Error al cargar o procesar los CSVs: {e}")
