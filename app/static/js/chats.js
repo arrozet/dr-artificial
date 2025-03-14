@@ -12,10 +12,9 @@ function crearNuevoChat(){
         },
         body: JSON.stringify(peticion)
     })
-    .then(response => response.json()) // Asumimos que el servidor responderá con JSON
+    .then(response => response.text()) // Asumimos que el servidor responderá con JSON
     .then(data => {
-        console.log("Respuesta del servidor:", data);
-        alert("Respuesta: " + data.respuesta); // Muestra la respuesta del servidor
+        document.body.innerHTML = data;  // Actualizar toda la página con el HTML devuelto
     })
     .catch(error => {
         console.error("Error en la petición:", error);
@@ -38,10 +37,9 @@ function cambiarChat(id) {
         },
         body: JSON.stringify(peticion)
     })
-    .then(response => response.json()) // Asumimos que el servidor responderá con JSON
+    .then(response => response.text()) // Asumimos que el servidor responderá con JSON
     .then(data => {
-        console.log("Respuesta del servidor:", data);
-        alert("Respuesta: " + data.respuesta); // Muestra la respuesta del servidor
+        document.body.innerHTML = data;  // Actualizar toda la página con el HTML devuelto
     })
     .catch(error => {
         console.error("Error en la petición:", error);
@@ -72,12 +70,11 @@ function enviar_prompt(msg) {
             headers: {
                 "Content-Type": "application/json"  // Especifica que enviamos JSON
             },
-            body: JSON.stringify(datosAEnviar)  // Convertir el objeto a JSON
+            body: JSON.stringify(peticion)  // Convertir el objeto a JSON
         })
-        .then(response => response.json())  // Asumimos que el servidor responde con JSON
+        .then(response => response.text())  // Asumimos que el servidor responde con JSON
         .then(data => {
-            console.log("Respuesta del servidor:", data);
-            alert("Respuesta del servidor: " + data.respuesta);
+            document.body.innerHTML = data;  // Actualizar toda la página con el HTML devuelto
         })
         .catch(error => {
             console.error("Error en la petición:", error);

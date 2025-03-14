@@ -9,7 +9,7 @@ from chat_handler import *
 
 main_bp = Blueprint("main", __name__)
 
-chat_id = None # Inicializado
+datos_guardados = {"chat_id": 0}
 
 """ 
 Ruta inicial
@@ -38,19 +38,21 @@ def procesarPeticiones():
     mensajes_chat = []
     
     if prompt != "" and prompt:
-        prompt = request.form['prompt'] 
+        prompt = data.get('prompt') 
         
-        chat_id = request.form.get("chat_id",1)             # ESTO ESTÁ FATAL, TENEMOS QUE CAMBIARLO
+        chat_id = data.get("chat_id",datos_guardados["chat_id"])             
         add_message(chat_id=chat_id, text=prompt, sender="usuario")
         add_message(chat_id=chat_id, text="OK", sender="IA") # METER IA
         
     elif new_chat_name != "" and new_chat_name:
         
         chat_id = create_chat(chat_name=new_chat_name)
-        
+        datos_guardados["chat_id"] = chat_id;
     else :
         
-        chat_id = request.form["chat_id"]
+        chat_id = data.get("chat_id")
+        datos_guardados["chat_id"] = chat_id;
+
         
     chat_list = list_of_chats()
     mensajes_chat = list_of_messages(chat_id)
@@ -78,7 +80,3 @@ def cambiar_chat():
     return render_template("index.html", mensajes_nuevo_chat=mensajes_nuevo_chat)
 
 
-@main_bp.route('/favicon.ico')
-def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static','images'),
-                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
