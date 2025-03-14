@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-DATA_PATH = Path(__file__).resolve().parent.parent / "datos" / "chats" / "chats.json"
+DATA_PATH = Path(__file__).resolve().parent.parent.parent / "datos" / "chats" / "chats.json"
 
 def load_json():
     """Carga el contenido del archivo JSON."""
