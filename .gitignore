@@ -1,5 +1,6 @@
 # ---------------- OTHER FOLDERS ---------------- 
-model/api_key/private_key.py
+model/config/private_key.env
+
 
 # ---------------- PYTHON ---------------- 
 # Byte-compiled / optimized / DLL files
@@ -368,6 +369,3 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
-
-
-model/config/private_key.env
