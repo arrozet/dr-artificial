@@ -1,0 +1,55 @@
+---
+title: "Resumen_notas"
+author: "Artur"
+date: "2025-03-14"
+output: html_document
+---
+
+# Carga de Datos
+
+Los datos se encuentran en el archivo `resumen_medicacion.csv` dentro del directorio `datos_sinteticos`.
+
+```{r}
+resumen_notas <- read.csv("datos_sinteticos/resumen_notas.csv")
+```
+
+#Normalizar fechas
+
+Ponemos todas las fechas en el formato "dia/mes/año"
+
+```{r}
+# Crear una función que detecte el formato y transforme según sea necesario
+transformar_fecha <- function(fecha) {
+  # Detectar si la fecha está en formato año-mes-día (contiene guiones)
+  if (grepl("-", fecha)) {
+    # Convertir de año-mes-día a día/mes/año
+    fecha_dt <- ymd(fecha)
+    return(format(fecha_dt, "%d/%m/%Y"))
+  } else {
+    # Mantener el formato original si ya está como día/mes/año
+    return(fecha)
+  }
+}
+
+# Aplicar la función a toda la columna Fecha
+resumen_notas$Fecha <- sapply(resumen_notas$Fecha, transformar_fecha)
+
+```
+
+#Arreglar columna Notas
+
+Quitamos la información redundante "**Dia X:**"
+
+```{r}
+# Eliminar cualquier texto entre pares de asteriscos dobles
+resumen_notas$Nota <- str_replace_all(resumen_notas$Nota, "\\*\\*.*?\\*\\*", "")
+
+# Eliminar espacios en blanco adicionales que puedan quedar
+resumen_notas$Nota <- str_trim(resumen_notas$Nota)
+
+```
+
+#Guardar csv
+```{r}
+write.csv(resumen_medicacionSep, "datos_sinteticos/resumen_notas_procesado.csv", row.names = FALSE)
+```

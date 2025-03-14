@@ -1,0 +1,64 @@
+---
+title: "Procesamiento_resumen_medicacion"
+author: "Artur"
+date: "2025-03-14"
+output: html_document
+---
+
+# Carga de Datos
+
+Los datos se encuentran en el archivo `resumen_medicacion.csv` dentro del directorio `datos_sinteticos`.
+
+```{r}
+resumen_medicacion <- read.csv("datos_sinteticos/resumen_medicacion.csv")
+```
+
+# Cargar la librería tidyverse
+
+```{r}
+library(tidyverse)
+```
+
+#Separar columnas
+
+Vamos a extraer las unidades de la columna Dosis y las vamos a colocar en una nueva columna Unidades_Dosis. A su vez, vamos a extraer la parte numérica de la dosis para convertirla en un valor numérico. Para terminar, reordenamos las columnas para colocar Dosis y Unidades_Dosis inmediatamente después de la columna Medicamento, lo que facilita el análisis y mejora la estructura del dataframe.
+
+```{r}
+resumen_medicacionSep <- resumen_medicacion |>
+  mutate(Unidades_Dosis = sub("^[0-9]+\\.?[0-9]*\\s*", "", Dosis),  # Extrae unidades
+  Dosis = as.numeric(sub("\\s*[^0-9.]+$", "", Dosis))) |>  # Extrae el número correctamente
+  relocate(Dosis, Unidades_Dosis, .after = Medicamento)
+```
+
+
+Vamos a dividir la columna Via en dos: primero extraemos la primera palabra, que nos indica la vía de administración (como "Oral", "Intravenosa", etc.), y la colocamos en una nueva columna llamada Via_administracion. Luego, tomamos el resto del texto, que generalmente contiene instrucciones sobre la dosis, y lo ponemos en una columna separada llamada Instrucciones_dosis. De esta forma, organizamos mejor la información, separando claramente la vía de administración de las instrucciones para que sea más fácil de analizar.
+
+```{r}
+# Identificar si la vía es "puntas nasales", en ese caso, dejarla completa
+resumen_medicacionSep <- resumen_medicacionSep |>
+  mutate(
+    Via_administracion = ifelse(str_detect(Via, "^Puntas nasales"), "Puntas nasales", str_extract(Via, "^\\w+")),
+    Instrucciones_dosis = ifelse(str_detect(Via, "^Puntas nasales"), "", str_trim(str_replace(Via, "^\\w+\\s*", "")))
+  ) |>
+  select(-Via)  # Eliminar la columna original
+```
+
+Vamos a cambiar todas las ocurrencias de "c/" por "cada" en la columna Instrucciones_dosis. Esto lo haremos utilizando una función que busque "c/" y lo reemplace con la palabra completa "cada ", lo que mejorará la claridad de las instrucciones de la dosis.
+
+```{r}
+# Identificar si la vía es "puntas nasales", en ese caso, dejarla completa
+resumen_medicacionSep$Instrucciones_dosis <- str_replace(resumen_medicacionSep$Instrucciones_dosis, "c/", "cada ")
+
+```
+
+# Ordenar columnas
+
+```{r}
+resumen_medicacionSep <- resumen_medicacionSep |> 
+  select(PacienteID, Medicamento, Dosis, Unidades_Dosis, Instrucciones_dosis, Via_administracion)
+```
+
+#Guardar csv
+```{r}
+write.csv(resumen_medicacionSep, "datos_sinteticos/resumen_medicacion_procesado.csv", row.names = FALSE)
+```
