@@ -25,7 +25,7 @@ YELLOW = "\033[33m"
 client = openai.OpenAI(api_key=cfg.API_KEY, base_url="https://litellm.dccp.pbu.dedalus.com")
 
 class ConversationManager:
-    def __init__(self, data_directory, embedding_model="bedrock/amazon.titan-embed-text-v2:0", max_context_messages=10, chunk_size=100):
+    def __init__(self, data_directory, embedding_model="bedrock/amazon.titan-embed-text-v2:0", max_context_messages=10, chunk_size=8000):
             """
             Initialize the embedding processor.
             This class handles the processing, embedding, and caching of text data from CSV files.
@@ -37,8 +37,9 @@ class ConversationManager:
                 Name of the embedding model to use
             max_context_messages : int, default=10
                 Maximum number of conversation messages to maintain in context
-            chunk_size : int, default=100
-                Size of text chunks for embedding processing
+            chunk_size : int, default=8000
+                Maximum number of tokens per chunk (set close to model limit of 8,192)
+            
             Attributes:
             ----------
             df : pandas.DataFrame
@@ -200,7 +201,7 @@ class ConversationManager:
         chunks_file_path = os.path.join(self.cache_dir, "chunks_debug.txt")
         
         with open(chunks_file_path, 'w', encoding='utf-8') as f:
-            f.write(f"=== CHUNKS GENERADOS: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} ===\n\n")
+            f.write(f"=== CHUNKS GENERADOS: {datetime.now().strftime('%d-%m-%Y %H:%M:%S')} ===\n\n")
             
             # Procesar cada DataFrame
             for df in dataframe_list:
@@ -233,7 +234,7 @@ class ConversationManager:
                         f.write(chunk)
                         f.write("\n\n" + "=" * 50 + "\n\n")
             
-            print(f"Se crearon {len(chunks)} chunks optimizados (con nombre de paciente cuando disponible)")
+            print(f"Se crearon {len(chunks)} chunks optimizados")
             return chunks
 
     def _build_patient_name_map(self, dataframe_list):
@@ -299,7 +300,7 @@ class ConversationManager:
         # Agrupar por PacienteID
         for paciente_id, group in df.groupby(id_column):
             # Buscar el nombre del paciente en el mapa global
-            nombre_paciente = paciente_nombre_map.get(str(paciente_id), "")
+            nombre_paciente = paciente_nombre_map.get(str(paciente_id), "") # Devuelve "" si no lo encuentra, que se traduce como false
             
             # Si no está en el mapa, intentar obtenerlo del grupo actual
             if not nombre_paciente:

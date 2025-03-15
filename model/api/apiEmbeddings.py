@@ -10,6 +10,8 @@ import openai
 from config import config as cfg
 from utils.expenditure import update_expenditure
 from embeddings import ConversationManager
+from rich.markdown import Markdown
+from rich.console import Console
 
 client = openai.OpenAI(api_key=cfg.API_KEY, base_url="https://litellm.dccp.pbu.dedalus.com")
 
@@ -17,6 +19,7 @@ client = openai.OpenAI(api_key=cfg.API_KEY, base_url="https://litellm.dccp.pbu.d
 GREEN = "\033[92m"
 MAGENTA = "\033[35m"
 RESET = "\033[0m" 
+console = Console()
 
 def chat_with_claude_embeddings():
     # Inicializar el gestor de conversación con la ruta correcta
@@ -59,7 +62,7 @@ def chat_with_claude_embeddings():
             conversation_manager.add_message("assistant", assistant_response)
             
             # Mostrar la respuesta
-            print("\nClaude:", assistant_response)
+            console.print(Markdown("\nClaude:", assistant_response))
         except Exception as e:
             print(f"Error en la llamada a la API: {e}")
 
