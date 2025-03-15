@@ -3,30 +3,14 @@
 // FUNCION DE MODO OSUCRO Y MODO CLARO
 document.addEventListener("DOMContentLoaded", function () { 
     iniciarMicrófono();
-    const themeToggle = document.getElementById("toggle-theme"); 
-    const themeIcon = document.getElementById("theme-icon"); // Obtiene la imagen dentro del botón
-
-    const currentTheme = localStorage.getItem("theme") || "dark"; 
-    document.documentElement.setAttribute("data-theme", currentTheme);
-
-    updateButtonIcon(currentTheme); // Cambiar icono del botón según el tema
-
-    themeToggle.addEventListener("click", function () { 
-        let newTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
-        document.documentElement.setAttribute("data-theme", newTheme);
-        localStorage.setItem("theme", newTheme);
-        updateButtonIcon(newTheme);
-    });
-
-    function updateButtonIcon(theme) {
-        const themeIcon = document.getElementById("theme-icon");
-        themeIcon.src = theme === "dark" ? "/static/images/sun.png" : "/static/images/moon.png";
-    }
+    iniciarModoOscuro();
 });
 
 function iniciarMicrófono() {
     const micBtn = document.getElementById("mic-btn");
+    console.log("Micrófono encontrado después del cambio de chat:", micBtn);
     const textArea = document.getElementById("prompt");
+    console.log("textareaaaaaaaaaaaa :", textArea);
 
     if (!("webkitSpeechRecognition" in window) && !("SpeechRecognition" in window)) {
         alert("Tu navegador no soporta reconocimiento de voz.");
@@ -62,8 +46,30 @@ function iniciarMicrófono() {
             recognition.start(); // Si está inactivo, iniciarlo
         }
     });
+    console.log("He terminao vale");
 }
 
+function iniciarModoOscuro(){
+    const themeToggle = document.getElementById("toggle-theme");
+    const themeIcon = document.getElementById("theme-icon"); // Obtiene la imagen dentro del botón
+
+    const currentTheme = localStorage.getItem("theme") || "dark";
+    document.documentElement.setAttribute("data-theme", currentTheme);
+
+    updateButtonIcon(currentTheme); // Cambiar icono del botón según el tema
+
+    themeToggle.addEventListener("click", function () {
+        let newTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+        updateButtonIcon(newTheme);
+    });
+
+    function updateButtonIcon(theme) {
+        const themeIcon = document.getElementById("theme-icon");
+        themeIcon.src = theme === "dark" ? "/static/images/sun.png" : "/static/images/moon.png";
+    }
+}
 // FUNCION PARA MICROFONO NO FUNCIONA LA HE COPIADO Y PEGADO A PRISAS DE CLAUDE
 /*
 document.addEventListener('DOMContentLoaded', function() {
