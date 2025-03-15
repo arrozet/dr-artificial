@@ -1,7 +1,6 @@
 function crearNuevoChat(){
     console.log("Se ha pulsado el botón de crear un nuevo chat")
 
-    //const params = new URLSearchParams();
     const peticion ={
         new_chat_name: "Nuevo Chat"
     }
@@ -21,6 +20,30 @@ function crearNuevoChat(){
     });
 
     console.log("Creando nuevo chat");
+}
+
+function borrarChat(id){
+    console.log("El usuario ha decidido borrar el chat cond ID= " + id);
+
+    const peticion ={
+        borrar_chat_id: id
+    }
+    fetch("/", {
+        method: "POST", // Método POST
+        headers: {
+            "Content-Type": "application/json" // Enviar como JSON
+        },
+        body: JSON.stringify(peticion)
+    })
+    .then(response => response.text()) // Asumimos que el servidor responderá con JSON
+    .then(data => {
+        document.body.innerHTML = data;  // Actualizar toda la página con el HTML devuelto
+    })
+    .catch(error => {
+        console.error("Error en la petición:", error);
+    });
+
+    console.log("Chat borrado");
 }
 
 function cambiarChat(id) {

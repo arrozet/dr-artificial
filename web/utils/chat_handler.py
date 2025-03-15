@@ -19,6 +19,21 @@ def create_chat(chat_name):
     add_message(chat_id=chat_id, sender="IA", text="¿En qué puedo ayudarte?")
     return chat_id 
 
+def delete_chat(chat_id):
+    """Borrar un chat existente."""
+    data = load_json()  # Cargar los datos desde el JSON
+    
+    # Filtrar los chats que no coincidan con el nombre dado
+    updated_chats = [chat for chat in data.get("chats", []) if chat.get("chat_id") != chat_id]
+    
+    # Si el número de chats cambió, significa que eliminamos al menos uno
+    if len(updated_chats) < len(data.get("chats", [])):
+        data["chats"] = updated_chats  # Actualizar la lista de chats
+        save_json(data)  # Guardar cambios en el archivo JSON
+        return True  # Indicar que se eliminó correctamente
+    
+    return False  # Indicar que no se encontró el chat
+
 def add_message(chat_id, sender, text):
     """Añade un mensaje a un chat existente."""
     data = load_json()  # Cargar el JSON completo

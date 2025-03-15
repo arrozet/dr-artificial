@@ -86,6 +86,10 @@ body {
     padding: 8px 12px;
 }
 
+.chat-element-container{
+    display: flex;
+}
+
 .chat-item {
     padding: 10px 12px;
     margin-bottom: 4px;
@@ -93,7 +97,10 @@ body {
     cursor: pointer;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+}
+
+.chat-delete{   
+    cursor: pointer;
 }
 
 .chat-item:hover {
