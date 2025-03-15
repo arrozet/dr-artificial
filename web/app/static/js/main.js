@@ -1,11 +1,15 @@
 
 
 // FUNCION DE MODO OSUCRO Y MODO CLARO
-document.addEventListener("DOMContentLoaded", function () { 
-    iniciarMicrófono();
-    iniciarModoOscuro();
+document.addEventListener("DOMContentLoaded", function () {
+    iniciar();
 });
 
+function iniciar(){
+    iniciarMicrófono();
+    iniciarModoOscuro();
+    iniciarEventoEnter();
+}
 function iniciarMicrófono() {
     const micBtn = document.getElementById("mic-btn");
     console.log("Micrófono encontrado después del cambio de chat:", micBtn);
@@ -68,6 +72,19 @@ function iniciarModoOscuro(){
     function updateButtonIcon(theme) {
         const themeIcon = document.getElementById("theme-icon");
         themeIcon.src = theme === "dark" ? "/static/images/sun.png" : "/static/images/moon.png";
+    }
+}
+
+function iniciarEventoEnter() {
+    const promptInput = document.getElementById("prompt");
+
+    if (promptInput) {
+        promptInput.addEventListener("keydown", function(event) {
+            if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault(); // Evita el salto de línea
+                validarPrompt(); // Llama a la función del botón
+            }
+        });
     }
 }
 // FUNCION PARA MICROFONO NO FUNCIONA LA HE COPIADO Y PEGADO A PRISAS DE CLAUDE

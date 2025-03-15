@@ -15,8 +15,7 @@ function crearNuevoChat(){
     .then(data => {
         document.body.innerHTML = data;  // Actualizar toda la página con el HTML devuelto
         // location.reload(); // esto puede ser que vaya tambien
-            iniciarMicrófono();
-            iniciarModoOscuro();
+        iniciar();
     })
     .catch(error => {
         console.error("Error en la petición:", error);
@@ -41,6 +40,7 @@ function borrarChat(id){
     .then(response => response.text()) // Asumimos que el servidor responderá con JSON
     .then(data => {
         document.body.innerHTML = data;  // Actualizar toda la página con el HTML devuelto
+        iniciar();
     })
     .catch(error => {
         console.error("Error en la petición:", error);
@@ -66,8 +66,7 @@ function cambiarChat(id) {
     .then(response => response.text()) // Asumimos que el servidor responderá con JSON
     .then(data => {
         document.body.innerHTML = data;  // Actualizar toda la página con el HTML devuelto
-            iniciarMicrófono();
-            iniciarModoOscuro();
+        iniciar();
     })
     .catch(error => {
         console.error("Error en la petición:", error);
@@ -103,8 +102,7 @@ function enviar_prompt(msg) {
         .then(response => response.text())  // Asumimos que el servidor responde con JSON
         .then(data => {
             document.body.innerHTML = data;  // Actualizar toda la página con el HTML devuelto
-            iniciarMicrófono();
-            iniciarModoOscuro();
+            iniciar();
         })
         .catch(error => {
             console.error("Error en la petición:", error);
