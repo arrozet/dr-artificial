@@ -62,7 +62,9 @@ def chat_with_claude_embeddings():
             conversation_manager.add_message("assistant", assistant_response)
             
             # Mostrar la respuesta
-            console.print(Markdown("\nClaude:", assistant_response))
+            console.print("\nClaude:")
+            console.print(Markdown(assistant_response))
+
         except Exception as e:
             print(f"Error en la llamada a la API: {e}")
 
