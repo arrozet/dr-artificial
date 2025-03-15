@@ -33,24 +33,31 @@ def procesarPeticiones():
 
     data = request.get_json()                       # Cargamos el JSON
     
+    chat_id = data.get("chat_id",datos_guardados["chat_id"])             
     prompt = data.get('prompt',None)                
     new_chat_name = data.get("new_chat_name",None)
+    borrar_chat_id = data.get("borrar_chat_id", None)
     
-    if prompt and prompt != "":                     # Por tanto la petición es de un nuevo mensaje
+    if prompt:                     # Por tanto la petición es de un nuevo mensaje
         prompt = data.get('prompt') 
         
-        chat_id = data.get("chat_id",datos_guardados["chat_id"])             
         add_message(chat_id=chat_id, text=prompt, sender="usuario")
         add_message(chat_id=chat_id, text="OK", sender="IA") # METER IA
         
-    elif new_chat_name and new_chat_name != "":     # La petición es de crear un nuevo chat
+    elif new_chat_name:     # La petición es de crear un nuevo chat
         
         chat_id = create_chat(chat_name=new_chat_name)
-        datos_guardados["chat_id"] = chat_id;
+        datos_guardados["chat_id"] = chat_id
+        
+    elif borrar_chat_id:    # La petición es sobre borrar un chat
+        delete_chat(borrar_chat_id)
+        if chat_id == borrar_chat_id :
+            chat_id = 0
+        
     else :                                          # La petición es de cargar un chat existente
         
         chat_id = data.get("chat_id")
-        datos_guardados["chat_id"] = chat_id;
+        datos_guardados["chat_id"] = chat_id
 
 
     chat_list = list_of_chats()

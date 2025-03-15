@@ -20,9 +20,17 @@
         </button>
         
         <div class="history">
-            {% for chat in chat_list %}
-            <div class="chat-item" onclick="cambiarChat({{ chat.chat_id }})">{{ chat.chat_name }}</div>
-            {% endfor %}
+            {% if chat_list|length == 0 %}
+                <h2> No hay chats </h2>
+            {% else %}
+                {% for chat in chat_list %}
+                <div class="chat-element-container">
+                    <div class="chat-item" onclick="cambiarChat({{ chat.chat_id }})">{{ chat.chat_name }}</div>
+                    <div class="chat-delete" onclick="borrarChat({{chat.chat_id}})">🗑️</div>
+                </div>
+                {% endfor %}
+            {% endif %}
+
         </div>
         
         <div class="profile">
