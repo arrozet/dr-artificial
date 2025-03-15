@@ -4,26 +4,26 @@ from config import config as cfg
 
 def load_csv_context(directory_path):
     """
-    Load all CSV files from a directory and its subdirectories and convert them to a string context.
-    This function recursively searches for CSV files in the specified directory and all its
-    subdirectories. Each CSV file is read into a pandas DataFrame and then converted to a 
-    string representation that is concatenated into a single context string.
+    Load all CSV files from a directory and return a list of DataFrames,
+    one for each CSV file, with source_file as the first column in each.
+    
+    This function recursively searches for CSV files in the specified directory
+    and its subdirectories. Each CSV file is read into a pandas DataFrame with
+    a source_file column added at the beginning.
+    
     Parameters:
     -----------
     directory_path : str
         Path to the directory containing CSV files to load
+        
     Returns:
     --------
-    str or None
-        A string containing the concatenated contents of all CSV files found, with each file
-        prefaced by its path. Returns None if an error occurs during directory traversal.
-    Notes:
-    ------
-    - Each CSV file's content is prefixed with "CSV Data Context from {file_path}:"
-    - Errors reading individual files are caught and logged but don't stop processing
-    - Uses pandas to read CSV files and the to_string() method for text representation
+    list of pandas.DataFrame or None
+        A list containing one DataFrame for each CSV file with 'source_file' as 
+        the first column in each, or None if an error occurs.
     """
-    context = ""
+    dataframe_list = []
+    
     try:
         # Walk through the directory and its subdirectories
         for root, _, files in os.walk(directory_path):
@@ -33,14 +33,35 @@ def load_csv_context(directory_path):
                     try:
                         # Read the CSV file
                         df = pd.read_csv(file_path)
-                        # Convert to string representation and append to context
-                        context += f"{cfg.CONTEXT_PREFIX} {file_path}: {df.to_string()}\n"
+                        
+                        # Add source file information as a column
+                        relative_path = os.path.relpath(file_path, directory_path)
+                        df['source_file'] = relative_path
+                        
+                        # Reordenar columnas para poner source_file al principio
+                        cols = df.columns.tolist()
+                        cols.remove('source_file')
+                        cols = ['source_file'] + cols
+                        df = df[cols]
+                        
+                        # Append to our list of dataframes
+                        dataframe_list.append(df)
+                        
+                        print(f"Loaded {relative_path} ({len(df)} rows)")
                     except Exception as e:
                         relative_path = os.path.relpath(file_path, directory_path)
                         print(f"Error reading {relative_path}: {e}")
         
-        print(f"Loaded context from all CSV files in {directory_path} successfully.")
-        return context
+        if not dataframe_list:
+            print("No CSV files were found or loaded.")
+            return None
+        
+        # Print summary info
+        total_rows = sum(len(df) for df in dataframe_list)
+        print(f"Loaded {len(dataframe_list)} CSV files with a total of {total_rows} rows.")
+            
+        return dataframe_list
+        
     except Exception as e:
         print(f"Error loading CSV files: {e}")
         return None

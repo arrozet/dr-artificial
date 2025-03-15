@@ -183,87 +183,190 @@ class ConversationManager:
             print(f"Error al cargar o procesar los CSVs: {e}")
             return False
     
-    def _split_into_chunks(self, text):
+    def _split_into_chunks(self, dataframe_list):
         """
-        Splits text into chunks based on CSV rows.
-        This method processes text containing CSV data by identifying different 
-        CSV sections, extracting the file names, and creating individual chunks 
-        for each data row. It ignores empty sections, separator lines, and creates 
-        chunks that include information about the source CSV file.
-        
-        Additionally, it writes debug information about all created chunks to a 
-        file in the cache directory for development and troubleshooting purposes.
+        Splits a list of DataFrames into chunks grouped by PacienteID when possible.
         
         Args:
-            text (str): The input text containing CSV data sections prefixed with the CONTEXT_PREFIX
+            dataframe_list (list): List of pandas DataFrames, each with 'source_file' as first column
+                
         Returns:
-            list: A list of string chunks where each chunk contains a CSV row prefixed with its source file information
-        Note:
-            - CSV sections are identified by the CONTEXT_PREFIX
-            - The method assumes the first line contains header information
-            - Separator lines (starting with '-') are ignored
-            - Row numbers are automatically removed from the beginning of each line
-            - Debug information is saved to chunks_debug.txt in the cache directory
+            list: A list of string chunks optimized for context retrieval
         """
+        # Primero crear un mapa de pacientes y sus nombres usando todos los DataFrames
+        paciente_nombre_map = self._build_patient_name_map(dataframe_list)
+        
         chunks = []
-        
-        # Para debuggear la creacion de chunks
         chunks_file_path = os.path.join(self.cache_dir, "chunks_debug.txt")
-
         
-        # Buscar secciones que corresponden a CSVs diferentes
-        csv_sections = text.split(cfg.CONTEXT_PREFIX)
-        
-        # Eliminar la primera sección vacía si existe
-        if csv_sections and not csv_sections[0].strip():
-            csv_sections = csv_sections[1:]
-        
-        # Abrir archivo para guardar chunks
         with open(chunks_file_path, 'w', encoding='utf-8') as f:
             f.write(f"=== CHUNKS GENERADOS: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} ===\n\n")
             
-            # Procesar cada sección de CSV
-            for section in csv_sections:
-                if not section.strip():
+            # Procesar cada DataFrame
+            for df in dataframe_list:
+                if 'source_file' not in df.columns:
                     continue
                     
-                # Separar la primera línea (nombre del archivo) del resto
-                lines = section.strip().split('\n')
-                if not lines:
-                    continue
+                csv_name = df['source_file'].iloc[0] if not df.empty else "unknown"
+                
+                # Verificar si el DataFrame contiene la columna PacienteID
+                has_paciente_id = any(col in df.columns for col in ['PacienteID', 'pacienteid', 'PACIENTEID', 'Paciente_ID', 'ID_Paciente'])
+                
+                if has_paciente_id:
+                    # Procesar DataFrames con PacienteID
+                    new_chunks = self._process_df_with_patient_id(df, csv_name, paciente_nombre_map)
+                    chunks.extend(new_chunks)
                     
-                # Extraer el nombre del archivo CSV, quitando la parte 'data/'
-                csv_name = lines[0]
-                if '/' in csv_name:
-                    csv_name = csv_name.split('data/', 1)[1] if 'data/' in csv_name else csv_name
-                    csv_name = re.sub(r'\s+', ' ', csv_name)
-                
-                # Las primeras líneas suelen ser el encabezado
-                header_end = 1  # Ajustar según sea necesario
-                
-                # Cada línea después del encabezado es posiblemente una fila
-                for i in range(header_end, len(lines)):
-                    line = lines[i].strip()
-                    if line and not line.startswith('-'):  # Ignorar líneas de separación
-                        # Eliminar el índice de fila (primer número seguido de espacios)
-                        line = re.sub(r'^\d+\s+', '', line)
-                        
-                        # Normalizar espacios múltiples a uno solo
-                        line = re.sub(r'\s+', ' ', line)
-
-                        # Creamos un chunk que incluye información sobre el origen del CSV
-                        chunk = f"{csv_name}:{line}"
-                        
-                        # Guardar chunk en archivo
-                        f.write(f"--- CHUNK #{len(chunks) + 1} ---\n")
+                    # Guardar chunks en archivo de debug
+                    for chunk in new_chunks:
+                        f.write(f"--- CHUNK #{len(chunks) - len(new_chunks) + new_chunks.index(chunk) + 1} ---\n")
                         f.write(chunk)
                         f.write("\n\n" + "=" * 50 + "\n\n")
-                        
-                        # Añadir a la lista
-                        chunks.append(chunk)
+                else:
+                    # Procesar DataFrames sin PacienteID
+                    new_chunks = self._process_df_without_patient_id(df, csv_name)
+                    chunks.extend(new_chunks)
+                    
+                    # Guardar chunks en archivo de debug
+                    for chunk in new_chunks:
+                        f.write(f"--- CHUNK #{len(chunks) - len(new_chunks) + new_chunks.index(chunk) + 1} ---\n")
+                        f.write(chunk)
+                        f.write("\n\n" + "=" * 50 + "\n\n")
             
-            print(f"Se crearon {len(chunks)} chunks a partir de las filas de CSV")
+            print(f"Se crearon {len(chunks)} chunks optimizados (con nombre de paciente cuando disponible)")
             return chunks
+
+    def _build_patient_name_map(self, dataframe_list):
+        """
+        Builds a mapping of PacienteIDs to patient names from all DataFrames.
+        
+        Args:
+            dataframe_list (list): List of DataFrames to scan
+            
+        Returns:
+            dict: A mapping of {PacienteID: Nombre del Paciente}
+        """
+        paciente_nombre_map = {}
+        
+        for df in dataframe_list:
+            # Buscar columna de ID de paciente
+            id_column = None
+            for col_name in ['PacienteID', 'pacienteid', 'PACIENTEID', 'Paciente_ID', 'ID_Paciente']:
+                if col_name in df.columns:
+                    id_column = col_name
+                    break
+            
+            if not id_column:
+                continue
+            
+            # Buscar columna de nombre de paciente
+            nombre_column = None
+            for col_name in ['Nombre', 'nombre', 'Name', 'name']:
+                if col_name in df.columns:
+                    nombre_column = col_name
+                    break
+            
+            if not nombre_column:
+                continue
+                
+            # Agregar nombres al mapa
+            for _, row in df.iterrows():
+                paciente_id = row[id_column]
+                nombre = row[nombre_column]
+                if pd.notna(nombre) and str(nombre).strip():  # Verificar que el nombre no sea vacío o NaN
+                    paciente_nombre_map[str(paciente_id)] = str(nombre)
+        
+        print(f"Mapa de pacientes creado con {len(paciente_nombre_map)} entradas")
+        return paciente_nombre_map
+
+    def _process_df_with_patient_id(self, df, csv_name, paciente_nombre_map):
+        """
+        Process a DataFrame that contains PacienteID column.
+        
+        Args:
+            df (DataFrame): DataFrame to process
+            csv_name (str): Name of the CSV file
+            paciente_nombre_map (dict): Mapping of patient IDs to names
+            
+        Returns:
+            list: List of generated chunks
+        """
+        chunks = []
+        
+        # Determinar el nombre exacto de la columna PacienteID
+        id_column = next(col for col in df.columns if col.lower() == 'pacienteid' or col == 'Paciente_ID' or col == 'ID_Paciente')
+        
+        # Agrupar por PacienteID
+        for paciente_id, group in df.groupby(id_column):
+            # Buscar el nombre del paciente en el mapa global
+            nombre_paciente = paciente_nombre_map.get(str(paciente_id), "")
+            
+            # Si no está en el mapa, intentar obtenerlo del grupo actual
+            if not nombre_paciente:
+                for nombre_col in ['Nombre', 'nombre', 'Name', 'name']:
+                    if nombre_col in group.columns:
+                        potential_name = group[nombre_col].iloc[0] if not group.empty else ""
+                        if pd.notna(potential_name) and str(potential_name).strip():
+                            nombre_paciente = str(potential_name)
+                            break
+            
+            # Crear un chunk para todo el grupo (paciente)
+            patient_data = []
+            
+            # Agregar información del paciente, excluyendo PacienteID que ya lo incluimos en el encabezado
+            for _, row in group.iterrows():
+                row_data = []
+                for col in group.columns:
+                    # Excluir source_file, ID y nombre del paciente para evitar repetición
+                    if col != 'source_file' and col != id_column and col not in ['Nombre', 'nombre', 'Name', 'name']:
+                        value = str(row[col])
+                        row_data.append(f"{col}:{value}")
+                
+                patient_data.append(" ".join(row_data))
+            
+            # Unir toda la información del paciente
+            all_patient_data = " | ".join(patient_data)
+            
+            # Crear el chunk final
+            if nombre_paciente:
+                chunk = f"{csv_name} -> PacienteID:{paciente_id} (Nombre:{nombre_paciente}) -> {all_patient_data}"
+            else:
+                chunk = f"{csv_name} -> PacienteID:{paciente_id} -> {all_patient_data}"
+            
+            chunks.append(chunk)
+        
+        return chunks
+
+    def _process_df_without_patient_id(self, df, csv_name):
+        """
+        Process a DataFrame that doesn't contain PacienteID column.
+        
+        Args:
+            df (DataFrame): DataFrame to process
+            csv_name (str): Name of the CSV file
+            
+        Returns:
+            list: List of generated chunks
+        """
+        chunks = []
+        
+        # Procesar cada fila como un chunk individual
+        for idx, row in df.iterrows():
+            campo_valor_pairs = []
+            
+            for col in df.columns:
+                if col != 'source_file':
+                    value = str(row[col])
+                    campo_valor_pairs.append(f"{col}:{value}")
+            
+            # Combinar en formato Campo:Valor
+            formatted_data = " ".join(campo_valor_pairs)
+            
+            # Crear chunk
+            chunk = f"{csv_name} -> {formatted_data}"
+            chunks.append(chunk)
+        
+        return chunks
     
     def get_embeddings(self, texts):
         """
@@ -361,7 +464,7 @@ class ConversationManager:
         relevant_context = ""
         for idx in top_indices:
             print(YELLOW + f"--- Fragmento {idx+1} (Similitud: {similarities[idx]:.4f}) ---" + RESET)
-            relevant_context += f"--- {self.text_chunks[idx]}--- "
+            relevant_context += f"--- {self.text_chunks[idx]} "
         
         return relevant_context
     
