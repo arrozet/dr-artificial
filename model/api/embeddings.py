@@ -21,6 +21,8 @@ import re
 
 RESET = "\033[0m" 
 YELLOW = "\033[33m"
+GREEN = "\033[92m"
+MAGENTA = "\033[35m"
 
 client = openai.OpenAI(api_key=cfg.API_KEY, base_url="https://litellm.dccp.pbu.dedalus.com")
 
@@ -494,6 +496,7 @@ class ConversationManager:
             "role": "system", 
             "content": f"{cfg.PROMPT} {relevant_context}"
         }
+        print(f"{MAGENTA}RAG:{RESET} {GREEN}{relevant_context}{RESET}")
         
         # Incluir mensajes recientes del historial (límite para ahorrar tokens)
         recent_messages = self.conversation_history[-self.max_context_messages:] if len(self.conversation_history) > self.max_context_messages else self.conversation_history

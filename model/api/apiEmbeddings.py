@@ -19,6 +19,7 @@ client = openai.OpenAI(api_key=cfg.API_KEY, base_url="https://litellm.dccp.pbu.d
 GREEN = "\033[92m"
 MAGENTA = "\033[35m"
 RESET = "\033[0m" 
+BLUE = "\033[94m"
 console = Console()
 
 def chat_with_claude_embeddings():
@@ -42,7 +43,8 @@ def chat_with_claude_embeddings():
         
         # Preparar mensajes para la API incluyendo solo contexto relevante
         messages = conversation_manager.prepare_messages_for_api(user_input)
-        print(f"{MAGENTA}PROMPT:{RESET} {GREEN}{messages}{RESET}")
+        print(f"{BLUE}{messages}{RESET}")
+        
         
         # Realizar la llamada a la API
         try:
