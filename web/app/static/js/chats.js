@@ -16,6 +16,10 @@ function crearNuevoChat(){
         document.body.innerHTML = data;  // Actualizar toda la página con el HTML devuelto
         // location.reload(); // esto puede ser que vaya tambien
         iniciar();
+
+        if (typeof initMarkdownRendering === 'function') {
+            initMarkdownRendering();
+        }
     })
     .catch(error => {
         console.error("Error en la petición:", error);
@@ -41,6 +45,10 @@ function borrarChat(id){
     .then(data => {
         document.body.innerHTML = data;  // Actualizar toda la página con el HTML devuelto
         iniciar();
+
+        if (typeof initMarkdownRendering === 'function') {
+            initMarkdownRendering();
+        }
     })
     .catch(error => {
         console.error("Error en la petición:", error);
@@ -68,6 +76,10 @@ function cambiarChat(id) {
         document.body.innerHTML = data;  // Actualizar toda la página con el HTML devuelto
         iniciar();
         moverChatAbajo();
+
+        if (typeof initMarkdownRendering === 'function') {
+            initMarkdownRendering();
+        }
     })
     .catch(error => {
         console.error("Error en la petición:", error);
