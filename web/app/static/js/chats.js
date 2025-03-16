@@ -103,6 +103,10 @@ function enviar_prompt(msg) {
         .then(data => {
             document.body.innerHTML = data;  // Actualizar toda la página con el HTML devuelto
             iniciar();
+            // Llamar al renderizador de markdown
+            if (typeof initMarkdownRendering === 'function') {
+                initMarkdownRendering();
+            }
         })
         .catch(error => {
             console.error("Error en la petición:", error);

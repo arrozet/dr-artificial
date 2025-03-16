@@ -435,3 +435,57 @@ textarea {
     background-color: rgba(0, 0, 0, 0.3);  /* Color al pasar el cursor en modo claro */
 }
 
+/* Estilos para elementos de Markdown dentro de los mensajes */
+.message-bubble {
+    line-height: 1.6;
+}
+
+.message-bubble h1, 
+.message-bubble h2, 
+.message-bubble h3, 
+.message-bubble h4 {
+    margin-top: 16px;
+    margin-bottom: 8px;
+}
+
+.message-bubble ul, 
+.message-bubble ol {
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+
+.message-bubble p {
+    margin-bottom: 10px;
+}
+
+.message-bubble code {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+.message-bubble pre {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin-bottom: 10px;
+}
+
+.message-bubble pre code {
+    background-color: transparent;
+    padding: 0;
+}
+
+.message-bubble table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.message-bubble th, 
+.message-bubble td {
+    border: 1px solid var(--border-color);
+    padding: 6px;
+}

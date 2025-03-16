@@ -1,7 +1,7 @@
 16/03/2025
-INPUT	| Tokens: 14084	| Cost: $0.0422520
-OUTPUT	| Tokens: 4562	| Cost: $0.0684300
-TOTAL	| Tokens: 18646	| Cost: $0.1106820
+INPUT	| Tokens: 38743	| Cost: $0.1162290
+OUTPUT	| Tokens: 10397	| Cost: $0.1559550
+TOTAL	| Tokens: 49140	| Cost: $0.2721840
 
 --------------------------------------------------
-TOTAL USAGE	| Tokens: 18646	| Cost: $0.1106820
+TOTAL USAGE	| Tokens: 49140	| Cost: $0.2721840

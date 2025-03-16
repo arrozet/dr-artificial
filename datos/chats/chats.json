@@ -1,3 +1,15 @@
 {
-    "chats": []
+    "chats": [
+        {
+            "chat_id": 1,
+            "chat_name": "Nuevo Chat",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "IA",
+                    "text": "¿En qué puedo ayudarte?"
+                }
+            ]
+        }
+    ]
 }
