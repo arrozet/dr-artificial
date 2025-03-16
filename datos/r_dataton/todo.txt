@@ -4,3 +4,5 @@
 	- Expandir dataset
 	- Seguir buscando incongruencias en valores
 	- Añadir unidad de medición al nombre de la columna
+---Resumen_notas---
+	- Deduplicar contenido de notas (Algunas tienen frases repetidas dentro de la misma)
