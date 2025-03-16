@@ -9,8 +9,8 @@ sys.path.append(parent_dir)
 import openai
 import pandas as pd
 import numpy as np
-from config import config as cfg
-from utils.csv import load_csv_context
+from model.config import config as cfg
+from model.utils.csv import load_csv_context
 from sklearn.metrics.pairwise import cosine_similarity
 import json
 import requests
@@ -109,6 +109,7 @@ class ConversationManager:
                   - Any error occurs during the loading process
         """
         try:
+            print(self.embeddings_cache_file)
             if not os.path.exists(self.embeddings_cache_file):
                 print("No se encontró caché de embeddings")
                 return False

@@ -7,9 +7,10 @@ parent_dir = os.path.dirname(current_dir)                       # .../model
 sys.path.append(parent_dir)
 
 import openai
-from config import config as cfg
-from utils.expenditure import update_expenditure
-from rag import ConversationManager
+from model.config import config as cfg
+from model.utils.expenditure import update_expenditure
+# Corregir esta línea de importación
+from model.api.rag import ConversationManager
 from rich.markdown import Markdown
 from rich.console import Console
 
@@ -48,6 +49,7 @@ def generate_response(conversation_history, user_input, csv_path=cfg.CSV_PATH):
 
     try:
         # Inicializar el gestor de conversación
+        print(csv_path)
         conversation_manager = ConversationManager(csv_path)
         
         # Cargar historial previo si existe

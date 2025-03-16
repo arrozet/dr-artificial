@@ -1,6 +1,5 @@
 import os
 import pandas as pd
-from config import config as cfg
 
 def load_csv_context(directory_path):
     """
