@@ -50,7 +50,25 @@ resumen_notas$Nota <- str_trim(resumen_notas$Nota)
 
 ```
 
+#Eliminar duplicados
+
+```{r}
+# Función para eliminar frases duplicadas
+eliminar_frases_duplicadas <- function(texto) {
+  frases <- str_split(texto, "\\.")[[1]]  # Separar por "."
+  frases <- str_trim(frases)  # Eliminar espacios innecesarios
+  frases_unicas <- unique(frases)  # Eliminar duplicadas
+  resultado <- paste(frases_unicas, collapse = ". ")  # Volver a unir
+  return(resultado)
+}
+
+# Aplicar la función a la columna "Nota"
+resumen_notas <- resumen_notas |>
+  mutate(Nota = sapply(Nota, eliminar_frases_duplicadas))
+
+```
+
 #Guardar csv
 ```{r}
-write.csv(resumen_medicacionSep, "datos_sinteticos/resumen_notas_procesado.csv", row.names = FALSE)
+write.csv(resumen_notas, "datos_sinteticos/resumen_notas_procesado.csv", row.names = FALSE)
 ```
