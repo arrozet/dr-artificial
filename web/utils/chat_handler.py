@@ -1,7 +1,14 @@
 import json
 import os
+import sys
 
-from json_chat import *;
+# Add current directory to path if needed
+current_dir = os.path.dirname(os.path.abspath(__file__))
+if current_dir not in sys.path:
+    sys.path.insert(0, current_dir)
+
+# Use a relative import with proper path
+from .json_chat import *  # Note the dot to indicate relative import
 
 def create_chat(chat_name):
     """Crea un nuevo chat."""
