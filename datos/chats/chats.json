@@ -10,17 +10,6 @@
                     "text": "¿En qué puedo ayudarte?"
                 }
             ]
-        },
-        {
-            "chat_id": 2,
-            "chat_name": "Nuevo Chat",
-            "messages": [
-                {
-                    "message_id": 1,
-                    "sender": "IA",
-                    "text": "¿En qué puedo ayudarte?"
-                }
-            ]
         }
     ]
 }

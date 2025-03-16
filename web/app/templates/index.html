@@ -26,7 +26,9 @@
                 {% for chat in chat_list %}
                 <div class="chat-element-container">
                     <div class="chat-item" onclick="cambiarChat({{ chat.chat_id }})">{{ chat.chat_name }}</div>
-                    <div class="chat-delete" onclick="borrarChat({{chat.chat_id}})">🗑️</div>
+                    <button class="chat-delete" onclick="borrarChat({{chat.chat_id}})">
+                        <img src="{{ url_for('static', filename='images/papelera3.png') }}" alt="Borrar">
+                    </button>
                 </div>
                 {% endfor %}
             {% endif %}
@@ -44,10 +46,10 @@
         <!-- Header -->
         <div class="header">
             <div class="title">AsistenteIA</div>
-            <button id="toggle-theme">
-                <img id="theme-icon" src="{{ url_for('static', filename='images/moon.png') }}" alt="Modo Oscuro">
-            </button>  
         </div>
+        <button id="toggle-theme">
+            <img id="theme-icon" src="{{ url_for('static', filename='images/moon.png') }}" alt="Modo Oscuro">
+        </button>
         
         <!-- Chat Area -->
         <div class="chat-container">
