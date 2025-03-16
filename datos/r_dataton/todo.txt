@@ -1,5 +1,5 @@
 ---Resumen_pacientes.rmd---
-	- De alguna manera, con el objetivo de visualizar gráficamente los datos, estaría bien buscar una solución similar a guardar la primera o dos primeras palabras de la 	columna
+	
 ---Resumen_evolucion.rmd---
 	- Expandir dataset
 	- Seguir buscando incongruencias en valores

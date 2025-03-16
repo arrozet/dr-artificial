@@ -126,3 +126,52 @@ Su respuesta fue la siguiente:
 El patrón que describes (valores de \~4 mg/dL en la mañana y \~1.1-1.5 mg/dL en otras horas) sugiere una combinación de **deshidratación matutina, cambios en la filtración renal nocturna y posiblemente un efecto ortostático**.
 
 Viendo esto, parece que ya hemos solucionado este problema.
+
+# Bilirrubina
+
+Hemos encontrado una inconsistencia en las unidades de medida de la bilirrubina entre mg/dL y µmol/L. Para mantener la consistencia en el análisis, convertiremos todos los valores de bilirrubina menores a 1.5 mg/dL a µmol/L.
+
+```{r}
+mgdl_a_umol <- function(valor_mgdl) {
+  # Factor de conversión: 1 mg/dL = 17.1 µmol/L
+  umol <- valor_mgdl * 17.1
+  return(round(umol, 2))
+}
+
+Resumen_Evolucion <- Resumen_Evolucion |>
+  mutate(Bilirrubina_umol = ifelse(Bilirrubina < 1.5, mgdl_a_umol(Bilirrubina), Bilirrubina))
+
+Resumen_Evolucion |> select(PacienteID, Fecha, Hora, Bilirrubina, Bilirrubina_umol)
+```
+
+# AST
+
+También hemos encontrado una inconsistencia en las unidades de medida del AST (Aspartato Aminotransferasa) entre µkat/L y U/L. Para mantener la consistencia en el análisis, convertiremos todos los valores de AST menores a 1.5 µkat/L a U/L.
+
+```{r}
+ukat_a_ul <- function(valor_ukat) {
+  # Factor de conversión: 1 µkat/L = 60 U/L
+  ul <- valor_ukat * 60
+  return(round(ul, 2))
+}
+
+Resumen_Evolucion <- Resumen_Evolucion |>
+  mutate(AST_ul = ifelse(AST < 1.5, ukat_a_ul(AST), AST))
+
+Resumen_Evolucion |> select(PacienteID, Fecha, Hora, AST, AST_ul)
+```
+
+# pH
+
+Veamos algún que otro problemilla que hemos encontrado en el pH:
+
+```{r}
+Resumen_Evolucion |> filter(pH > 14) |> select(pH)
+```
+
+Pues nos los cargamos por desafiar las leyes de la fisica
+
+```{r}
+Resumen_Evolucion <- Resumen_Evolucion |> mutate(pH = ifelse(pH > 14, NA, pH))
+Resumen_Evolucion |> select(pH)
+```
