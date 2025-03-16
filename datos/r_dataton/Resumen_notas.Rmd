@@ -10,6 +10,7 @@ output: html_document
 Los datos se encuentran en el archivo `resumen_medicacion.csv` dentro del directorio `datos_sinteticos`.
 
 ```{r}
+library(tidyverse)
 resumen_notas <- read.csv("datos_sinteticos/resumen_notas.csv")
 ```
 
