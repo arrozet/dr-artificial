@@ -75,6 +75,89 @@
                     "message_id": 2,
                     "sender": "IA",
                     "text": "ia_response"
+                },
+                {
+                    "message_id": 3,
+                    "sender": "usuario",
+                    "text": "que sabes de rosa jimenez?"
+                },
+                {
+                    "message_id": 4,
+                    "sender": "IA",
+                    "text": "ia_response"
+                }
+            ]
+        },
+        {
+            "chat_id": 4,
+            "chat_name": "que",
+            "messages": []
+        },
+        {
+            "chat_id": 5,
+            "chat_name": "que",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "que sabes de rosa jimenez?"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "ia_response"
+                }
+            ]
+        },
+        {
+            "chat_id": 6,
+            "chat_name": "que",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "que sabes de rosa jimenez"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "Basándome en la información proporcionada, puedo ofrecerle un resumen sobre Rosa Jiménez:\n\n# Resumen del caso de Rosa Jiménez\n\n## Datos demográficos y antecedentes\n- **Nombre**: Rosa Jiménez\n- **Edad**: 65 años\n- **Sexo**: Femenino\n- **Alergias**: Penicilina\n- **Condiciones previas**: \n  - EPOC GOLD III (exfumadora)\n  - Hipertensión arterial\n- **Cirugías previas**: Cesárea a los 30 años\n\n## Ingreso actual\n- **Fecha de ingreso**: 18/06/2023\n- **Motivo de ingreso**: Disnea en aumento, tos productiva con esputo purulento\n- **Diagnóstico principal**: Exacerbación de EPOC (código 195951007)\n- **Servicio**: Neumología\n- **Estado al ingreso**: Taquipneica, sibilancias, SatO2 85% (aire ambiente)\n\n## Manejo durante la hospitalización\n- **Procedimientos realizados**:\n  - Ventilación mecánica no invasiva (BiPAP)\n  - Espirometría de control\n- **Tratamientos**:\n  - Broncodilatadores nebulizados\n  - Corticoides sistémicos\n  - Antibióticos\n- **Medicación**:\n  1. Salbutamol 5 mg nebulizado cada 6 horas\n  2. Ipratropio 0.5 mg nebulizado cada 6 horas\n  3. Metilprednisolona 40 mg IV cada 8 horas\n  4. Levofloxacino 500 mg IV cada 24 horas\n  5. Oxígeno 3 L/min por puntas nasales\n\n## Resultados de laboratorio iniciales\n- Glucosa: 130 mg/dL\n- pH: 7.28\n- Hemoglobina: 16.0 g/dL\n- Leucocitos: 14,000 /μL\n- Sodio: 135 mEq/L\n- Potasio: 3.6 mEq/L\n- Creatinina: 0.9 mg/dL\n\n## Estudios de imagen\n- Rx tórax: hiperinsuflación pulmonar sin nuevos infiltrados\n\nEsta información resume los aspectos más relevantes del caso de Rosa Jiménez, una paciente de 65 años con EPOC que ingresó por una exacerbación de su condición respiratoria."
+                },
+                {
+                    "message_id": 3,
+                    "sender": "usuario",
+                    "text": "hazme un documento evolutivo"
+                },
+                {
+                    "message_id": 4,
+                    "sender": "IA",
+                    "text": "Basándome en la información proporcionada sobre Rosa Jiménez, aquí tiene un documento evolutivo detallado:\n\n# Documento Evolutivo: Rosa Jiménez\n\n## Datos del paciente\n- **Nombre**: Rosa Jiménez\n- **Edad**: 65 años\n- **Sexo**: Femenino\n- **Diagnóstico principal**: Exacerbación de EPOC (195951007)\n\n## Evolución clínica\n\n### Día 1 (18/06/2023) - Ingreso\n- Ingresa por disnea progresiva y tos productiva con esputo purulento\n- **Examen físico**: Taquipnea, sibilancias difusas, SatO2 85% (aire ambiente)\n- **Tratamiento iniciado**:\n  - BiPAP\n  - Broncodilatadores nebulizados (Salbutamol 5mg + Ipratropio 0.5mg c/6h)\n  - Metilprednisolona 40mg IV c/8h\n  - Levofloxacino 500mg IV c/24h\n  - Oxigenoterapia 3 L/min\n\n### Día 2-3\n- Mejoría gradual de la disnea\n- Disminución de sibilancias\n- SatO2 mejora a 92% con O2 a 2 L/min\n- Continúa con tratamiento establecido\n\n### Día 4-5\n- **Mejoría clínica significativa**\n- Se retira BiPAP, tolera oxígeno por cánula nasal\n- Se inicia disminución gradual de corticoides\n- Se realiza espirometría de control\n\n### Día 6-7\n- Paciente estable, sin disnea en reposo\n- SatO2 95% con O2 a 1 L/min\n- Se cambia antibiótico a vía oral\n\n## Plan de alta (Día 8)\n\n### Diagnósticos finales\n1. Exacerbación de EPOC resuelta\n2. EPOC GOLD III\n3. Hipertensión arterial controlada\n\n### Medicación al alta\n1. Salbutamol inhalador 100 mcg: 2 puffs c/6h\n2. Tiotropio inhalador 18 mcg: 1 puff c/24h\n3. Prednisona 40 mg VO: 1 comprimido c/24h por 5 días, luego reducir 5 mg cada 2 días hasta suspender\n4. Levofloxacino 500 mg VO: 1 comprimido c/24h por 5 días más\n5. Continuar con medicación habitual para HTA\n\n### Recomendaciones\n- Oxigenoterapia domiciliaria: 1-2 L/min según necesidad\n- Control con neumología en 2 semanas\n- Vacunación antineumocócica y antigripal si no las ha recibido\n- Rehabilitación respiratoria ambulatoria\n- Cesar exposición a irritantes respiratorios\n- Acudir a urgencias si empeora la disnea o aparece fiebre\n\n### Pronóstico\nFavorable con adecuado cumplimiento del tratamiento y seguimiento. Riesgo de nuevas exacerbaciones moderado debido a EPOC avanzado.\n\n---\n\nEste documento evolutivo resume la estancia hospitalaria de Rosa Jiménez, su progreso clínico y el plan de manejo al alta. Es importante que la paciente comprenda la importancia del seguimiento y adherencia al tratamiento para prevenir futuras exacerbaciones."
+                }
+            ]
+        },
+        {
+            "chat_id": 7,
+            "chat_name": "que",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "que me sabes decir de rosa jimenez?"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "Basándome en la información proporcionada, puedo ofrecerle un resumen clínico de Rosa Jiménez:\n\n# Resumen Clínico de Rosa Jiménez\n\n## Datos Demográficos\n- **Nombre:** Rosa Jiménez\n- **Edad:** 65 años\n- **Sexo:** Femenino\n- **ID de Paciente:** 8\n\n## Motivo de Ingreso y Diagnóstico\n- **Motivo de Ingreso:** Disnea en aumento, tos productiva con esputo purulento\n- **Diagnóstico Principal:** Exacerbación de EPOC (Código: 195951007)\n- **Fecha de Ingreso:** 18/06/2023\n- **Servicio:** Neumología\n\n## Antecedentes Médicos\n- EPOC GOLD III (exfumadora)\n- Hipertensión arterial\n- Alergia a la penicilina\n- Cesárea a los 30 años\n\n## Estado al Ingreso\n- Taquipneica\n- Sibilancias audibles\n- Saturación de oxígeno: 85% en aire ambiente\n\n## Tratamiento Durante la Hospitalización\n1. Ventilación mecánica no invasiva (BiPAP)\n2. Broncodilatadores nebulizados:\n   - Salbutamol 5 mg c/6h\n   - Ipratropio 0.5 mg c/6h\n3. Corticoides sistémicos: Metilprednisolona 40 mg IV c/8h\n4. Antibióticos: Levofloxacino 500 mg IV c/24h\n5. Oxigenoterapia: 3 L/min por puntas nasales\n\n## Pruebas Diagnósticas\n- Espirometría de control\n- Rx tórax: hiperinsuflación pulmonar sin nuevos infiltrados\n\n## Datos de Laboratorio Iniciales\n- Glucosa: 130 mg/dL\n- pH: 7.28\n- Hemoglobina: 16.0 g/dL\n- Leucocitos: 14,000/μL\n- Creatinina: 0.9 mg/dL\n- Sodio: 135 mEq/L\n- Potasio: 3.6 mEq/L\n\n## Evolución\nSegún las notas más recientes, la paciente ha mostrado mejoría en su condición respiratoria y no se han reportado complicaciones significativas durante su estancia hospitalaria.\n\nEsta información proporciona una visión general del caso de Rosa Jiménez, una paciente de 65 años con EPOC exacerbado que requirió hospitalización y tratamiento intensivo. Su manejo incluyó soporte respiratorio, broncodilatadores, corticoides y antibióticos, con una aparente respuesta positiva al tratamiento."
+                },
+                {
+                    "message_id": 3,
+                    "sender": "usuario",
+                    "text": "Hazme un diagrama de evolucion y de posibles propuestas futuras para esta paciente"
+                },
+                {
+                    "message_id": 4,
+                    "sender": "IA",
+                    "text": "Claro, voy a crear un diagrama de evolución y posibles propuestas futuras para Rosa Jiménez utilizando Mermaid. Este diagrama mostrará la trayectoria de su tratamiento y las recomendaciones para su cuidado continuo.\n\n```mermaid\ngraph TD\n    A[Ingreso: Exacerbación de EPOC] --> B[Tratamiento Hospitalario]\n    B --> C[Alta Hospitalaria]\n    C --> D[Seguimiento Ambulatorio]\n    \n    B --> B1[Ventilación no invasiva]\n    B --> B2[Broncodilatadores]\n    B --> B3[Corticoides]\n    B --> B4[Antibióticos]\n    B --> B5[Oxigenoterapia]\n    \n    D --> E[Corto Plazo: 1-3 meses]\n    D --> F[Mediano Plazo: 3-6 meses]\n    D --> G[Largo Plazo: 6-12 meses]\n    \n    E --> E1[Control en neumología]\n    E --> E2[Ajuste de medicación]\n    E --> E3[Educación en uso de inhaladores]\n    \n    F --> F1[Programa de rehabilitación pulmonar]\n    F --> F2[Evaluación nutricional]\n    F --> F3[Vacunación contra influenza y neumococo]\n    \n    G --> G1[Espirometría de control]\n    G --> G2[Evaluación para oxigenoterapia domiciliaria]\n    G --> G3[Plan de acción para exacerbaciones]\n    G --> G4[Screening de comorbilidades]\n```\n\nEste diagrama muestra la evolución del tratamiento de Rosa Jiménez y las propuestas futuras para su cuidado:\n\n1. **Ingreso y Tratamiento Hospitalario**: \n   - Se muestra el motivo de ingreso (exacerbación de EPOC) y los componentes principales del tratamiento hospitalario.\n\n2. **Alta Hospitalaria y Seguimiento Ambulatorio**:\n   - Tras la mejora, se procede al alta y se inicia el seguimiento ambulatorio.\n\n3. **Propuestas Futuras**:\n   - **Corto Plazo (1-3 meses)**:\n     * Control en neumología para evaluar la respuesta al tratamiento.\n     * Ajuste de medicación según sea necesario.\n     * Educación en el uso correcto de inhaladores.\n\n   - **Mediano Plazo (3-6 meses)**:\n     * Iniciar un programa de rehabilitación pulmonar.\n     * Evaluación nutricional para optimizar su estado general.\n     * Asegurar la vacunación contra influenza y neumococo.\n\n   - **Largo Plazo (6-12 meses)**:\n     * Realizar una espirometría de control para evaluar la función pulmonar.\n     * Evaluar la necesidad de oxigenoterapia domiciliaria.\n     * Desarrollar un plan de acción para futuras exacerbaciones.\n     * Realizar screening de comorbilidades comunes en EPOC.\n\nEste plan de seguimiento está diseñado para mejorar la calidad de vida de Rosa, prevenir futuras exacerbaciones y ralentizar la progresión de su EPOC."
                 }
             ]
         }
