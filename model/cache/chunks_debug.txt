@@ -1,4 +1,4 @@
-=== CHUNKS GENERADOS: 16-03-2025 14:20:11 ===
+=== CHUNKS GENERADOS: 16-03-2025 15:14:05 ===
 
 --- CHUNK #1 ---
 lab\resumen_lab_iniciales.csv -> PacienteID:1 (Nombre:Juan Pérez) -> Glucosa:110 pH:7.35 Cetonas:0.0 Creatinina:1.1 Hemoglobina:14.5 Leucocitos:15000 Sodio:134 Potasio:4.3 Urea:50 Amilasa:80
