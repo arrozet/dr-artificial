@@ -1,2 +1,11 @@
 Flask
 python-dotenv
+
+# Model
+openai>=1.0.0
+pandas
+numpy
+scikit-learn
+requests
+python-dotenv
+rich
