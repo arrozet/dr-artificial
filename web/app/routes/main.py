@@ -28,17 +28,19 @@ main_bp = Blueprint("main", __name__)
 
 datos_guardados = {"chat_id": 0}
 
-""" 
-Ruta inicial
-Esta ruta es con la que se inicia la página web
-"""
+
 @main_bp.route("/")
 def home():
+    """
+    Ruta principal que renderiza la página inicial.
+    Returns:
+        str: Template HTML renderizado con la lista de chats
+    """
     
     # Cargamos todos los chats
     chat_list = list_of_chats()
     
-    return render_template("index.html", chat_list=chat_list, mensajes_nuevo_chat=[])
+    return render_template("index.html", chat_list=chat_list, mensajes_nuevo_chat=[], chat_id=0)
 
 """ 
 Cuando recibe una petición POST la página web, esta función resuelve
@@ -69,7 +71,7 @@ def procesarPeticiones():
         conversation_history = []
         
         # Convertir los mensajes al formato esperado por generate_response
-        
+        """
         for msg in mensajes_anteriores:
             if msg["message_sender"] == "usuario":
                 conversation_history.append({"role": "user", "content": msg["message"]})
@@ -83,10 +85,10 @@ def procesarPeticiones():
         except Exception as e:
             print(f"Error al generar respuesta: {str(e)}")
             ia_response = "Ha ocurrido un error al procesar tu consulta."
-        
+        """
         # Añadir la respuesta de la IA al chat
         
-        add_message(chat_id=chat_id, text=ia_response, sender="IA")
+        add_message(chat_id=chat_id, text="ia_response", sender="IA")
         
     elif borrar_chat_id:    # La petición es sobre borrar un chat
         delete_chat(borrar_chat_id)
@@ -102,8 +104,16 @@ def procesarPeticiones():
     chat_list = list_of_chats()
     mensajes_chat = list_of_messages(chat_id)
 
-    return render_template('index_sin_head.html', chat_list=chat_list, mensajes_nuevo_chat=mensajes_chat)
+    return render_template('index_body.html', chat_list=chat_list, mensajes_nuevo_chat=mensajes_chat, chat_id=chat_id)
 
-@main_bp.route('/<chat_name>') #dejar para que no explote
-def mostrar_chat(chat_name):
+@main_bp.route('/<chat_name>')
+def mostrar_chat(chat_name: str):
+    """
+    Ruta para mostrar un chat específico (placeholder).
+    
+    Args:
+        chat_name: Nombre del chat a mostrar
+    Returns:
+        str: Template HTML del chat
+    """
     return render_template(f'{chat_name}.html')

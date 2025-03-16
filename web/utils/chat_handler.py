@@ -13,7 +13,12 @@ from .json_chat import *  # Note the dot to indicate relative import
 def create_chat(chat_name):
     """Crea un nuevo chat."""
     data = load_json()
-    chat_id = len(data["chats"]) + 1
+# Encontrar el ID más alto entre los chats existentes
+    max_id = 0
+    for chat in data.get("chats", []):
+        if chat.get("chat_id", 0) > max_id:
+            max_id = chat.get("chat_id")    
+    chat_id = max_id + 1  # Incrementar el ID en 1
     new_chat = {
         
         "chat_id": chat_id,

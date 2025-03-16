@@ -172,6 +172,26 @@ body {
     max-width: 900px;  /* Ancho máximo para mejor legibilidad */
 }
 
+.welcome-container {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+}
+
+#nuevo-chat-mensaje {
+    font-size: 2rem;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Estilos para modo oscuro */
+[data-theme='dark'] .welcome-message {
+    color: #c5c5c5;
+}
+
 /* Estilo común para todos los mensajes (usuario y AI) */
 .UserMessage, .AiMessage {
     display: flex;  /* Usa flexbox para avatar y contenido */
@@ -512,6 +532,16 @@ textarea {
     align-items: center;
     width: 100%;
     justify-content: space-between;
+}
+
+.chat-element-container.active {
+    background-color: rgba(52, 53, 65, 0.5);
+    border-radius: 6px;
+}
+
+/* Para modo oscuro */
+[data-theme='dark'] .chat-element-container.active {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Estilo para el botón de borrar */

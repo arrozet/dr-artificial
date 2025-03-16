@@ -59,39 +59,28 @@
                     "message_id": 3,
                     "sender": "IA",
                     "text": "ia_response"
-                }
-            ]
-        },
-        {
-            "chat_id": 4,
-            "chat_name": "Que",
-            "messages": [
-                {
-                    "message_id": 1,
-                    "sender": "usuario",
-                    "text": "Que tal?"
-                },
-                {
-                    "message_id": 2,
-                    "sender": "IA",
-                    "text": "ia_response"
-                },
-                {
-                    "message_id": 3,
-                    "sender": "usuario",
-                    "text": "que sabes de rosa jimenez?"
                 },
                 {
                     "message_id": 4,
+                    "sender": "usuario",
+                    "text": "Funciona"
+                },
+                {
+                    "message_id": 5,
+                    "sender": "IA",
+                    "text": "ia_response"
+                },
+                {
+                    "message_id": 6,
+                    "sender": "usuario",
+                    "text": "Okey"
+                },
+                {
+                    "message_id": 7,
                     "sender": "IA",
                     "text": "ia_response"
                 }
             ]
-        },
-        {
-            "chat_id": 4,
-            "chat_name": "que",
-            "messages": []
         },
         {
             "chat_id": 5,
@@ -137,27 +126,33 @@
         },
         {
             "chat_id": 7,
-            "chat_name": "que",
+            "chat_name": "A",
             "messages": [
                 {
                     "message_id": 1,
                     "sender": "usuario",
-                    "text": "que me sabes decir de rosa jimenez?"
+                    "text": "A"
                 },
                 {
                     "message_id": 2,
                     "sender": "IA",
-                    "text": "Basándome en la información proporcionada, puedo ofrecerle un resumen clínico de Rosa Jiménez:\n\n# Resumen Clínico de Rosa Jiménez\n\n## Datos Demográficos\n- **Nombre:** Rosa Jiménez\n- **Edad:** 65 años\n- **Sexo:** Femenino\n- **ID de Paciente:** 8\n\n## Motivo de Ingreso y Diagnóstico\n- **Motivo de Ingreso:** Disnea en aumento, tos productiva con esputo purulento\n- **Diagnóstico Principal:** Exacerbación de EPOC (Código: 195951007)\n- **Fecha de Ingreso:** 18/06/2023\n- **Servicio:** Neumología\n\n## Antecedentes Médicos\n- EPOC GOLD III (exfumadora)\n- Hipertensión arterial\n- Alergia a la penicilina\n- Cesárea a los 30 años\n\n## Estado al Ingreso\n- Taquipneica\n- Sibilancias audibles\n- Saturación de oxígeno: 85% en aire ambiente\n\n## Tratamiento Durante la Hospitalización\n1. Ventilación mecánica no invasiva (BiPAP)\n2. Broncodilatadores nebulizados:\n   - Salbutamol 5 mg c/6h\n   - Ipratropio 0.5 mg c/6h\n3. Corticoides sistémicos: Metilprednisolona 40 mg IV c/8h\n4. Antibióticos: Levofloxacino 500 mg IV c/24h\n5. Oxigenoterapia: 3 L/min por puntas nasales\n\n## Pruebas Diagnósticas\n- Espirometría de control\n- Rx tórax: hiperinsuflación pulmonar sin nuevos infiltrados\n\n## Datos de Laboratorio Iniciales\n- Glucosa: 130 mg/dL\n- pH: 7.28\n- Hemoglobina: 16.0 g/dL\n- Leucocitos: 14,000/μL\n- Creatinina: 0.9 mg/dL\n- Sodio: 135 mEq/L\n- Potasio: 3.6 mEq/L\n\n## Evolución\nSegún las notas más recientes, la paciente ha mostrado mejoría en su condición respiratoria y no se han reportado complicaciones significativas durante su estancia hospitalaria.\n\nEsta información proporciona una visión general del caso de Rosa Jiménez, una paciente de 65 años con EPOC exacerbado que requirió hospitalización y tratamiento intensivo. Su manejo incluyó soporte respiratorio, broncodilatadores, corticoides y antibióticos, con una aparente respuesta positiva al tratamiento."
-                },
+                    "text": "ia_response"
+                }
+            ]
+        },
+        {
+            "chat_id": 8,
+            "chat_name": "a",
+            "messages": [
                 {
-                    "message_id": 3,
+                    "message_id": 1,
                     "sender": "usuario",
-                    "text": "Hazme un diagrama de evolucion y de posibles propuestas futuras para esta paciente"
+                    "text": "a"
                 },
                 {
-                    "message_id": 4,
+                    "message_id": 2,
                     "sender": "IA",
-                    "text": "Claro, voy a crear un diagrama de evolución y posibles propuestas futuras para Rosa Jiménez utilizando Mermaid. Este diagrama mostrará la trayectoria de su tratamiento y las recomendaciones para su cuidado continuo.\n\n```mermaid\ngraph TD\n    A[Ingreso: Exacerbación de EPOC] --> B[Tratamiento Hospitalario]\n    B --> C[Alta Hospitalaria]\n    C --> D[Seguimiento Ambulatorio]\n    \n    B --> B1[Ventilación no invasiva]\n    B --> B2[Broncodilatadores]\n    B --> B3[Corticoides]\n    B --> B4[Antibióticos]\n    B --> B5[Oxigenoterapia]\n    \n    D --> E[Corto Plazo: 1-3 meses]\n    D --> F[Mediano Plazo: 3-6 meses]\n    D --> G[Largo Plazo: 6-12 meses]\n    \n    E --> E1[Control en neumología]\n    E --> E2[Ajuste de medicación]\n    E --> E3[Educación en uso de inhaladores]\n    \n    F --> F1[Programa de rehabilitación pulmonar]\n    F --> F2[Evaluación nutricional]\n    F --> F3[Vacunación contra influenza y neumococo]\n    \n    G --> G1[Espirometría de control]\n    G --> G2[Evaluación para oxigenoterapia domiciliaria]\n    G --> G3[Plan de acción para exacerbaciones]\n    G --> G4[Screening de comorbilidades]\n```\n\nEste diagrama muestra la evolución del tratamiento de Rosa Jiménez y las propuestas futuras para su cuidado:\n\n1. **Ingreso y Tratamiento Hospitalario**: \n   - Se muestra el motivo de ingreso (exacerbación de EPOC) y los componentes principales del tratamiento hospitalario.\n\n2. **Alta Hospitalaria y Seguimiento Ambulatorio**:\n   - Tras la mejora, se procede al alta y se inicia el seguimiento ambulatorio.\n\n3. **Propuestas Futuras**:\n   - **Corto Plazo (1-3 meses)**:\n     * Control en neumología para evaluar la respuesta al tratamiento.\n     * Ajuste de medicación según sea necesario.\n     * Educación en el uso correcto de inhaladores.\n\n   - **Mediano Plazo (3-6 meses)**:\n     * Iniciar un programa de rehabilitación pulmonar.\n     * Evaluación nutricional para optimizar su estado general.\n     * Asegurar la vacunación contra influenza y neumococo.\n\n   - **Largo Plazo (6-12 meses)**:\n     * Realizar una espirometría de control para evaluar la función pulmonar.\n     * Evaluar la necesidad de oxigenoterapia domiciliaria.\n     * Desarrollar un plan de acción para futuras exacerbaciones.\n     * Realizar screening de comorbilidades comunes en EPOC.\n\nEste plan de seguimiento está diseñado para mejorar la calidad de vida de Rosa, prevenir futuras exacerbaciones y ralentizar la progresión de su EPOC."
+                    "text": "ia_response"
                 }
             ]
         }

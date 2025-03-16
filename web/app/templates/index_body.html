@@ -14,7 +14,7 @@
                 <h2> No hay chats </h2>
             {% else %}
                 {% for chat in chat_list %}
-                <div class="chat-element-container">
+                <div class="chat-element-container {% if chat.chat_id == chat_id %}active{% endif %}"">
                     <div class="chat-item" onclick="cambiarChat({{ chat.chat_id }})">{{ chat.chat_name }}</div>
                     <button class="chat-delete" onclick="borrarChat({{chat.chat_id}})">
                         <img src="{{ url_for('static', filename='images/papelera3.png') }}" alt="Borrar">
@@ -45,8 +45,9 @@
         <div class="chat-container">
 
             {% if mensajes_nuevo_chat|length == 0 %}
-                <div id="nuevo-chat-mensaje" class="title">¿En qué puedo ayudarte?</div>
-
+                <div class="welcome-container">
+                    <div id="nuevo-chat-mensaje">¿En qué puedo ayudarte?</div>
+                </div>
             {% else %}
                 {% for msg in mensajes_nuevo_chat %}
                     {% if msg.message_sender == "IA" %}
@@ -92,8 +93,8 @@
         </div>
     </div>
     
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="../static/js/markdown-renderer.js"></script>
     <script src="../static/js/main.js"></script>
-    <script src="../static/js/chats.js"></script>
-
+    <script src="../static/js/peticiones_chats.js"></script>
