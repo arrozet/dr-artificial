@@ -1,3 +1,27 @@
+function cargarChatNuevo(){
+    const mensajeVacio = document.getElementById('nuevo-chat-mensaje');
+
+    if (mensajeVacio) {     // Si está el mensaje, el chat es vacío
+        console.log("Estamos ante un chat nuevo");
+        moverChatCentro();
+    }else{
+        console.log("Bajamos el chat");
+        moverChatAbajo();
+    }
+}
+
+// Mover el input-container al centro
+function moverChatCentro() {
+    const inputContainer = document.querySelector('.input-container');
+    inputContainer.classList.add('centered');  // Aplica la clase que lo centra
+  }
+  
+  // Mover el input-container al fondo
+  function moverChatAbajo() {
+    const inputContainer = document.querySelector('.input-container');
+    inputContainer.classList.remove('centered');  // Elimina la clase que lo centra
+  }
+
 
 
 // FUNCION DE MODO OSUCRO Y MODO CLARO
@@ -9,6 +33,7 @@ function iniciar(){
     iniciarMicrófono();
     iniciarModoOscuro();
     iniciarEventoEnter();
+    cargarChatNuevo();
 }
 function iniciarMicrófono() {
     const micBtn = document.getElementById("mic-btn");

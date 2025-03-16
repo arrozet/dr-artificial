@@ -240,6 +240,18 @@ body {
     width: 100%;  /* Ancho completo */
 }
 
+  
+/* Posición centrada */
+.input-container.centered {
+    position: relative;
+    top: -40%;
+    border-top: 1px solid transparent;  /* Borde superior se quita*/
+    background-color: transparent;
+}
+
+
+
+
 /* Caja que contiene el textarea y el botón de enviar */
 .input-box {
     display: flex;  /* Usa flexbox */

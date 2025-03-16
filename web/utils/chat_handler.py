@@ -23,7 +23,6 @@ def create_chat(chat_name):
     
     data["chats"].append(new_chat)
     save_json(data)
-    add_message(chat_id=chat_id, sender="IA", text="¿En qué puedo ayudarte?")
     return chat_id 
 
 def delete_chat(chat_id):

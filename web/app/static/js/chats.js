@@ -2,7 +2,7 @@ function crearNuevoChat(){
     console.log("Se ha pulsado el botón de crear un nuevo chat")
 
     const peticion ={
-        new_chat_name: "Nuevo Chat"
+        chat_id: 0
     }
     fetch("/", {
         method: "POST", // Método POST
@@ -67,6 +67,7 @@ function cambiarChat(id) {
     .then(data => {
         document.body.innerHTML = data;  // Actualizar toda la página con el HTML devuelto
         iniciar();
+        moverChatAbajo();
     })
     .catch(error => {
         console.error("Error en la petición:", error);
@@ -103,6 +104,7 @@ function enviar_prompt(msg) {
         .then(data => {
             document.body.innerHTML = data;  // Actualizar toda la página con el HTML devuelto
             iniciar();
+            moverChatAbajo();
             // Llamar al renderizador de markdown
             if (typeof initMarkdownRendering === 'function') {
                 initMarkdownRendering();
