@@ -1,11 +1,25 @@
 from flask import Blueprint, render_template, request
+import os
 import sys
-from pathlib import Path
 
-# Calcula la ruta absoluta a la carpeta "raiz"
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
-sys.path.append(str(BASE_DIR / "utils"))  # Agregar "utils" al path
-from chat_handler import *
+# Get project root directory more cleanly
+current_dir = os.path.dirname(os.path.abspath(__file__))  # routes folder
+app_dir = os.path.dirname(current_dir)                    # app folder
+web_dir = os.path.dirname(app_dir)                        # web folder
+project_root = os.path.dirname(web_dir)                   # project root
+
+# Add project root to path to enable imports from any module
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
+# Import specific functions instead of using wildcard import
+from web.utils.chat_handler import (
+    list_of_chats,
+    list_of_messages,
+    add_message,
+    create_chat,
+    delete_chat
+)
 
 main_bp = Blueprint("main", __name__)
 
