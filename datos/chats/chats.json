@@ -19,16 +19,6 @@
                     "message_id": 1,
                     "sender": "IA",
                     "text": "¿En qué puedo ayudarte?"
-                },
-                {
-                    "message_id": 2,
-                    "sender": "usuario",
-                    "text": "dame la info de rosa jimenez"
-                },
-                {
-                    "message_id": 3,
-                    "sender": "IA",
-                    "text": "Claro, te proporcionaré un resumen de la información médica de Rosa Jiménez. Aquí está la información organizada:\n\n# Resumen Médico de Rosa Jiménez\n\n## Datos Personales\n- **Nombre**: Rosa Jiménez\n- **ID de Paciente**: 8\n- **Edad**: 65 años\n- **Sexo**: Femenino\n- **Alergias**: Penicilina\n\n## Motivo de Ingreso y Diagnóstico\n- **Motivo de Ingreso**: Disnea en aumento, tos productiva con esputo purulento\n- **Diagnóstico Principal**: 195951007 (Presumiblemente exacerbación de EPOC)\n- **Fecha de Ingreso**: 18/06/2023\n- **Servicio**: Neumología\n\n## Condiciones Previas\n1. EPOC GOLD III (exfumadora)\n2. Hipertensión arterial\n\n## Estado al Ingreso\n- Taquipneica\n- Sibilancias\n- SatO2 85% (aire ambiente)\n\n## Tratamiento Durante la Hospitalización\n### Medicamentos\n1. Salbutamol: 5 mg nebulizado cada 6 horas\n2. Ipratropio: 0.5 mg nebulizado cada 6 horas\n3. Metilprednisolona: 40 mg IV cada 8 horas\n4. Levofloxacino: 500 mg IV cada 24 horas\n5. Oxígeno: 3 L/min por puntas nasales\n\n### Procedimientos y Tratamientos\n- Ventilación mecánica no invasiva (BiPAP)\n- Espirometría de control\n- Broncodilatadores nebulizados\n- Corticoides sistémicos\n- Antibióticos\n\n## Pruebas de Laboratorio\n- Glucosa: 130 mg/dL\n- pH: 7.28\n- Creatinina: 0.9 mg/dL\n- Hemoglobina: 16.0 g/dL\n- Leucocitos: 14,000 /μL\n- Sodio: 135 mEq/L\n- Potasio: 3.6 mEq/L\n- Urea: 30 mg/dL\n\n## Radiología\n- Rx tórax: hiperinsuflación pulmonar sin nuevos infiltrados\n\n## Antecedentes Quirúrgicos\n- Cesárea a los 30 años\n\nEsta información proporciona una visión general del caso de Rosa Jiménez, una paciente con EPOC que ingresó por una exacerbación. El tratamiento se ha enfocado en manejar los síntomas respiratorios y tratar la posible infección subyacente."
                 }
             ]
         }

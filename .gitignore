@@ -1,6 +1,7 @@
 # ---------------- OTHER FOLDERS ---------------- 
 model/config/private_key.env
 model/cache/embeddings_bedrock_amazon__titan-embed-text-v2--0.pkl
+model/cache/chunks_debug.txt
 
 # ---------------- PYTHON ---------------- 
 # Byte-compiled / optimized / DLL files
