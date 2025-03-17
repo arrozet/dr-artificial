@@ -13,6 +13,16 @@
                     "message_id": 2,
                     "sender": "IA",
                     "text": "Lo siento, no puedo ayudarte con esa solicitud, ya que no está relacionada con mi función como asistente médico virtual. Mi propósito es proporcionar información médica precisa y recomendaciones clínicas basadas en datos de pacientes. Si tienes alguna pregunta sobre temas médicos o atención al paciente, estaré encantado de ayudarte."
+                },
+                {
+                    "message_id": 3,
+                    "sender": "usuario",
+                    "text": "Hola Rosa Jimenez ha sido dada de alta finalmente, dime que debo recetarla"
+                },
+                {
+                    "message_id": 4,
+                    "sender": "IA",
+                    "text": "Entiendo que Rosa Jiménez ha sido dada de alta. Basándome en la información proporcionada, prepararé un resumen de alta con recomendaciones de tratamiento para su EPOC exacerbado. Es importante tener en cuenta que este plan debe ser revisado y ajustado por el médico tratante según la evolución clínica de la paciente.\n\n### Resumen de alta para Rosa Jiménez\n\n**Datos del paciente:**\n- Edad: 65 años\n- Sexo: Femenino\n- Diagnóstico principal: Exacerbación de EPOC (GOLD III)\n- Alergias: Penicilina\n\n**Tratamiento al alta:**\n\n1. **Broncodilatadores:**\n   - Salbutamol (agonista beta-2 de acción corta):\n     - 100 mcg/puff, 2 inhalaciones cada 4-6 horas según sea necesario\n   - Ipratropio (anticolinérgico de acción corta):\n     - 20 mcg/puff, 2 inhalaciones cada 6 horas\n\n2. **Corticosteroide inhalado + broncodilatador de acción prolongada (LABA):**\n   - Fluticasona/Salmeterol 250/50 mcg, 1 inhalación dos veces al día\n\n3. **Corticosteroide oral (pauta descendente):**\n   - Prednisona 40 mg vía oral una vez al día durante 5 días, luego 20 mg durante 5 días, luego suspender\n\n4. **Antibiótico** (considerando la alergia a penicilina):\n   - Levofloxacino 500 mg vía oral una vez al día durante 7 días\n\n5. **Oxigenoterapia domiciliaria:**\n   - 2-3 L/min por cánula nasal para mantener SaO2 > 90%\n\n**Recomendaciones adicionales:**\n\n1. Dejar de fumar si aún no lo ha hecho. Ofrecer apoyo para el abandono del tabaco.\n2. Vacunación anual contra la influenza y vacuna antineumocócica si no está actualizada.\n3. Rehabilitación pulmonar.\n4. Educación sobre el uso correcto de inhaladores y técnicas de respiración.\n5. Seguimiento con neumología en 2 semanas para control.\n6. Realizar espirometría de control en la próxima visita.\n\n**Signos de alarma:**\nInstruir a la paciente para que busque atención médica inmediata si presenta:\n- Aumento de la disnea\n- Cambios en el color o volumen del esputo\n- Fiebre\n- Empeoramiento de la tos\n\n**Próxima cita:**\nProgramar una visita de seguimiento con neumología en 2 semanas para evaluar la evolución y ajustar el tratamiento si es necesario.\n\nEs fundamental que este plan sea revisado y aprobado por el médico tratante antes de ser implementado, ya que pueden existir consideraciones clínicas adicionales no reflejadas en los datos proporcionados."
                 }
             ]
         },

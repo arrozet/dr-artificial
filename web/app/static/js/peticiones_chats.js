@@ -78,15 +78,17 @@ function validarPrompt() {
 
 /**
  * Envía un prompt al servidor
- * @param {string} msg - Mensaje a enviar
+ * @param {string} msg - Cadena de caracteres que se corresponde con el prompt del usuario
  */
 function enviar_prompt(msg) {
-    // 1. Deshabilitar el input mientras se procesa
+
+    // Elementos del DOM
     const promptInput = document.getElementById('prompt');
     const sendButton = document.querySelector('.send-btn');
     const micBtn = document.getElementById('mic-btn');
     const esNuevoChat = document.querySelector('.welcome-container') !== null;
 
+    // 1. Deshabilitar el input para evitar envíos múltiples
     micBtn.disabled = true;
     promptInput.disabled = true;
     sendButton.disabled = true;
@@ -94,26 +96,23 @@ function enviar_prompt(msg) {
     // 2. Mostrar el mensaje temporal del usuario
     const mensajeTemporal = mostrarMensajeTemporal(msg);
     const indicadorPensando = mostrarIndicadorPensando();
-    // JUANMA CODIGO si es un chat nuevo, reinicia la página
+
+    // Si el usuario está creando un nuevo chat con este PROMPT, 
     if (esNuevoChat) {
-        const welcome = document.querySelector('.welcome-container');
-        welcome.remove();
         moverChatAbajo();
-        console.log("AYUDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     }
     // 3. Limpiar el campo de texto
     promptInput.value = '';
     
     // 4. Enviar al servidor y esperar respuesta
     makePostRequest({ prompt: msg, contestar: 0 }).then(() => {
-        // No necesitamos eliminar el mensaje temporal explícitamente 
-        // porque updatePageContent reemplazará todo el contenido del body
         
         // 5. Re-habilitar el input (aunque en realidad se recreará con pagecontent
-        // geContent)
         promptInput.disabled = false;
         sendButton.disabled = false;
         micBtn.disabled = false;
+        document.getElementById("prompt").focus();  // Mantener el foco en el input-text
+
     }).catch(error => {
         console.error('Error:', error);
         // En caso de error, eliminar el mensaje temporal y re-habilitar input
@@ -129,8 +128,14 @@ function enviar_prompt(msg) {
     });
 }
 
-// Me cansé de hacer codigo bonito, se viene juanmacodigo
 
+/**
+ * Función que devuelve el HTML, que compone el mensaje del PROMPT del usuario mientras se carga la respuesta de la IA
+ * Este mensaje es meramente temporal, desaparecerá cuando la IA responda, ya que el controlador recargará el HTML de index-body
+ * 
+ * @param {*} mensaje Es una cadena de caracteres, que se corresponde con el prompt del usuario
+ * @returns HTML del PROMPT
+ */
 function mostrarMensajeTemporal(mensaje) {
     const chatContainer = document.querySelector('.chat-container');
     
@@ -157,6 +162,12 @@ function mostrarMensajeTemporal(mensaje) {
     return mensajeTemp;
 }
 
+/**
+ * Función que devuelve el HTML, que compone el indicador de pensando de la IA
+ * Devuelve un indicador que quiere indicar que la IA está calculando la respuesta
+ * 
+ * @returns HTML del indicador de pensando
+ */
 function mostrarIndicadorPensando() {
     const chatContainer = document.querySelector('.chat-container');
     

@@ -65,6 +65,7 @@ body {
     height: 100vh;  /* Altura al 100% de la ventana */
     background-color: var(--bg-color);  /* Color de fondo gris oscuro */
     color: var(--text-color);  /* Color de texto blanco */
+    overflow: hidden;
 }
 
 /* Estilos para la barra lateral */
@@ -174,7 +175,7 @@ body {
 
 .welcome-container {
     position: absolute;
-    top: 46%;
+    top: 35%;
     left: 55%;
     transform: translate(-50%, -50%);
     width: 100%;
@@ -638,4 +639,187 @@ textarea {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* ...existing code... */
+
+/* Estilos base para sidebar */
+.sidebar {
+    width: 260px;
+    min-width: 260px;
+    height: 100vh;
+    background-color: var(--sidebar-bg);
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    border-right: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+/* Contenedor de historial de chats */
+.history {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 16px 0;
+    padding-right: 8px;
+}
+
+/* Contenedor de elementos del chat */
+.chat-element-container {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.chat-element-container:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.chat-element-container.active {
+    background-color: rgba(52, 53, 65, 0.5);
+}
+
+/* Elemento del chat */
+.chat-item {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 8px;
+    cursor: pointer;
+}
+
+/* Botón de borrar chat */
+.chat-delete {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    padding: 4px;
+    margin-left: 8px;
+}
+
+.chat-element-container:hover .chat-delete {
+    opacity: 1;
+}
+
+/* Media Queries para diseño responsive */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: -100%;
+        width: 100%;
+        max-width: 300px;
+        height: 100%;
+        padding: 12px;
+    }
+
+    .sidebar.active {
+        left: 0;
+        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .main {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    /* Botón hamburguesa */
+    .menu-toggle {
+        display: block;
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 100;
+        padding: 8px;
+        background: none;
+        border: none;
+        color: var(--text-color);
+        cursor: pointer;
+    }
+
+    .header {
+        position: relative;
+        padding: 16px 48px;
+    }
+
+    .chat-container {
+        height: calc(100vh - 130px);
+    }
+
+    .input-container {
+        padding: 8px;
+    }
+
+    .input-box {
+        margin: 0 4px;
+    }
+
+    /* Overlay para cuando el menú está abierto */
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+
+    .sidebar-overlay.active {
+        display: block;
+    }
+}
+
+/* Media Query para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .sidebar {
+        max-width: 260px;
+    }
+
+    .chat-element-container {
+        padding: 6px;
+    }
+
+    .chat-item {
+        padding: 6px;
+        font-size: 14px;
+    }
+
+    .chat-delete {
+        opacity: 1;
+    }
+}
+
+/* Media Query para tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .sidebar {
+        width: 220px;
+        min-width: 220px;
+    }
+}
+
+/* Ajustes para altura baja */
+@media (max-height: 600px) {
+    .new-chat-btn {
+        padding: 8px;
+    }
+
+    .chat-element-container {
+        padding: 6px;
+    }
+
+    .profile {
+        padding: 8px;
+    }
 }
