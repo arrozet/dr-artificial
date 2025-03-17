@@ -174,17 +174,17 @@ body {
 
 .welcome-container {
     position: absolute;
-    top: 30%;
-    left: 50%;
+    top: 46%;
+    left: 55%;
     transform: translate(-50%, -50%);
     width: 100%;
     text-align: center;
 }
 
 #nuevo-chat-mensaje {
-    font-size: 2rem;
+    font-size: 3rem;
     color: #666;
-    font-weight: 500;
+    font-weight: bold;
 }
 
 /* Estilos para modo oscuro */
@@ -432,11 +432,20 @@ textarea {
     background-color: var(--primary-color);
     color: white;
     animation: pulse 1.5s infinite, glow 1.5s infinite alternate;
-    transform: scale(1.1); /* Hace que crezca un poco */
+    transform: scale(1.1);
 }
 
-.mic-btn:hover {
+/* Hover solo cuando no está deshabilitado */
+.mic-btn:not(:disabled):hover {
     background-color: var(--border-color);
+}
+
+/* Estilo cuando está deshabilitado */
+.mic-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: none !important; /* Asegura que no se aplique ningún fondo */
+    pointer-events: none; /* Deshabilita completamente las interacciones */
 }
 
 /* Estilo personalizado para scrollbar */
@@ -606,4 +615,13 @@ textarea {
 @keyframes pulsar {
     0%, 100% { transform: scale(0.8); opacity: 0.5; }
     50% { transform: scale(1.2); opacity: 1; }
+}
+
+.no_hay_chats{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 1.5rem;
+    color: #666;
 }

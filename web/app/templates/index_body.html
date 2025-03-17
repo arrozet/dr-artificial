@@ -11,7 +11,7 @@
         
         <div class="history">
             {% if chat_list|length == 0 %}
-                <h2> No hay chats </h2>
+                <div id="no_hay_chats">No hay chats</div>
             {% else %}
                 {% for chat in chat_list %}
                 <div class="chat-element-container {% if chat.chat_id == chat_id %}active{% endif %}"">
@@ -35,7 +35,7 @@
     <div class="main">
         <!-- Header -->
         <div class="header">
-            <div class="title">DR-ARTIFICIAL</div>
+            <div class="title">Dr Artificial</div>
         </div>
         <button id="toggle-theme">
             <img id="theme-icon" src="{{ url_for('static', filename='images/moon.png') }}" alt="Modo Oscuro">
