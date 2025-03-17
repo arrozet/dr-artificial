@@ -74,7 +74,7 @@ def procesarPeticiones():
         conversation_history = []
         
         # Convertir los mensajes al formato esperado por generate_response
-        """
+        
         for msg in mensajes_anteriores:
             if msg["message_sender"] == "usuario":
                 conversation_history.append({"role": "user", "content": msg["message"]})
@@ -88,10 +88,10 @@ def procesarPeticiones():
         except Exception as e:
             print(f"Error al generar respuesta: {str(e)}")
             ia_response = "Ha ocurrido un error al procesar tu consulta."
-        """
+        
         # Añadir la respuesta de la IA al chat
         
-        add_message(chat_id=chat_id, text="ia_response", sender="IA")
+        add_message(chat_id=chat_id, text=ia_response, sender="IA")
         
     elif borrar_chat_id:    # La petición es sobre borrar un chat
         delete_chat(borrar_chat_id)
