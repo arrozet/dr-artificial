@@ -438,7 +438,7 @@ class ConversationManager:
         """
         self.conversation_history.append({"role": role, "content": content})
     
-    def get_relevant_context(self, query, top_k=3):
+    def get_relevant_context(self, query, top_k=6):
         """
         Retrieves the most relevant text chunks for a given query using cosine similarity.
         This method computes the embedding for the input query and finds the most 

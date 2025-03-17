@@ -74,7 +74,7 @@ def procesarPeticiones():
         conversation_history = []
         
         # Convertir los mensajes al formato esperado por generate_response
-       
+        
         for msg in mensajes_anteriores:
             if msg["message_sender"] == "usuario":
                 conversation_history.append({"role": "user", "content": msg["message"]})
