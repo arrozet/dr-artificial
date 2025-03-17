@@ -10,8 +10,10 @@ import openai
 from model.config import config as cfg
 from model.utils.expenditure import update_expenditure
 from model.api.rag import ConversationManager
+from rich.live import Live
 from rich.markdown import Markdown
 from rich.console import Console
+from rich.spinner import Spinner
 from datetime import datetime
 
 client = openai.OpenAI(api_key=cfg.API_KEY, base_url="https://litellm.dccp.pbu.dedalus.com")
@@ -162,31 +164,51 @@ def chat_in_console():
         messages = conversation_manager.prepare_messages_for_api(user_input)
         print(f"{BLUE}{messages}{RESET}")
         
-        
-        # Realizar la llamada a la API
+        # Realizar la llamada a la API con streaming
         try:
-            response = client.chat.completions.create(
-                model=cfg.ACTIVE_MODEL,
-                messages=messages
-            )
+            print()
+            print("Claude:")
+
+            # Mostrar un spinner mientras esperamos la primera respuesta
+            with Live(Spinner("dots"), refresh_per_second=10) as live:
+                # Iniciar stream
+                stream = client.chat.completions.create(
+                    model=cfg.ACTIVE_MODEL,
+                    messages=messages,
+                    stream=True
+                )
+                
+                # Obtener el primer fragmento (esto bloqueará hasta que llegue)
+                first_chunk = next(stream, None)
+                
+            # Limpiar la línea del spinner
+            print("\r" + " " * 30 + "\r", end="")
             
-            # Extraer solo el mensaje de respuesta
-            assistant_response = response.choices[0].message.content
+            # Procesar el primer fragmento si existe
+            full_response = ""
+            if first_chunk and hasattr(first_chunk.choices[0], 'delta') and first_chunk.choices[0].delta.content:
+                content = first_chunk.choices[0].delta.content
+                full_response += content
             
-            # Guardar información de uso correctamente
-            print(f"{MAGENTA}INPUT: {response.usage.prompt_tokens}, OUTPUT: {response.usage.completion_tokens}{RESET}")
-            update_expenditure(response.usage.prompt_tokens, response.usage.completion_tokens)
+            # Ahora usar Rich Live para el resto de fragmentos con markdown
+            with Live(Markdown(full_response), refresh_per_second=10) as live:
+                # Procesar el resto del stream
+                for chunk in stream:
+                    if hasattr(chunk.choices[0], 'delta') and chunk.choices[0].delta.content:
+                        content = chunk.choices[0].delta.content
+                        full_response += content
+                        
+                        # Actualizar el renderizado de markdown con cada nuevo fragmento
+                        live.update(Markdown(full_response))
             
-            # Añadir respuesta del asistente al historial
-            conversation_manager.add_message("assistant", assistant_response)
+            # Añadir respuesta completa al historial
+            conversation_manager.add_message("assistant", full_response)
             
-            # Mostrar la respuesta
-            console.print("\nClaude:")
-            console.print(Markdown(assistant_response))
+            # No necesitamos renderizar al final porque ya se mostró con formato
 
         except Exception as e:
             print(f"Error en la llamada a la API: {e}")
 
 if __name__ == "__main__":
-    #chat_in_console()
-    print(generate_chat_title("Un homme de 35 ans s'est présenté avec des douleurs thoraciques, de la toux et de la fièvre. Veuillez fournir des suggestions de diagnostic et de traitement possibles."))
+    chat_in_console()
+    #print(generate_chat_title("Un homme de 35 ans s'est présenté avec des douleurs thoraciques, de la toux et de la fièvre. Veuillez fournir des suggestions de diagnostic et de traitement possibles."))
