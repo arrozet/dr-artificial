@@ -62,7 +62,7 @@ def generate_chat_title(user_input):
         
         return title
     except Exception as e:
-        print(f"Error generating chat title: {str(e)}")
+        print(f"Error generating chat title (API Claude): {str(e)}")
         
         # Return a timestamp-based title as fallback
         return f"{datetime.now().strftime('%d/%m %H:%M')}"
@@ -137,7 +137,7 @@ def generate_response(conversation_history, user_input, csv_path=cfg.CSV_PATH):
         
     except Exception as e:
         return {
-            "error": f"Error generando respuesta: {str(e)}",
+            "error": f"Error generando respuesta (API Claude): {str(e)}",
             "response": "Lo siento, ha ocurrido un error al procesar tu consulta."
         }
 
@@ -207,7 +207,7 @@ def chat_in_console():
             # No necesitamos renderizar al final porque ya se mostró con formato
 
         except Exception as e:
-            print(f"Error en la llamada a la API: {e}")
+            print(f"Error en la llamada a la API de Claude: {e}")
 
 if __name__ == "__main__":
     chat_in_console()

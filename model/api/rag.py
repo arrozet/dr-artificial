@@ -411,7 +411,7 @@ class ConversationManager:
                     result = response.json()
                     embeddings.append(result["data"][0]["embedding"])
                 else:
-                    print(f"Error en solicitud: {response.status_code} - {response.text}")
+                    print(f"Error en solicitud a API de embeddings: {response.status_code} - {response.text}")
                     # Fallback a un vector de ceros
                     embeddings.append([0.0] * cfg.OUTPUT_VECTOR_SIZE)
             except Exception as e:
