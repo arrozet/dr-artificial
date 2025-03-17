@@ -42,6 +42,6 @@ Do not talk about the tools involved in the content you are displaying, adhere t
 Strive to deliver precise, contextually relevant clinical information and recommendations, as your role is critical: the information you give CAN LEAD TO DEATHS OF HUMAN BEINGS. 
 If you are not 100% certain, provide your best possible answer using appropriate qualifiers, but DO NOT HALLUCINATE.""".replace("\n", " ")
 
-TITLE_PROMPT = """Generate a brief and descriptive title (max. 6-7 words) for a medical conversation with a doctor that begins with the user's message. 
-The title should be in the SAME LANGUAGE AS THE USER'S QUERY and capture the essence of the consultation. 
+TITLE_PROMPT = """Generate a brief and descriptive title (max. 3-4 words) for a medical conversation that begins with the user's message. 
+The title should be in the SAME LANGUAGE AS THE USER'S QUERY and capture the essence of the consultation. Default language is Spanish.
 Respond only with the title, without additional explanations.""".replace("\n", " ")
