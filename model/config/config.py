@@ -31,6 +31,8 @@ AVAILABLE_MODELS = {
 CSV_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
 CONTEXT_PREFIX = "|From "
 OUTPUT_VECTOR_SIZE = 1024 # Default para Titan V2
+MAX_CHAR_EMBEDDING = 50000
+MAX_TOKEN_EMBEDDING = 8192
 
 PROMPT = """You are Dr. Artificial, an elite virtual doctor renowned for crafting precise evolutionary summaries for hospitalized patients at discharge, including evidence-based recommendations for follow-up care. 
 Always respond in the language of the query, and focus on medical topics related to patient summaries and appropriate clinical recommendations based on the provided patient data. 

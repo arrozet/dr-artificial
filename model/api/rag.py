@@ -219,27 +219,102 @@ class ConversationManager:
                 if has_paciente_id:
                     # Procesar DataFrames con PacienteID
                     new_chunks = self._process_df_with_patient_id(df, csv_name, paciente_nombre_map)
-                    chunks.extend(new_chunks)
+                    
+                    # Verificar y dividir chunks que exceden el límite de caracteres
+                    processed_chunks = self._enforce_chunk_size_limit(new_chunks)
+                    
+                    chunks.extend(processed_chunks)
                     
                     # Guardar chunks en archivo de debug
                     for chunk in new_chunks:
                         f.write(f"--- CHUNK #{len(chunks) - len(new_chunks) + new_chunks.index(chunk) + 1} ---\n")
                         f.write(chunk)
+                        f.write(f"\n\nTamaño: {len(chunk)} caracteres\n")
                         f.write("\n\n" + "=" * 50 + "\n\n")
                 else:
                     # Procesar DataFrames sin PacienteID
                     new_chunks = self._process_df_without_patient_id(df, csv_name)
+
+                    # Verificar y dividir chunks que exceden el límite de caracteres
+                    processed_chunks = self._enforce_chunk_size_limit(new_chunks)
+
                     chunks.extend(new_chunks)
                     
                     # Guardar chunks en archivo de debug
                     for chunk in new_chunks:
                         f.write(f"--- CHUNK #{len(chunks) - len(new_chunks) + new_chunks.index(chunk) + 1} ---\n")
                         f.write(chunk)
+                        f.write(f"\n\nTamaño: {len(chunk)} caracteres\n")
                         f.write("\n\n" + "=" * 50 + "\n\n")
             
             print(f"Se crearon {len(chunks)} chunks optimizados")
             return chunks
-
+    
+    def _enforce_chunk_size_limit(self, chunks, max_chars=cfg.MAX_CHAR_EMBEDDING, max_tokens=cfg.MAX_TOKEN_EMBEDDING):
+        """
+        Asegura que todos los chunks estén por debajo de los límites de caracteres y tokens.
+        
+        Args:
+            chunks (list): Lista de chunks a procesar
+            max_chars (int): Tamaño máximo en caracteres (por defecto: MAX_CHAR_EMBEDDING)
+            max_tokens (int): Número máximo de tokens (por defecto: MAX_TOKEN_EMBEDDING)
+            
+        Returns:
+            list: Lista de chunks, divididos si es necesario
+        """
+        result = []
+        char_splits = 0
+        token_splits = 0
+        
+        def estimate_tokens(text):
+            # Estimación aproximada: ~4 caracteres por token en inglés/español
+            # Esta es una estimación simple, los tokenizadores reales son más complejos
+            return len(text) // 4
+        
+        for chunk in chunks:
+            # Si el chunk está dentro de ambos límites, agregarlo directamente
+            if len(chunk) <= max_chars and estimate_tokens(chunk) <= max_tokens:
+                result.append(chunk)
+                continue
+            
+            # Si excede algún límite, dividirlo
+            remaining = chunk
+            while len(remaining) > max_chars or estimate_tokens(remaining) > max_tokens:
+                # Determinar el límite más restrictivo (caracteres o tokens)
+                char_limit = max_chars
+                token_limit_in_chars = max_tokens * 4  # Convertir límite de tokens a caracteres estimados
+                
+                effective_limit = min(char_limit, token_limit_in_chars)
+                
+                # Encontrar el último espacio antes del límite para dividir correctamente
+                split_point = remaining.rfind(" ", 0, effective_limit)
+                if split_point == -1:  # Si no hay espacios, cortar en el límite
+                    split_point = effective_limit
+                
+                # Agregar la primera parte al resultado
+                first_part = remaining[:split_point].strip()
+                result.append(first_part)
+                
+                # Registrar qué tipo de límite causó la división
+                if len(remaining) > max_chars:
+                    char_splits += 1
+                if estimate_tokens(remaining) > max_tokens:
+                    token_splits += 1
+                
+                # Continuar con el resto
+                remaining = remaining[split_point:].strip()
+            
+            # Agregar la última parte si queda algo
+            if remaining:
+                result.append(remaining)
+        
+        # Registrar si hubo divisiones
+        total_splits = len(result) - len(chunks)
+        if total_splits > 0:
+            print(f"Se dividieron chunks: {total_splits} total, {char_splits} por caracteres, {token_splits} por tokens")
+            
+        return result
+    
     def _build_patient_name_map(self, dataframe_list):
         """
         Builds a mapping of PacienteIDs to patient names from all DataFrames.
@@ -323,8 +398,9 @@ class ConversationManager:
                 for col in group.columns:
                     # Excluir source_file, ID y nombre del paciente para evitar repetición
                     if col != 'source_file' and col != id_column and col not in ['Nombre', 'nombre', 'Name', 'name']:
-                        value = str(row[col])
-                        row_data.append(f"{col}:{value}")
+                        if pd.notna(row[col]):  # Solo incluir valores que no sean NA/null
+                                value = str(row[col])
+                                row_data.append(f"{col}:{value}")
                 
                 patient_data.append(" ".join(row_data))
             
@@ -360,8 +436,9 @@ class ConversationManager:
             
             for col in df.columns:
                 if col != 'source_file':
-                    value = str(row[col])
-                    campo_valor_pairs.append(f"{col}:{value}")
+                    if pd.notna(row[col]):  # Solo incluir valores que no sean NA/null
+                        value = str(row[col])
+                        campo_valor_pairs.append(f"{col}:{value}")
             
             # Combinar en formato Campo:Valor
             formatted_data = " ".join(campo_valor_pairs)
@@ -411,7 +488,7 @@ class ConversationManager:
                     result = response.json()
                     embeddings.append(result["data"][0]["embedding"])
                 else:
-                    print(f"Error en solicitud a API de embeddings: {response.status_code} - {response.text}")
+                    print(f"Error en solicitud a API de embeddings: {response.status_code} - {response.text} - {text}")
                     # Fallback a un vector de ceros
                     embeddings.append([0.0] * cfg.OUTPUT_VECTOR_SIZE)
             except Exception as e:
