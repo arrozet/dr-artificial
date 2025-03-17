@@ -166,7 +166,7 @@ body {
     display: flex;  /* Usa flexbox */
     flex-direction: column;  /* Mensajes uno debajo de otro */
     gap: 12px;  /* Espacio entre mensajes */
-    scroll-behavior: smooth;  /* Scroll suave */
+    /*scroll-behavior: smooth;  /* Scroll suave */
     margin: 0 auto;  /* Centrado horizontal */
     width: 100%;  /* Ancho completo */
     max-width: 900px;  /* Ancho máximo para mejor legibilidad */

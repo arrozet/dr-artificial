@@ -1,3 +1,24 @@
+document.addEventListener("DOMContentLoaded", function () {
+    iniciar();
+});
+
+/**
+ *  Inicializa todas las funciones
+ */
+function iniciar(){
+    iniciarMicrófono();
+    iniciarModoOscuro();
+    iniciarEventoEnter();
+    cargarChatNuevo();
+    mostrarChatAbajo();
+}
+
+/**
+ * Función que controla la posición del input-container. Dependiendo de la existencia de un mensaje
+ * con el id "nuevo-chat-mensaje" se centra o se deja abajo.
+ * 
+ * Esto es así, ya que este mensaje solo saldrá cuando nos encontremos en un chat nuevo.
+ */
 function cargarChatNuevo(){
     const mensajeVacio = document.getElementById('nuevo-chat-mensaje');
 
@@ -10,31 +31,48 @@ function cargarChatNuevo(){
     }
 }
 
-// Mover el input-container al centro
+/**
+ * Función que musestra el chat por el último mensaje, es directamente
+ */
+function mostrarChatAbajo() {
+    const chatContainer = document.querySelector('.chat-container');
+    const lastMessage = chatContainer.lastElementChild;
+
+    if (lastMessage) {
+        // Calculamos la altura total del contenido
+        const scrollHeight = chatContainer.scrollHeight;
+        const clientHeight = chatContainer.clientHeight;
+        
+        // Hacemos scroll hasta el final
+        chatContainer.scrollTop = scrollHeight - clientHeight;
+        
+        // Aseguramos que el scroll se realiza incluso después de que el contenido se haya renderizado
+        setTimeout(() => {
+            chatContainer.scrollTop = chatContainer.scrollHeight - chatContainer.clientHeight;
+        }, 0);
+    }
+}
+
+
+/**
+ *  Función que mueve el input-container al centro 
+ */ 
 function moverChatCentro() {
     const inputContainer = document.querySelector('.input-container');
     inputContainer.classList.add('centered');  // Aplica la clase que lo centra
   }
   
-  // Mover el input-container al fondo
-  function moverChatAbajo() {
+/**
+ * Función que mueve el input-container al final para mostrar los mensajes más recientes.
+ */
+function moverChatAbajo() {
     const inputContainer = document.querySelector('.input-container');
     inputContainer.classList.remove('centered');  // Elimina la clase que lo centra
-  }
-
-
-
-// FUNCION DE MODO OSUCRO Y MODO CLARO
-document.addEventListener("DOMContentLoaded", function () {
-    iniciar();
-});
-
-function iniciar(){
-    iniciarMicrófono();
-    iniciarModoOscuro();
-    iniciarEventoEnter();
-    cargarChatNuevo();
 }
+
+
+
+
 function iniciarMicrófono() {
     const micBtn = document.getElementById("mic-btn");
     console.log("Micrófono encontrado después del cambio de chat:", micBtn);

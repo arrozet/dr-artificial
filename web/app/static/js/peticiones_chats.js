@@ -41,7 +41,6 @@ function updatePageContent(htmlContent) {
 function crearNuevoChat() {
     console.log('Se ha pulsado el botón de crear un nuevo chat');
     makePostRequest({ chat_id: 0 }).then(() => {
-        moverChatCentro();
     }   );
 }
 
@@ -61,7 +60,6 @@ function borrarChat(id) {
 function cambiarChat(id) {
     console.log(`Cambiar chat a ${id}`);
     makePostRequest({ chat_id: id }).then(() => {
-        moverChatAbajo();
     });
 }
 
@@ -84,7 +82,6 @@ function validarPrompt() {
 function enviar_prompt(msg) {
     // Petición para que el servidor añade el mensaje del usuario al chat
     makePostRequest({ prompt: msg, contestar: 0 }).then(() => {
-        moverChatAbajo();
     });
 
     /*
