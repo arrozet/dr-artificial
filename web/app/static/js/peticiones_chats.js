@@ -166,17 +166,19 @@ function mostrarIndicadorPensando() {
     pensandoDiv.id = 'ia-pensando';
     
     pensandoDiv.innerHTML = `
-        <div class="avatar">AI</div>
-        <div class="message-content">
-            <div class="message-bubble">
-                <div class="pensando-indicador">
-                    <div class="pensando-punto"></div>
-                    <div class="pensando-punto"></div>
-                    <div class="pensando-punto"></div>
-                </div>
+    <div class="avatar">
+        <img src="/static/images/joselito_end.png" alt="AI" class="avatar-icon">
+    </div>
+    <div class="message-content">
+        <div class="message-bubble">
+            <div class="pensando-indicador">
+                <div class="pensando-punto"></div>
+                <div class="pensando-punto"></div>
+                <div class="pensando-punto"></div>
             </div>
         </div>
-    `;
+    </div>
+`;
     
     // Añadir al contenedor de chat
     chatContainer.appendChild(pensandoDiv);

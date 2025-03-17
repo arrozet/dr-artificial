@@ -625,3 +625,17 @@ textarea {
     font-size: 1.5rem;
     color: #666;
 }
+
+/* Estilos para el ícono de avatar de la IA */
+.avatar-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+/* Ajustar el tamaño del contenedor avatar para la IA */
+.AiMessage .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
