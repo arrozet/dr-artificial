@@ -23,6 +23,8 @@ from web.utils.chat_handler import (
 
 # Importar el generador de respuestas del modelo
 from model.api.chat import generate_response
+from model.api.chat import generate_chat_title
+
 
 main_bp = Blueprint("main", __name__)
 
@@ -58,7 +60,8 @@ def procesarPeticiones():
         
         if chat_id == 0:            # Estamos creando un nuevo chat
             
-            nombre_chat = prompt.split()[0] if prompt.strip() else ""       # HABRÁ QUE CAMBIARLO
+            # nombre_chat = prompt.split()[0] if prompt.strip() else ""       # HABRÁ QUE CAMBIARLO
+            nombre_chat = generate_chat_title(prompt)
 
             chat_id = create_chat(nombre_chat)
             datos_guardados["chat_id"] = chat_id
