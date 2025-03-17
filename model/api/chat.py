@@ -9,10 +9,10 @@ sys.path.append(parent_dir)
 import openai
 from model.config import config as cfg
 from model.utils.expenditure import update_expenditure
-# Corregir esta línea de importación
 from model.api.rag import ConversationManager
 from rich.markdown import Markdown
 from rich.console import Console
+from datetime import datetime
 
 client = openai.OpenAI(api_key=cfg.API_KEY, base_url="https://litellm.dccp.pbu.dedalus.com")
 
@@ -22,6 +22,48 @@ MAGENTA = "\033[35m"
 RESET = "\033[0m" 
 BLUE = "\033[94m"
 console = Console()
+
+def generate_chat_title(user_input):
+    """
+    Generates a concise title (4-5 words max) for a chat based on the first user message.
+    
+    Args:
+        user_input (str): The first message from the user.
+        
+    Returns:
+        str: A short title for the chat, or a default title if generation fails.
+    """
+    try:
+        # Create a specific system prompt for title generation
+        messages = [
+            {
+                "role": "system", 
+                "content": cfg.TITLE_PROMPT
+            },
+            {"role": "user", "content": user_input}
+        ]
+        print(messages)
+        # Make API call with minimal tokens
+        response = client.chat.completions.create(
+            model=cfg.ACTIVE_MODEL,
+            messages=messages,
+            max_tokens=100  # Limiting tokens since we only need a short title
+        )
+        
+        # Extract and clean the title
+        title = response.choices[0].message.content.strip()
+
+        # Log token usage but don't update expenditure for internal function
+        prompt_tokens = response.usage.prompt_tokens
+        completion_tokens = response.usage.completion_tokens
+        print(f"Title generation - Input: {prompt_tokens}, Output: {completion_tokens} tokens")
+        
+        return title
+    except Exception as e:
+        print(f"Error generating chat title: {str(e)}")
+        
+        # Return a timestamp-based title as fallback
+        return f"{datetime.now().strftime('%d/%m %H:%M')}"
 
 def generate_response(conversation_history, user_input, csv_path=cfg.CSV_PATH):
     """
@@ -147,4 +189,4 @@ def chat_in_console():
 
 if __name__ == "__main__":
     #chat_in_console()
-    print(generate_response(None, "Dime la medicacion que toma Rosa Jimenez"))
+    print(generate_chat_title("Un homme de 35 ans s'est présenté avec des douleurs thoraciques, de la toux et de la fièvre. Veuillez fournir des suggestions de diagnostic et de traitement possibles."))

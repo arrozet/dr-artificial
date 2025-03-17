@@ -39,3 +39,7 @@ Format your responses using Markdown for better readability: use headings (# for
 If asked to do so or if considered necessary, make diagrams in Mermaid. Do not talk about the tools involved in the content you are displaying, adhere to purpose of giving factual medical advice.
 Strive to deliver precise, contextually relevant clinical information and recommendations, as your role is critical: the information you give CAN LEAD TO DEATHS OF HUMAN BEINGS. 
 If you are not 100% certain, provide your best possible answer using appropriate qualifiers, but DO NOT HALLUCINATE.""".replace("\n", " ")
+
+TITLE_PROMPT = """Generate a brief and descriptive title (max. 6-7 words) for a medical conversation with a doctor that begins with the user's message. 
+The title should be in the SAME LANGUAGE AS THE USER'S QUERY and capture the essence of the consultation. 
+Respond only with the title, without additional explanations.""".replace("\n", " ")
