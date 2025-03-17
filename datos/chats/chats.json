@@ -38,6 +38,16 @@
                     "message_id": 7,
                     "sender": "IA",
                     "text": "Lo siento, pero no puedo proporcionar información sobre la edad de CR7 o cualquier otra consulta no relacionada con el cuidado médico de pacientes. Como asistente médico especializado, mi función es estrictamente proporcionar información clínica relevante y recomendaciones basadas en datos de pacientes hospitalizados.\n\nSi tiene alguna pregunta relacionada con la atención médica, diagnósticos, tratamientos o seguimiento de pacientes, estaré encantado de ayudarle dentro de ese ámbito. De lo contrario, debo declinar respetuosamente cualquier solicitud que se desvíe de mi propósito clínico."
+                },
+                {
+                    "message_id": 8,
+                    "sender": "usuario",
+                    "text": "ola"
+                },
+                {
+                    "message_id": 9,
+                    "sender": "IA",
+                    "text": "ia_response"
                 }
             ]
         },
@@ -262,6 +272,166 @@
                     "message_id": 1,
                     "sender": "usuario",
                     "text": "Nuevo"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "ia_response"
+                }
+            ]
+        },
+        {
+            "chat_id": 9,
+            "chat_name": "ola",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "ola"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "ia_response"
+                }
+            ]
+        },
+        {
+            "chat_id": 10,
+            "chat_name": "burocracia",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "burocracia asistida"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "ia_response"
+                }
+            ]
+        },
+        {
+            "chat_id": 11,
+            "chat_name": "Consulta sobre medicación de Rosa Jiménez",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "dame la medicacion de rosa jimenez"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "ia_response"
+                }
+            ]
+        },
+        {
+            "chat_id": 12,
+            "chat_name": "Consulta Médica General en Español",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "hola que tal"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "ia_response"
+                }
+            ]
+        },
+        {
+            "chat_id": 13,
+            "chat_name": "17/03 14:27",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "hola que tal"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "ia_response"
+                }
+            ]
+        },
+        {
+            "chat_id": 14,
+            "chat_name": "17/03 14:27",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "quiero hacerme una paja"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "ia_response"
+                }
+            ]
+        },
+        {
+            "chat_id": 15,
+            "chat_name": "17/03 14:27",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "hola que tal"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "ia_response"
+                }
+            ]
+        },
+        {
+            "chat_id": 16,
+            "chat_name": "17/03 14:27",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "quiero hacerme una paja"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "ia_response"
+                }
+            ]
+        },
+        {
+            "chat_id": 17,
+            "chat_name": "17/03 14:27",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "hola que tal"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "ia_response"
+                }
+            ]
+        },
+        {
+            "chat_id": 18,
+            "chat_name": "Consulta sobre comportamiento sexual saludable",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "quiero hacerme un paja vale"
                 },
                 {
                     "message_id": 2,
