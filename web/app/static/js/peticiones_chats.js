@@ -85,6 +85,7 @@ function enviar_prompt(msg) {
     const promptInput = document.getElementById('prompt');
     const sendButton = document.querySelector('.send-btn');
     const micBtn = document.getElementById('mic-btn');
+    const esNuevoChat = document.querySelector('.welcome-container') !== null;
 
     micBtn.disabled = true;
     promptInput.disabled = true;
@@ -93,7 +94,13 @@ function enviar_prompt(msg) {
     // 2. Mostrar el mensaje temporal del usuario
     const mensajeTemporal = mostrarMensajeTemporal(msg);
     const indicadorPensando = mostrarIndicadorPensando();
-    
+    // JUANMA CODIGO si es un chat nuevo, reinicia la página
+    if (esNuevoChat) {
+        const welcome = document.querySelector('.welcome-container');
+        welcome.remove();
+        moverChatAbajo();
+        console.log("AYUDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    }
     // 3. Limpiar el campo de texto
     promptInput.value = '';
     
@@ -102,7 +109,8 @@ function enviar_prompt(msg) {
         // No necesitamos eliminar el mensaje temporal explícitamente 
         // porque updatePageContent reemplazará todo el contenido del body
         
-        // 5. Re-habilitar el input (aunque en realidad se recreará con updatePageContent)
+        // 5. Re-habilitar el input (aunque en realidad se recreará con pagecontent
+        // geContent)
         promptInput.disabled = false;
         sendButton.disabled = false;
         micBtn.disabled = false;
