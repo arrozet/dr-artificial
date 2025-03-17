@@ -578,3 +578,32 @@ textarea {
 [data-theme="dark"] .mermaid {
     background-color: rgba(255, 255, 255, 0.05);
 }
+
+/* Estilos para el indicador de "pensando" */
+.pensando-indicador {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.pensando-punto {
+    width: 8px;
+    height: 8px;
+    background-color: var(--text-color);
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: pulsar 1.5s infinite ease-in-out;
+}
+
+.pensando-punto:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.pensando-punto:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes pulsar {
+    0%, 100% { transform: scale(0.8); opacity: 0.5; }
+    50% { transform: scale(1.2); opacity: 1; }
+}
