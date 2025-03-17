@@ -175,3 +175,20 @@ Pues nos los cargamos por desafiar las leyes de la fisica
 Resumen_Evolucion <- Resumen_Evolucion |> mutate(pH = ifelse(pH > 14, NA, pH))
 Resumen_Evolucion |> select(pH)
 ```
+
+```{r}
+Resumen_Evolucion$Creatinina <- Resumen_Evolucion$Creatinina_mgdl
+Resumen_Evolucion$Bilirrubina <-  Resumen_Evolucion$Bilirrubina_umol
+Resumen_Evolucion$AST <-  Resumen_Evolucion$AST_ul
+
+Resumen_Evolucion$Creatinina_mgdl = NULL
+Resumen_Evolucion$Bilirrubina_umol = NULL
+Resumen_Evolucion$AST_ul = NULL
+```
+
+Trabajo terminado. Exportamos y a dormir.
+
+```{r}
+write.csv(Resumen_Evolucion, "resumen_evolucion_procesado.csv", row.names = FALSE)
+
+```
