@@ -72,6 +72,7 @@ function validarPrompt() {
         alert('El prompt no puede estar vacío.');
         return;
     }
+
     enviar_prompt(prompt);
 }
 
@@ -80,15 +81,100 @@ function validarPrompt() {
  * @param {string} msg - Mensaje a enviar
  */
 function enviar_prompt(msg) {
-    // Petición para que el servidor añade el mensaje del usuario al chat
+    // 1. Deshabilitar el input mientras se procesa
+    const promptInput = document.getElementById('prompt');
+    const sendButton = document.querySelector('.send-btn');
+    const micBtn = document.getElementById('mic-btn');
+
+    micBtn.disabled = true;
+    promptInput.disabled = true;
+    sendButton.disabled = true;
+    
+    // 2. Mostrar el mensaje temporal del usuario
+    const mensajeTemporal = mostrarMensajeTemporal(msg);
+    const indicadorPensando = mostrarIndicadorPensando();
+    
+    // 3. Limpiar el campo de texto
+    promptInput.value = '';
+    
+    // 4. Enviar al servidor y esperar respuesta
     makePostRequest({ prompt: msg, contestar: 0 }).then(() => {
+        // No necesitamos eliminar el mensaje temporal explícitamente 
+        // porque updatePageContent reemplazará todo el contenido del body
+        
+        // 5. Re-habilitar el input (aunque en realidad se recreará con updatePageContent)
+        promptInput.disabled = false;
+        sendButton.disabled = false;
+        micBtn.disabled = false;
+    }).catch(error => {
+        console.error('Error:', error);
+        // En caso de error, eliminar el mensaje temporal y re-habilitar input
+        if (mensajeTemporal && mensajeTemporal.parentNode) {
+            mensajeTemporal.parentNode.removeChild(mensajeTemporal);
+        }
+        if (indicadorPensando && indicadorPensando.parentNode) {
+            indicadorPensando.parentNode.removeChild(indicadorPensando);
+        }
+        promptInput.disabled = false;
+        sendButton.disabled = false;
+        micBtn.disabled = false;
     });
+}
 
-    /*
-    // Petición para que el servidor conteste con la IA
-    makePostRequest({ prompt: msg, contestar: 1 }).then(() => {
-        moverChatAbajo();
-    }   );
+// Me cansé de hacer codigo bonito, se viene juanmacodigo
 
-    */
+function mostrarMensajeTemporal(mensaje) {
+    const chatContainer = document.querySelector('.chat-container');
+    
+    // Crear elemento para el mensaje temporal
+    const mensajeTemp = document.createElement('div');
+    mensajeTemp.className = 'UserMessage temp-message';
+    mensajeTemp.id = 'mensaje-temporal';
+    
+    mensajeTemp.innerHTML = `
+        <div class="message-content">
+            <div class="message-bubble">
+                ${mensaje}
+            </div>
+        </div>
+        <div class="avatar avatarUser">U</div>
+    `;
+    
+    // Añadir al contenedor de chat
+    chatContainer.appendChild(mensajeTemp);
+    
+    // Hacer scroll hasta abajo para mostrar el nuevo mensaje
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+    
+    return mensajeTemp;
+}
+
+function mostrarIndicadorPensando() {
+    const chatContainer = document.querySelector('.chat-container');
+    
+    // Crear elemento para el indicador de pensando
+    const pensandoDiv = document.createElement('div');
+    pensandoDiv.className = 'AiMessage';
+    pensandoDiv.id = 'ia-pensando';
+    
+    pensandoDiv.innerHTML = `
+        <div class="avatar">AI</div>
+        <div class="message-content">
+            <div class="message-bubble">
+                <div class="pensando-indicador">
+                    <div class="pensando-punto"></div>
+                    <div class="pensando-punto"></div>
+                    <div class="pensando-punto"></div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Añadir al contenedor de chat
+    chatContainer.appendChild(pensandoDiv);
+    
+    // Hacer scroll hasta abajo para mostrar el indicador
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+    
+    return pensandoDiv;
 }
