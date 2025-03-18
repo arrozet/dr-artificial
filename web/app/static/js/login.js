@@ -129,21 +129,80 @@ document.addEventListener('DOMContentLoaded', function() {
             if (submitButton) submitButton.disabled = false;
             
             // Procesar respuesta
-            if (response.ok) {
-                // Mostrar mensaje de éxito
-                if (successMessage) successMessage.style.display = 'block';
+            switch (response.status) {
+                case 200:
+                    // Inicio de sesión exitoso
+                    if (successMessage) successMessage.style.display = 'block';
+                    
+                    // Guardar información en localStorage si es necesario
+                    if (document.getElementById('remember')?.checked) {
+                        localStorage.setItem('userEmail', email.value);
+                        // No guardar contraseña por seguridad
+                    }
+                    
+                    // Redirigir a la página principal
+                    setTimeout(function() {
+                        window.location.href = '/';
+                    }, 800);
+                    break;
+                    
+                case 401:
+                    // Credenciales incompletas
+                    showLoginError('Por favor complete todos los campos correctamente');
+                    
+                    // Resaltar los campos problemáticos
+                    if (response.data.message.includes('contraseña')) {
+                        showError(password, 'La contraseña no puede estar vacía');
+                    }
+                    if (response.data.message.includes('correo')) {
+                        showError(email, 'El correo electrónico no puede estar vacío');
+                    }
+                    break;
+                    
+                case 403:
+                    // Credenciales incorrectas
+                    showLoginError('Correo electrónico o contraseña incorrectos');
+                    
+                    // Efecto de shake en el formulario para indicar error
+                    loginForm.classList.add('shake');
+                    setTimeout(() => loginForm.classList.remove('shake'), 500);
+                    
+                    // Limpiar el campo de contraseña
+                    password.value = '';
+                    break;
+                    
+                case 429:
+                    // Demasiados intentos
+                showLoginError('Demasiados intentos de inicio de sesión. Por favor, intente más tarde.');
                 
-                // Redirigir a la página principal después de un breve delay
-                setTimeout(function() {
-                    window.location.href = '/';
-                }, 150);
-            } else {
-                // Mostrar mensaje de error del servidor
-                const errorMsg = response.data?.message || 'Error al iniciar sesión. Por favor, intenta nuevamente.';
-                showLoginError(errorMsg);
+                // Deshabilitar el formulario temporalmente
+                const fields = loginForm.querySelectorAll('input, button');
+                fields.forEach(field => field.disabled = true);
                 
-                // Ocultar mensaje de éxito si estaba visible
-                if (successMessage) successMessage.style.display = 'none';
+                // Habilitar después de un tiempo
+                setTimeout(() => {
+                    fields.forEach(field => field.disabled = false);
+                    hideLoginError();
+                }, 30000); // 30 segundos
+                break;
+                
+            case 500:
+                // Error del servidor
+                showLoginError('Error del servidor. Por favor, intente más tarde.');
+                console.error('Error del servidor:', response.data);
+                break;
+                
+            default:
+                // Otros errores
+                showLoginError(response.data?.message || 'Error desconocido. Por favor, intente más tarde.');
+                console.warn('Respuesta no manejada:', response);
+                break;
+            }
+
+
+            // Ocultar mensaje de éxito si hubo error
+            if (response.status !== 200 && successMessage) {
+                successMessage.style.display = 'none';
             }
         }
     });

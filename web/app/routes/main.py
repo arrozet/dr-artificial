@@ -72,7 +72,7 @@ def procesarPeticiones():
     chat_id = data.get("chat_id", datos_guardados["chat_id"])             
     prompt = data.get('prompt', None)                
     borrar_chat_id = data.get("borrar_chat_id", None)
-    
+    user_id = session.get("user_id")
     if prompt:                     # Por tanto la petición es de un nuevo mensaje
         
         if chat_id == 0:            # Estamos creando un nuevo chat
@@ -87,7 +87,7 @@ def procesarPeticiones():
         add_message(chat_id=chat_id, text=prompt, sender="usuario")
         
         # Obtener los mensajes anteriores para construir el historial de conversación
-        mensajes_anteriores = list_of_messages(chat_id, session.get("user_id"))
+        mensajes_anteriores = list_of_messages(chat_id, user_id)
         conversation_history = []
         
         # Convertir los mensajes al formato esperado por generate_response
@@ -121,8 +121,8 @@ def procesarPeticiones():
         chat_id = data.get("chat_id")        
         datos_guardados["chat_id"] = chat_id
 
-    chat_list = list_of_chats(session.get("user_id"))
-    mensajes_chat = list_of_messages(chat_id, session.get("user_id"))
+    chat_list = list_of_chats(user_id)
+    mensajes_chat = list_of_messages(chat_id, user_id)
 
     return render_template('index_body.html', chat_list=chat_list, mensajes_nuevo_chat=mensajes_chat, chat_id=chat_id)
 
@@ -159,7 +159,7 @@ def login():
     # Comprobamos que el usuario sea correcto
     user = usuario_existe(password, email)
     if not user:
-        return jsonify({"message": "Credenciales incorrectas"}), 401
+        return jsonify({"message": "Credenciales incorrectas"}), 403
     
     # Ahora accedemos correctamente a las propiedades del objeto User
     session["user_id"] = user.id
