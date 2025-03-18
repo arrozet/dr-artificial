@@ -27,7 +27,7 @@ def create_chat(chat_name, id_usuario):
     }
     
     data["chats"].append(new_chat)
-    save_json(data)
+    save_json(data, id_usuario)
     return chat_id 
 
 def delete_chat(chat_id,id_usuario):
@@ -40,7 +40,7 @@ def delete_chat(chat_id,id_usuario):
     # Si el número de chats cambió, significa que eliminamos al menos uno
     if len(updated_chats) < len(data.get("chats", [])):
         data["chats"] = updated_chats  # Actualizar la lista de chats
-        save_json(data)  # Guardar cambios en el archivo JSON
+        save_json(data, id_usuario)  # Guardar cambios en el archivo JSON
         return True  # Indicar que se eliminó correctamente
     
     return False  # Indicar que no se encontró el chat
@@ -60,7 +60,7 @@ def add_message(chat_id, sender, text, id_usuario):
                 "text": text
             }
             chat["messages"].append(new_message)  # Agregar el mensaje
-            save_json(data)  # Guardar los cambios en el archivo
+            save_json(data, id_usuario)  # Guardar los cambios en el archivo
             
             return new_message  # Retornar el mensaje agregado
     

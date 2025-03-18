@@ -84,11 +84,11 @@ def procesarPeticiones():
             # nombre_chat = prompt.split()[0] if prompt.strip() else ""       # HABRÁ QUE CAMBIARLO
             nombre_chat = generate_chat_title(prompt)
 
-            chat_id = create_chat(nombre_chat)
+            chat_id = create_chat(nombre_chat, user_id)
             datos_guardados["chat_id"] = chat_id
         
         # Añadir el mensaje del usuario al chat
-        add_message(chat_id=chat_id, text=prompt, sender="usuario")
+        add_message(chat_id=chat_id, text=prompt, sender="usuario", id_usuario=user_id)
         
         # Obtener los mensajes anteriores para construir el historial de conversación
         mensajes_anteriores = list_of_messages(chat_id, user_id)
@@ -112,7 +112,7 @@ def procesarPeticiones():
         
         # Añadir la respuesta de la IA al chat
         
-        add_message(chat_id=chat_id, text=ia_response, sender="IA")
+        add_message(chat_id=chat_id, text=ia_response, sender="IA", id_usuario=user_id)
         
     elif borrar_chat_id:    # La petición es sobre borrar un chat
         delete_chat(borrar_chat_id)
