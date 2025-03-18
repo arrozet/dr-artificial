@@ -67,6 +67,10 @@ Cuando recibe una petición POST la página web, esta función resuelve
 @main_bp.route('/', methods=['GET','POST'])
 def procesarPeticiones():
 
+    # Si no hay usuario logueado, redirigir a la página de login
+    if not session.get("user_id"):
+        return redirect(url_for('main.login'))
+    
     data = request.get_json()                       # Cargamos el JSON
     
     chat_id = data.get("chat_id", datos_guardados["chat_id"])             
