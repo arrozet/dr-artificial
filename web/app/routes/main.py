@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, render_template, request
+from flask import Blueprint, jsonify, render_template, request, session, redirect, url_for
 import os
 import sys
 
@@ -47,12 +47,19 @@ def home():
         str: Template HTML renderizado con la lista de chats
     """
     
+    # Si no hay usuario logueado, redirigir a la página de login
+    if not session.get("user_id"):
+        return redirect(url_for('main.login'))
     
-    mensajes_chat = list_of_messages(datos_guardados["chat_id"])
+    mensajes_chat = list_of_messages(datos_guardados["chat_id"], session.get("user_id"))
     # Cargamos todos los chats
-    chat_list = list_of_chats()
+    chat_list = list_of_chats(session.get("user_id"))
     
-    return render_template("index.html", chat_list=chat_list, mensajes_nuevo_chat=mensajes_chat, chat_id=0)
+    return render_template("index.html",
+                            chat_list=chat_list, 
+                            mensajes_nuevo_chat=mensajes_chat, 
+                            chat_id=0, 
+                            user_id=session.get("user_id"))
 
 """ 
 Cuando recibe una petición POST la página web, esta función resuelve
@@ -80,7 +87,7 @@ def procesarPeticiones():
         add_message(chat_id=chat_id, text=prompt, sender="usuario")
         
         # Obtener los mensajes anteriores para construir el historial de conversación
-        mensajes_anteriores = list_of_messages(chat_id)
+        mensajes_anteriores = list_of_messages(chat_id, session.get("user_id"))
         conversation_history = []
         
         # Convertir los mensajes al formato esperado por generate_response
@@ -114,8 +121,8 @@ def procesarPeticiones():
         chat_id = data.get("chat_id")        
         datos_guardados["chat_id"] = chat_id
 
-    chat_list = list_of_chats()
-    mensajes_chat = list_of_messages(chat_id)
+    chat_list = list_of_chats(session.get("user_id"))
+    mensajes_chat = list_of_messages(chat_id, session.get("user_id"))
 
     return render_template('index_body.html', chat_list=chat_list, mensajes_nuevo_chat=mensajes_chat, chat_id=chat_id)
 
@@ -135,18 +142,14 @@ def mostrar_chat(chat_name: str):
 
 @main_bp.route('/login', methods=['POST'])
 def login():
-    """Función que maneja el inicio de sesión de un usuario.
-
-    Returns:
-        Int, Test: id y nombre del usuario que se ha registrado
-    """
+    """Función que maneja el inicio de sesión de un usuario."""
     # Obtenemos los datos de la request    
     data = request.get_json()
     password = data.get("password", None)
     email = data.get("email", None)
+    remember = data.get("remember", False)
     
     # Comprobamos que los datos sean correctos
-    
     if not password or password.strip() == "":
         return jsonify({"message": "La contraseña no puede estar vacía"}), 401
     
@@ -157,8 +160,16 @@ def login():
     user = usuario_existe(password, email)
     if not user:
         return jsonify({"message": "Credenciales incorrectas"}), 401
-    else:
-        return jsonify({"message": "Inicio de sesión exitoso", "user_id": user["id"], "username": user["username"]}), 200
+    
+    # Ahora accedemos correctamente a las propiedades del objeto User
+    session["user_id"] = user.id
+    session["username"] = user.username
+    
+    return jsonify({
+        "message": "Inicio de sesión exitoso", 
+        "user_id": user.id, 
+        "username": user.username
+    }), 200
 
 @main_bp.route('/register', methods=['POST'])
 def register():
@@ -194,3 +205,10 @@ def register():
     crear_nuevo_usuario(username, password, email)
     
     return jsonify({"message": "Inicio de sesión exitoso"}), 200
+
+# Añadir ruta para cerrar sesión
+@main_bp.route('/logout')
+def logout():
+    """Cierra la sesión del usuario"""
+    session.clear()
+    return redirect(url_for('main.login'))

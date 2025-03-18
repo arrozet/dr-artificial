@@ -5,6 +5,12 @@
             "username": "admin",
             "password": "admin",
             "email": "davidmunvalle@gmail.com"
+        },
+        {
+            "id": 2,
+            "username": "Doctor1",
+            "password": "doctor1",
+            "email": "doctor1@doctor.es"
         }
     ]
 }

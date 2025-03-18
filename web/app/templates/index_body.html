@@ -11,7 +11,7 @@
         
         <div class="history">
             {% if chat_list|length == 0 %}
-                <div id="no_hay_chats">No hay chats</div>
+            <div id="no_hay_chats">No hay chats</div>
             {% else %}
                 {% for chat in chat_list %}
                 <div class="chat-element-container {% if chat.chat_id == chat_id %}active{% endif %}"">
@@ -27,7 +27,8 @@
         
         <div class="profile">
             <div class="profile-img"></div>
-            <div>Usuario</div>
+            <div>{{ username }}</div>
+            <a href="{{ url_for('main.logout') }}" class="logout-link">Cerrar sesión</a>
         </div>
     </div>
     

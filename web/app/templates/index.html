@@ -37,7 +37,8 @@
         
         <div class="profile">
             <div class="profile-img"></div>
-            <div>Usuario</div>
+            <div>{{ username }}</div>
+            <a href="{{ url_for('main.logout') }}" class="logout-link">Cerrar sesión</a>
         </div>
     </div>
     
