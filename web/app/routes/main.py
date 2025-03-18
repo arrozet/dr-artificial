@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, jsonify, render_template, request
 import os
 import sys
 
@@ -19,6 +19,14 @@ from web.utils.chat_handler import (
     add_message,
     create_chat,
     delete_chat
+)
+
+# Import specific functions instead of using wildcard import
+from web.utils.usuarios_handler import (
+    usuario_existe,
+    usuario_unico,
+    email_unico,
+    crear_nuevo_usuario
 )
 
 # Importar el generador de respuestas del modelo
@@ -120,3 +128,67 @@ def mostrar_chat(chat_name: str):
         str: Template HTML del chat
     """
     return render_template(f'{chat_name}.html')
+
+
+
+@main_bp.route('/login', methods=['POST'])
+def login():
+    """Función que maneja el inicio de sesión de un usuario.
+
+    Returns:
+        Int, Test: id y nombre del usuario que se ha registrado
+    """
+    # Obtenemos los datos de la request    
+    data = request.get_json()
+    password = data.get("password", None)
+    email = data.get("email", None)
+    
+    # Comprobamos que los datos sean correctos
+    
+    if not password or password.strip() == "":
+        return jsonify({"message": "La contraseña no puede estar vacía"}), 401
+    
+    if not email or email.strip() == "":
+        return jsonify({"message": "El correo electrónico no puede estar vacío"}), 401
+
+    # Comprobamos que el usuario sea correcto
+    user = usuario_existe(password, email)
+    if not user:
+        return jsonify({"message": "Credenciales incorrectas"}), 401
+    else:
+        return jsonify({"message": "Inicio de sesión exitoso", "user_id": user["id"], "username": user["username"]}), 200
+
+@main_bp.route('/register', methods=['POST'])
+def register():
+    """_summary_
+
+    Returns:
+        _type_: _description_
+    """
+    data = request.get_json()
+    username = data.get("username", None)
+    password = data.get("password", None)
+    email = data.get("email", None)
+    
+    # Comprobamos que los datos sean correctos
+    if not username or username.strip() == "":
+        return jsonify({"message": "El nombre de usuario no puede estar vacío"}), 401
+    
+    if not password or password.strip() == "":
+        return jsonify({"message": "La contraseña no puede estar vacía"}), 401
+    
+    if not email or email.strip() == "":
+        return jsonify({"message": "El correo electrónico no puede estar vacío"}), 401
+    
+    # Comprobamos que el usuario sea único
+    if not usuario_unico(username):
+        return jsonify({"message": "El nombre de usuario ya está en uso"}), 401
+    
+    # Comprobamos que el email sea único
+    if not email_unico(email):
+        return jsonify({"message": "El correo electrónico ya está en uso"}), 401
+    
+    # Creamos el usuario
+    user_id = crear_nuevo_usuario(username, password, email)
+    
+    return jsonify({"message": "Inicio de sesión exitoso", "user_id": user_id, "username": username}), 200
