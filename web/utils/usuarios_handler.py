@@ -93,4 +93,4 @@ def crear_nuevo_usuario(user_id, usuario, email, password):
     }
     with open(DATA_PATH, 'w') as file:
         json.dump(users, file, indent=4)
-    return user_id
+    return True

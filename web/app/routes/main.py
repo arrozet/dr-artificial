@@ -189,6 +189,6 @@ def register():
         return jsonify({"message": "El correo electrónico ya está en uso"}), 401
     
     # Creamos el usuario
-    user_id = crear_nuevo_usuario(username, password, email)
+    crear_nuevo_usuario(username, password, email)
     
-    return jsonify({"message": "Inicio de sesión exitoso", "user_id": user_id, "username": username}), 200
+    return jsonify({"message": "Inicio de sesión exitoso"}), 200
