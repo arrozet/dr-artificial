@@ -47,10 +47,12 @@ def home():
         str: Template HTML renderizado con la lista de chats
     """
     
+    
+    mensajes_chat = list_of_messages(datos_guardados["chat_id"])
     # Cargamos todos los chats
     chat_list = list_of_chats()
     
-    return render_template("index.html", chat_list=chat_list, mensajes_nuevo_chat=[], chat_id=0)
+    return render_template("index.html", chat_list=chat_list, mensajes_nuevo_chat=mensajes_chat, chat_id=0)
 
 """ 
 Cuando recibe una petición POST la página web, esta función resuelve

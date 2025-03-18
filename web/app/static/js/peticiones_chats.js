@@ -100,6 +100,7 @@ function enviar_prompt(msg) {
     // Si el usuario está creando un nuevo chat con este PROMPT, 
     if (esNuevoChat) {
         moverChatAbajo();
+        document.querySelector('.welcome-container').remove();
     }
     // 3. Limpiar el campo de texto
     promptInput.value = '';
