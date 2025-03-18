@@ -140,7 +140,7 @@ def mostrar_chat(chat_name: str):
     Returns:
         str: Template HTML del chat
     """
-    return render_template(f'{chat_name}.html')
+    return render_template(f'{chat_name}')
 
 
 
