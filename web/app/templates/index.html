@@ -8,10 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_interfaz1.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
 </head>
-<body>
-    <!-- Botón para expandir/contraer la sidebar en móvil -->
-    <button class="mobile-toggle" id="mobile-toggle">☰</button>    
-    
+<body>    
     <!-- Sidebar -->
     <div class="sidebar">
         <button class="new-chat-btn" onclick="crearNuevoChat()">
@@ -38,7 +35,6 @@
         </div>
         
         <div class="profile">
-            <div class="profile-img"></div>
             <div>{{ username }}</div>
             <a href="{{ url_for('main.logout') }}" class="logout-link">Cerrar sesión</a>
         </div>

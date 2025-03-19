@@ -341,14 +341,6 @@ textarea {
     position: relative;  /* Para posicionar correctamente el botón de cerrar sesión */
 }
 
-/* Imagen de perfil */
-.profile-img {
-    width: 24px;  /* Ancho */
-    height: 24px;  /* Alto */
-    border-radius: 50%;  /* Forma circular */
-    background-color: var(--primary-color);  /* Fondo morado */
-}
-
 /* Estilos para la cabecera */
 .header {
     display: flex;

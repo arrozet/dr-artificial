@@ -2,15 +2,100 @@
 	"users": [
         {
             "id": 1,
-            "username": "admin",
-            "password": "admin",
-            "email": "davidmunvalle@gmail.com"
+            "username": "Doctor2",
+            "password": "doctor2",
+            "email": "doctor2@doctor.es"
         },
         {
             "id": 2,
             "username": "Doctor1",
             "password": "doctor1",
             "email": "doctor1@doctor.es"
+        },
+        {
+            "id" : 3,
+            "username": "Víctor Manuel",
+            "password": "ortega",
+            "email": "ortega@drartificial.com"
+        },
+        {
+            "id" : 4,
+            "username": "Román",
+            "password": "villegas",
+            "email": "villegas@drartifical.com"
+        },
+        {
+            "id" : 5,
+            "username": "Martín",
+            "password": "dominguez",
+            "email": "dominguez@drartifical.com"
+        },
+        {
+            "id" : 6,
+            "username": "Marisa",
+            "password": "felipe",
+            "email": "felipe@drartifical.com"
+        },
+        {
+            "id": 7,
+            "username": "Mari Carmen",
+            "password": "romero",
+            "email": "romero@artificial.com"
+        },
+        {
+            "id": 8,
+            "username": "Mauel",
+            "email": "enciso",
+            "password": "enciso@drartificial.com"
+        },
+        {
+            "id": 9,
+            "username": "Lourdes",
+            "password": "cruz",
+            "email": "cruz@drartificial.com"
+
+        },
+        {
+            "id": 10,
+            "username": "José Antonio",
+            "password": "labrada",
+            "email": "labrada@ddrartificial.com"
+        },      
+        {
+            "id": 11,
+            "username": "Ismael",
+            "password": "vargas",
+            "email": "vargas@drartificial.com"
+        },
+        {
+            "id": 12,
+            "username": "Dolores",
+            "password": "muñoyerro",
+            "email": "muñoyerro@drartificial.com"
+        },
+        {
+            "id": 13,
+            "username": "Cristina",
+            "password": "suarez",
+            "email": "suarez@drartificial.com"
+        },
+        {
+            "id": 14,
+            "username": "Ana",
+            "password": "borrego",
+            "email": "borrego@drartificial.com"
+        },
+        {
+            "id": 15,
+            "username": "Bidatzi",
+            "password": "marin",
+            "email": "marin@drartificial.com"
+        },
+        {
+            "id": 16,
+            "username": "Álvaro",
+            "password": "rodriguez",
+            "email": "rodriguez@drartificial.com"
         }
     ]
 }

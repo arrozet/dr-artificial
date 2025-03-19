@@ -1,4 +1,4 @@
-
+   
     <!-- Sidebar -->
     <div class="sidebar">
         <button class="new-chat-btn" onclick="crearNuevoChat()">
@@ -14,7 +14,7 @@
             <div id="no_hay_chats">No hay chats</div>
             {% else %}
                 {% for chat in chat_list %}
-                <div class="chat-element-container {% if chat.chat_id == chat_id %}active{% endif %}"">
+                <div class="chat-element-container {% if chat.chat_id == chat_id %}active{% endif %}">
                     <div class="chat-item" onclick="cambiarChat({{ chat.chat_id }})">{{ chat.chat_name }}</div>
                     <button class="chat-delete" onclick="borrarChat({{chat.chat_id}})">
                         <img src="{{ url_for('static', filename='images/papelera3.png') }}" alt="Borrar">
@@ -22,11 +22,9 @@
                 </div>
                 {% endfor %}
             {% endif %}
-
         </div>
         
         <div class="profile">
-            <div class="profile-img"></div>
             <div>{{ username }}</div>
             <a href="{{ url_for('main.logout') }}" class="logout-link">Cerrar sesión</a>
         </div>
@@ -44,14 +42,13 @@
                 </svg>
             </button>
             <div class="title">Dr Artificial</div>
+            <button id="toggle-theme">
+                <img id="theme-icon" src="{{ url_for('static', filename='images/moon.png') }}" alt="Modo Oscuro">
+            </button>
         </div>
-        <button id="toggle-theme">
-            <img id="theme-icon" src="{{ url_for('static', filename='images/moon.png') }}" alt="Modo Oscuro">
-        </button>
         
         <!-- Chat Area -->
         <div class="chat-container">
-
             {% if mensajes_nuevo_chat|length == 0 %}
                 <div class="welcome-container">
                     <div id="nuevo-chat-mensaje">¿En qué puedo ayudarte?</div>
@@ -79,32 +76,31 @@
                         <div class="avatar avatarUser">U</div>
                     </div>
                 {% endif %}
-            {% endfor %}
+                {% endfor %}
             {% endif %}
-
         </div>
         
-        
-
         <!-- Input Area -->
         <div class="input-container">
-                <div class="input-box">
-                    <textarea id="prompt" name="prompt" placeholder="Escribe un mensaje..."></textarea>
-                    <button type="button" id="mic-btn" class="mic-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
-                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
-                            <line x1="12" y1="19" x2="12" y2="23"></line>
-                            <line x1="8" y1="23" x2="16" y2="23"></line>
-                        </svg>
-                    </button>
-                    <button  class="send-btn" onclick="validarPrompt()">Enviar</button>
-                </div>
+            <div class="input-box">
+                <textarea id="prompt" name="prompt" placeholder="Escribe un mensaje..."></textarea>
+                <button type="button" id="mic-btn" class="mic-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                        <line x1="12" y1="19" x2="12" y2="23"></line>
+                        <line x1="8" y1="23" x2="16" y2="23"></line>
+                    </svg>
+                </button>
+                <button class="send-btn" onclick="validarPrompt()">Enviar</button>
+            </div>
         </div>
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="../static/js/markdown-renderer.js"></script>
-    <script src="../static/js/main.js"></script>
-    <script src="../static/js/peticiones_chats.js"></script>
+    <script src="{{ url_for('static', filename='js/markdown-renderer.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/peticiones_chats.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/responsive.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/mobile.js') }}"></script>

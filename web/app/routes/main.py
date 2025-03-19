@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, render_template, request, session, redirect, url_for
+from flask import Blueprint, jsonify, render_template, request, session, redirect
 import os
 import sys
 
@@ -59,7 +59,8 @@ def home():
                             chat_list=chat_list, 
                             mensajes_nuevo_chat=mensajes_chat, 
                             chat_id=0, 
-                            user_id=session.get("user_id"))
+                            user_id=session.get("user_id"),
+                            username=session.get("username"))
 
 """ 
 Cuando recibe una petición POST la página web, esta función resuelve
@@ -112,10 +113,11 @@ def procesarPeticiones():
         
         # Añadir la respuesta de la IA al chat
         
-        add_message(chat_id=chat_id, text=ia_response, sender="IA", id_usuario=user_id)
+        add_message(chat_id=chat_id, text=ia_response, sender="IA", id_usuario=user_id, username=session.get("username")
+)
         
     elif borrar_chat_id:    # La petición es sobre borrar un chat
-        delete_chat(borrar_chat_id)
+        delete_chat(borrar_chat_id,user_id)
         
         if int(chat_id) == int(borrar_chat_id):
             chat_id = 0

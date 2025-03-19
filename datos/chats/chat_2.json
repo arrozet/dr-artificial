@@ -303,38 +303,6 @@
                     "text": "Hola. ¿En qué puedo ayudarte hoy con respecto a temas médicos o información sobre salud? Estoy aquí para proporcionar información precisa y basada en evidencia sobre una amplia gama de temas relacionados con la medicina y la atención al paciente."
                 }
             ]
-        },
-        {
-            "chat_id": 10,
-            "chat_name": "Inicio de consulta",
-            "messages": [
-                {
-                    "message_id": 1,
-                    "sender": "usuario",
-                    "text": "Nuevo chat"
-                },
-                {
-                    "message_id": 2,
-                    "sender": "IA",
-                    "text": "Lo siento, pero no puedo iniciar un nuevo chat o cambiar el contexto de nuestra conversación actual. Como asistente médico virtual especializado, mi función es proporcionar información médica precisa y recomendaciones basadas en los datos del paciente que se me han proporcionado. Si tiene alguna pregunta específica sobre los casos de pacientes mencionados o necesita información médica relacionada, estaré encantado de ayudarle. ¿Hay algún aspecto particular de los casos de pacientes que le gustaría discutir?"
-                }
-            ]
-        },
-        {
-            "chat_id": 11,
-            "chat_name": "Introducción a Medicina",
-            "messages": [
-                {
-                    "message_id": 1,
-                    "sender": "usuario",
-                    "text": "Explicame cosas sobre medicina"
-                },
-                {
-                    "message_id": 2,
-                    "sender": "IA",
-                    "text": "Lo siento, no puedo simplemente \"explicar cosas sobre medicina\" de manera general, ya que ese es un tema extremadamente amplio y poco específico. Como médico virtual especializado, mi función es proporcionar información médica precisa y relevante basada en datos concretos de pacientes, elaborar resúmenes evolutivos y dar recomendaciones de seguimiento basadas en evidencia.\n\nSi tiene alguna consulta médica específica relacionada con un caso particular, datos de laboratorio, medicaciones o notas clínicas, estaré encantado de analizarla y proporcionar una evaluación profesional al respecto. \n\nPor favor, siéntase libre de hacer una pregunta más concreta sobre algún aspecto médico y haré mi mejor esfuerzo para brindarle información precisa y útil dentro de mi área de especialización."
-                }
-            ]
         }
     ]
 }
