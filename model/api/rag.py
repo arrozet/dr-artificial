@@ -90,8 +90,9 @@ class ConversationManager:
             for file in sorted(files):
                 if file.endswith('.csv'):
                     filepath = os.path.join(root, file)
+                    rel_path = os.path.relpath(filepath, self.data_directory)
                     mtime = os.path.getmtime(filepath)
-                    hash_value.update(f"{filepath}:{mtime}".encode())
+                    hash_value.update(f"{rel_path}:{mtime}".encode())
                     
         return hash_value.hexdigest()
     

@@ -1,7 +1,6 @@
 # ---------------- OTHER FOLDERS ---------------- 
 model/config/private_key.env
-model/cache/embeddings_bedrock_amazon__titan-embed-text-v2--0.pkl
-model/cache/chunks_debug.txt
+web/expenditure.txt
 
 # ---------------- PYTHON ---------------- 
 # Byte-compiled / optimized / DLL files
@@ -370,3 +369,4 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
+
