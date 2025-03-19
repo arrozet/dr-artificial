@@ -46,7 +46,7 @@ def generate_default_prompts():
         
         # If we don't have enough patients, use fallback names
         if len(patient_names) < 2:
-            patient_names = ["Rosa Jiménez", "Antonio García", "María López", "Carlos Sánchez"]
+            patient_names = ["Rosa Jiménez", "Juan Pérez", "Laura Castro", "Lucía Ramírez"]
         
         # Select a few random patient names (up to 3)
         import random
