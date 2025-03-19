@@ -67,6 +67,32 @@
                     "text": "Ciertamente, voy a representar gráficamente la evolución de la creatinina de Laura Castro utilizando un diagrama de Mermaid. Este gráfico mostrará cómo los niveles de creatinina han disminuido a lo largo del tiempo, indicando una mejora en su función renal.\n\n```mermaid\ngraph TD\n    style A fill:#f9d5e5,stroke:#333,stroke-width:2px\n    style B fill:#eeac99,stroke:#333,stroke-width:2px\n    style C fill:#e06377,stroke:#333,stroke-width:2px\n    style D fill:#c83349,stroke:#333,stroke-width:2px\n    style E fill:#5b9aa0,stroke:#333,stroke-width:2px\n\n    A[05/09/2023 06:00<br>1.1 mg/dL]\n    B[06/09/2023 06:00<br>1.0 mg/dL]\n    C[07/09/2023 06:00<br>0.9 mg/dL]\n    D[08/09/2023 06:00<br>0.8 mg/dL]\n    E[08/09/2023 22:00<br>0.8 mg/dL]\n\n    A --> B --> C --> D --> E\n\n    classDef default fill:#f9f,stroke:#333,stroke-width:2px;\n```\n\nEste gráfico muestra claramente la tendencia descendente de los niveles de creatinina de Laura Castro durante su estancia hospitalaria:\n\n1. El 05/09/2023 a las 06:00, la creatinina era de 1.1 mg/dL.\n2. El 06/09/2023 a las 06:00, disminuyó a 1.0 mg/dL.\n3. El 07/09/2023 a las 06:00, bajó a 0.9 mg/dL.\n4. El 08/09/2023 a las 06:00, alcanzó 0.8 mg/dL.\n5. El 08/09/2023 a las 22:00, se mantuvo en 0.8 mg/dL.\n\nEsta representación visual permite apreciar fácilmente la mejora gradual y constante de la función renal de Laura Castro, reflejada en la disminución de sus niveles de creatinina. La estabilización en 0.8 mg/dL en las últimas mediciones sugiere que su función renal se ha normalizado y se mantiene estable."
                 }
             ]
+        },
+        {
+            "chat_id": 4,
+            "chat_name": "Saludo Inicial",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "hola amigo"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "usuario",
+                    "text": "ol"
+                },
+                {
+                    "message_id": 3,
+                    "sender": "IA",
+                    "text": "Lo siento, no puedo responder a saludos informales o entablar una conversación casual. Mi función es proporcionar información médica precisa y recomendaciones clínicas basadas en datos de pacientes. Si tiene alguna consulta relacionada con resúmenes médicos o cuidados de pacientes, estaré encantado de ayudarle."
+                },
+                {
+                    "message_id": 4,
+                    "sender": "IA",
+                    "text": "Lo siento, no puedo responder a saludos informales o bromas. Mi función es proporcionar información médica precisa y recomendaciones clínicas basadas en datos de pacientes. ¿Tiene alguna consulta específica relacionada con la atención médica o los resúmenes de evolución de pacientes?"
+                }
+            ]
         }
     ]
 }

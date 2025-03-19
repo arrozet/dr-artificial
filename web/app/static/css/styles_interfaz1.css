@@ -328,6 +328,7 @@ textarea {
     padding: 12px;  /* Espacio interno */
     border-top: 1px solid var(--border-color);  /* Borde superior */
     margin-top: auto;  /* Empuja al final de la barra lateral */
+    position: relative;  /* Para posicionar correctamente el botón de cerrar sesión */
 }
 
 /* Imagen de perfil */
@@ -822,4 +823,35 @@ textarea {
     .profile {
         padding: 8px;
     }
+}
+.logout-link {
+    margin-left: auto;  /* Empuja el botón a la derecha */
+    margin-top: 4px;
+    padding: 6px 10px;  /* Espacio interno para hacerlo más como botón */
+    background-color: var(--primary-color);  /* Color de fondo principal */
+    color: white;  /* Texto blanco */
+    text-decoration: none;  /* Quita el subrayado */
+    border-radius: 6px;  /* Bordes redondeados */
+    font-size: 12px;  /* Tamaño de fuente más pequeño */
+    font-weight: 500;  /* Semi-negrita */
+    transition: background-color 0.3s, transform 0.2s;  /* Animación al cambiar color */
+    display: flex;  /* Flexbox para poder añadir un icono después si se desea */
+    align-items: center;  /* Centra verticalmente */
+}
+
+.logout-link:hover {
+    background-color: var(--hover-color);  /* Color más oscuro al pasar el cursor */
+    transform: translateY(-1px);  /* Pequeño efecto de elevación */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);  /* Sombra sutil */
+}
+
+.logout-link:active {
+    transform: translateY(0);  /* Vuelve a la posición normal al hacer clic */
+    box-shadow: none;  /* Sin sombra al hacer clic */
+}
+
+/* Ajuste para modo oscuro */
+[data-theme="dark"] .logout-link {
+    background-color: var(--primary-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
