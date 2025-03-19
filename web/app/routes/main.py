@@ -49,7 +49,7 @@ def home():
     
     # Si no hay usuario logueado, redirigir a la página de login
     if not session.get("user_id"):
-        return redirect(url_for('main.login'))
+        return redirect("login.html")
     
     mensajes_chat = list_of_messages(datos_guardados["chat_id"], session.get("user_id"))
     # Cargamos todos los chats
@@ -69,7 +69,7 @@ def procesarPeticiones():
 
     # Si no hay usuario logueado, redirigir a la página de login
     if not session.get("user_id"):
-        return redirect(url_for('main.login'))
+        return redirect("login.html")
     
     data = request.get_json()                       # Cargamos el JSON
     
@@ -140,7 +140,7 @@ def mostrar_chat(chat_name: str):
     Returns:
         str: Template HTML del chat
     """
-    return render_template(f'{chat_name}.html')
+    return render_template(f'{chat_name}')
 
 
 
@@ -215,4 +215,4 @@ def register():
 def logout():
     """Cierra la sesión del usuario"""
     session.clear()
-    return redirect(url_for('main.login'))
+    return redirect("login.html")

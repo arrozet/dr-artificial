@@ -61,3 +61,56 @@ function initMarkdownRendering() {
 
 // Ejecutar al cargar la página
 document.addEventListener('DOMContentLoaded', initMarkdownRendering);
+
+// Función para optimizar la visualización de markdown en móviles
+function optimizeMarkdownForMobile() {
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        // Ajustar las tablas para scroll horizontal
+        document.querySelectorAll('table').forEach(table => {
+            table.style.display = 'block';
+            table.style.overflowX = 'auto';
+            table.style.width = '100%';
+        });
+        
+        // Ajustar los bloques de código
+        document.querySelectorAll('pre').forEach(pre => {
+            pre.style.whiteSpace = 'pre-wrap';
+            pre.style.wordBreak = 'break-word';
+            pre.style.maxWidth = '100%';
+        });
+        
+        // Ajustar imágenes
+        document.querySelectorAll('img').forEach(img => {
+            img.style.maxWidth = '100%';
+            img.style.height = 'auto';
+        });
+    }
+}
+
+// Ejecutar después de renderizar markdown
+if (typeof mermaid !== 'undefined') {
+    mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+    optimizeMarkdownForMobile();
+}
+
+// Observar cambios en el contenido del chat para aplicar optimizaciones
+const chatObserver = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+        if (mutation.addedNodes.length) {
+            optimizeMarkdownForMobile();
+        }
+    });
+});
+
+// Iniciar observación del contenedor de chat
+document.addEventListener('DOMContentLoaded', () => {
+    const chatContainer = document.querySelector('.chat-container');
+    if (chatContainer) {
+        chatObserver.observe(chatContainer, { childList: true, subtree: true });
+    }
+    
+    // También aplicar al cargar la página
+    optimizeMarkdownForMobile();
+});
