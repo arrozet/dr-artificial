@@ -99,6 +99,10 @@ function enviar_prompt(msg) {
 
     // Si el usuario está creando un nuevo chat con este PROMPT, 
     if (esNuevoChat) {
+        const recommendedMessages = document.querySelector('.recommended-messages');
+        if (recommendedMessages) {
+            recommendedMessages.remove();
+        }
         moverChatAbajo();
         document.querySelector('.welcome-container').remove();
     }

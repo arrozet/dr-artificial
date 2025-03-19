@@ -233,6 +233,102 @@
                     "text": "Lo siento, no puedo ayudarte con esa solicitud. Como médico virtual, mi función es proporcionar información médica precisa y recomendaciones clínicas basadas en datos de pacientes. ¿Tienes alguna pregunta específica sobre temas médicos o la atención de pacientes que pueda responder?"
                 }
             ]
+        },
+        {
+            "chat_id": 13,
+            "chat_name": "Saludo inicial",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "hola que tal"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "Hola, ¿cómo está usted? Soy el Dr. Artificial, un médico virtual especializado en resúmenes evolutivos y recomendaciones de seguimiento para pacientes hospitalizados. ¿En qué puedo ayudarle hoy en relación con temas médicos o información clínica? Estaré encantado de asistirle con cualquier consulta médica que tenga."
+                }
+            ]
+        },
+        {
+            "chat_id": 14,
+            "chat_name": "Problemas intestinales",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "me estoy cagando"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "Lo siento, pero no puedo ayudar con ese tipo de información personal o situaciones no médicas. Si tiene alguna preocupación de salud relacionada con problemas gastrointestinales, le sugiero que consulte a un médico para recibir atención adecuada."
+                }
+            ]
+        },
+        {
+            "chat_id": 15,
+            "chat_name": "Saludo inicial",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "ola que tal"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "Hola. Soy un asistente médico virtual especializado en resúmenes clínicos y recomendaciones médicas. No puedo mantener una conversación informal. ¿Tiene alguna consulta médica específica en la que pueda ayudarle?"
+                }
+            ]
+        },
+        {
+            "chat_id": 16,
+            "chat_name": "Saludo inicial",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "hola amigo"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "Hola. Soy un asistente médico virtual diseñado para proporcionar información clínica y recomendaciones médicas. ¿En qué puedo ayudarte con alguna consulta relacionada con la salud o la medicina?"
+                }
+            ]
+        },
+        {
+            "chat_id": 17,
+            "chat_name": "Saludo inicial",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "hola que tal"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "Hola, ¿cómo está usted? Soy el Dr. Artificial, un médico virtual especializado en resúmenes evolutivos y recomendaciones de seguimiento para pacientes hospitalizados. ¿En qué puedo ayudarle hoy en relación con temas médicos o información clínica? Estaré encantado de asistirle con cualquier consulta médica que tenga."
+                }
+            ]
+        },
+        {
+            "chat_id": 18,
+            "chat_name": "Saludo inicial",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "hola que tal"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "Hola, ¿cómo está usted? Soy el Dr. Artificial, un médico virtual especializado en resúmenes evolutivos y recomendaciones de seguimiento para pacientes hospitalizados. ¿En qué puedo ayudarle hoy en relación con temas médicos o información clínica? Estaré encantado de asistirle con cualquier consulta médica que tenga."
+                }
+            ]
         }
     ]
 }
