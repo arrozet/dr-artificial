@@ -184,12 +184,13 @@ body {
 /* Asegurar que la welcome-container tenga transición */
 .welcome-container {
     position: absolute;
-    top: 35%;
+    top: 30%;  /* Subido un poco más arriba del 35% anterior */
     left: 55%;
     transform: translate(-50%, -50%);
     width: 100%;
     text-align: center;
     transition: left 0.3s ease; /* Añadir transición suave */
+    z-index: 10; /* Asegura que esté encima de otros elementos */
 }
 
 #nuevo-chat-mensaje {
@@ -209,7 +210,6 @@ body {
     gap: 12px;  /* Espacio entre avatar y texto */
     margin: 5px 0;  /* Margen arriba y abajo */
     align-items: flex-start;  /* Alinea elementos al inicio */
-    cursor: pointer;  /* Cursor tipo mano */
     width: 100%;  /* Ancho completo */
 }
 
@@ -830,6 +830,7 @@ textarea {
 
     .welcome-container {
         left: 60%; /* Ajuste para móviles con sidebar visible */
+        top: 15%; /* Posición más alta en móviles */
     }
     
     .welcome-container.welcome-shifted {
@@ -846,8 +847,22 @@ textarea {
     .toggle-sidebar-btn {
         padding: 10px;
     }
+    
+    .main {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .chat-container {
+        flex: 1;
+        min-height: 0;
+    }
+    
+    .recommended-messages {
+        padding: 10px;
+        margin: -20px auto 20px auto; /* Menos negativo en móviles para no solapar demasiado */
+    }
 }
-
 
 /* Media Query para pantallas muy pequeñas */
 @media (max-width: 480px) {
@@ -977,6 +992,89 @@ textarea {
 /* Clase para ocultar completamente el welcome container */
 .welcome-container.welcome-hidden-mobile {
     display: none;
+}
+
+/* Estilos para los mensajes recomendados */
+.recommended-messages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 700px;
+    margin: -40px auto 20px auto; /* Margen negativo arriba para subir la posición */
+    padding: 0 20px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    position: relative;
+    z-index: 5; /* Z-index menor que welcome-container pero suficiente para estar sobre otros elementos */
+    top: -35%;
+}
+
+.recommended-title {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.pills-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.pill-message {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 20px;
+    padding: 10px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-weight: 500;
+}
+
+.pill-message:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.pill-message:active {
+    transform: translateY(0);
+}
+
+/* Para el modo oscuro */
+[data-theme="dark"] .pill-message {
+    background-color: rgba(138, 108, 255, 0.2);
+    color: var(--secondary-color);
+}
+
+/* Clase para ocultar los mensajes recomendados en móvil cuando el sidebar está visible */
+.recommended-messages-hidden-mobile {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+}
+
+/* Media Query para dispositivos móviles */
+@media (max-width: 768px) and (orientation: portrait) {
+    .recommended-messages {
+        margin-top: 20px;
+    }
+    
+    .pills-container {
+        padding: 0 15px;
+    }
+    
+    .pill-message {
+        font-size: 13px;
+        padding: 8px 14px;
+    }
 }
 
 /* CSS para los mensajes prede */
