@@ -188,17 +188,17 @@
         },
         {
             "chat_id": 10,
-            "chat_name": "Problemas Comunes Gráfico",
+            "chat_name": "Inicio de conversación",
             "messages": [
                 {
                     "message_id": 1,
                     "sender": "usuario",
-                    "text": "Quiero un gráfico circular sobre los problemas que sueles afrontar"
+                    "text": "Buenas"
                 },
                 {
                     "message_id": 2,
                     "sender": "IA",
-                    "text": "Lo siento, no puedo proporcionar un gráfico circular sobre los problemas que suelo afrontar. Como asistente médico virtual, mi función se limita a brindar información médica precisa y recomendaciones clínicas basadas en datos de pacientes. No tengo experiencias personales ni problemas propios para representar en un gráfico. \n\nSi está buscando información sobre problemas médicos comunes o estadísticas de salud, estaré encantado de ayudarle con eso. Por favor, reformule su pregunta para que se centre en temas médicos específicos o en los datos de pacientes proporcionados, y haré mi mejor esfuerzo para asistirle."
+                    "text": "Buenas. ¿En qué puedo ayudarle con respecto a información médica o resúmenes de pacientes? Estoy aquí para proporcionar asistencia sobre temas clínicos relacionados con el cuidado de pacientes."
                 }
             ]
         }

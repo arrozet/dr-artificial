@@ -2,17 +2,17 @@ from flask import Blueprint, jsonify, render_template, request, session, redirec
 import os
 import sys
 
-# Get project root directory more cleanly
+# Configuración de rutas para importaciones
 current_dir = os.path.dirname(os.path.abspath(__file__))  # routes folder
 app_dir = os.path.dirname(current_dir)                    # app folder
 web_dir = os.path.dirname(app_dir)                        # web folder
 project_root = os.path.dirname(web_dir)                   # project root
 
-# Add project root to path to enable imports from any module
+# Configuración de rutas para importaciones
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
-# Import specific functions instead of using wildcard import
+# Importar funciones específicas para manejo de chats
 from web.utils.chat_handler import (
     list_of_chats,
     list_of_messages,
@@ -21,7 +21,7 @@ from web.utils.chat_handler import (
     delete_chat
 )
 
-# Import specific functions instead of using wildcard import
+# Importar funciones específicas para manejo de usuarios
 from web.utils.usuarios_handler import (
     usuario_existe,
     usuario_unico,
@@ -29,15 +29,62 @@ from web.utils.usuarios_handler import (
     crear_nuevo_usuario
 )
 
-# Importar el generador de respuestas del modelo
+# Importar funciones del modelo de IA
 from model.api.chat import generate_response
 from model.api.chat import generate_chat_title
 
 
 main_bp = Blueprint("main", __name__)
 
+# Manejo de datos de datos temporales
 datos_guardados = {"chat_id": 0}
 
+def procesarNuevoMensaje( chat_id, prompt, user_id):
+    """
+    Procesa un nuevo mensaje del usuario y genera una respuesta con la IA.
+    
+    Args:
+        chat_id (int): ID del chat actual, 0 si es un chat nuevo
+        prompt (str): Mensaje del usuario
+        user_id (int): ID del usuario
+        
+    Returns:
+        int: ID del chat procesado
+    """
+    
+    # Crear un nuevo chat si es necesario
+    if chat_id == 0:            
+            
+        nombre_chat = generate_chat_title(prompt)
+        chat_id = create_chat(nombre_chat, user_id)
+        datos_guardados["chat_id"] = chat_id
+        
+    # Añadir el mensaje del usuario al chat
+    add_message(chat_id=chat_id, text=prompt, sender="usuario", id_usuario=user_id)
+        
+    # Obtener los mensajes anteriores para construir el historial de conversación
+    mensajes_anteriores = list_of_messages(chat_id, user_id)
+    conversation_history = []
+        
+    # Convertir los mensajes al formato esperado por generate_response
+        
+    for msg in mensajes_anteriores:
+        if msg["message_sender"] == "usuario":
+            conversation_history.append({"role": "user", "content": msg["message"]})
+        else:
+            conversation_history.append({"role": "assistant", "content": msg["message"]})
+        
+        # Generar respuesta usando el modelo
+    try:
+        respuesta = generate_response(conversation_history, prompt)
+        ia_response = respuesta.get("response", "Lo siento, no puedo procesar tu solicitud en este momento.")
+    except Exception as e:
+        print(f"Error al generar respuesta: {str(e)}")
+        ia_response = "Ha ocurrido un error al procesar tu consulta."
+                
+    add_message(chat_id=chat_id, text=ia_response, sender="IA", id_usuario=user_id) 
+    
+    return chat_id   
 
 @main_bp.route("/")
 def home():
@@ -51,9 +98,12 @@ def home():
     if not session.get("user_id"):
         return redirect("login.html")
     
-    mensajes_chat = list_of_messages(datos_guardados["chat_id"], session.get("user_id"))
+    user_id = session.get("user_id")
+    
+    # Cargamos el chat actual
+    mensajes_chat = list_of_messages(datos_guardados["chat_id"], user_id)
     # Cargamos todos los chats
-    chat_list = list_of_chats(session.get("user_id"))
+    chat_list = list_of_chats(user_id)
     
     return render_template("index.html",
                             chat_list=chat_list, 
@@ -62,12 +112,15 @@ def home():
                             user_id=session.get("user_id"),
                             username=session.get("username"))
 
-""" 
-Cuando recibe una petición POST la página web, esta función resuelve
-"""
 @main_bp.route('/', methods=['GET','POST'])
 def procesarPeticiones():
-
+    """
+    Procesa las peticiones POST de la interfaz web: nuevos mensajes, 
+    borrado de chats, y cambios entre chats.
+    
+    Returns:
+        str: Template HTML parcial con los datos actualizados
+    """
     # Si no hay usuario logueado, redirigir a la página de login
     if not session.get("user_id"):
         return redirect("login.html")
@@ -78,42 +131,10 @@ def procesarPeticiones():
     prompt = data.get('prompt', None)                
     borrar_chat_id = data.get("borrar_chat_id", None)
     user_id = session.get("user_id")
+    
     if prompt:                     # Por tanto la petición es de un nuevo mensaje
         
-        if chat_id == 0:            # Estamos creando un nuevo chat
-            
-            # nombre_chat = prompt.split()[0] if prompt.strip() else ""       # HABRÁ QUE CAMBIARLO
-            nombre_chat = generate_chat_title(prompt)
-
-            chat_id = create_chat(nombre_chat, user_id)
-            datos_guardados["chat_id"] = chat_id
-        
-        # Añadir el mensaje del usuario al chat
-        add_message(chat_id=chat_id, text=prompt, sender="usuario", id_usuario=user_id)
-        
-        # Obtener los mensajes anteriores para construir el historial de conversación
-        mensajes_anteriores = list_of_messages(chat_id, user_id)
-        conversation_history = []
-        
-        # Convertir los mensajes al formato esperado por generate_response
-        
-        for msg in mensajes_anteriores:
-            if msg["message_sender"] == "usuario":
-                conversation_history.append({"role": "user", "content": msg["message"]})
-            else:
-                conversation_history.append({"role": "assistant", "content": msg["message"]})
-        
-        # Generar respuesta usando el modelo
-        try:
-            respuesta = generate_response(conversation_history, prompt)
-            ia_response = respuesta.get("response", "Lo siento, no puedo procesar tu solicitud en este momento.")
-        except Exception as e:
-            print(f"Error al generar respuesta: {str(e)}")
-            ia_response = "Ha ocurrido un error al procesar tu consulta."
-        
-        # Añadir la respuesta de la IA al chat
-        
-        add_message(chat_id=chat_id, text=ia_response, sender="IA", id_usuario=user_id)
+        chat_id = procesarNuevoMensaje(chat_id, prompt, user_id)
 
         
     elif borrar_chat_id:    # La petición es sobre borrar un chat
@@ -130,7 +151,11 @@ def procesarPeticiones():
     chat_list = list_of_chats(user_id)
     mensajes_chat = list_of_messages(chat_id, user_id)
 
-    return render_template('index_body.html', chat_list=chat_list, mensajes_nuevo_chat=mensajes_chat, chat_id=chat_id, username=session.get("username"))
+    return render_template('index_body.html',
+                           chat_list=chat_list,
+                           mensajes_nuevo_chat=mensajes_chat,
+                           chat_id=chat_id,
+                           username=session.get("username"))
 
 @main_bp.route('/<chat_name>')
 def mostrar_chat(chat_name: str):
@@ -177,9 +202,10 @@ def login():
         "username": user.username
     }), 200
 
-@main_bp.route('/register', methods=['POST'])
+
+@main_bp.route('/signup', methods=['POST'])
 def register():
-    """_summary_
+    """No se usa en esta versión
 
     Returns:
         _type_: _description_

@@ -288,3 +288,22 @@ function manejarCambioOrientacion() {
 function esMobilVertical() {
     return window.innerWidth <= 768 && window.innerHeight > window.innerWidth;
 }
+
+/**
+ * Inserta el texto de la recomendación en el textarea y enfoca el cursor
+ * @param {string} text - El texto de la recomendación a insertar
+ */
+function insertarRecomendacion(text) {
+    const textarea = document.getElementById('prompt');
+    textarea.value = text;
+    textarea.focus();
+    
+    // Opcional: desplazar el cursor al final del texto
+    textarea.setSelectionRange(text.length, text.length);
+    
+    // Efecto visual para indicar que se ha seleccionado
+    textarea.classList.add('textarea-highlight');
+    setTimeout(() => {
+        textarea.classList.remove('textarea-highlight');
+    }, 300);
+}

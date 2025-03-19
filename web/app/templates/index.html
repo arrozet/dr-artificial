@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DR-ARTIFICIAL - Tu Asistente de Inteligencia Artificial</title>
+    <title>Dr. Artificial - Tu salud, nuestra inteligencia</title>
     <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_interfaz1.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
 </head>
 <body>    
     <!-- Sidebar -->
@@ -21,7 +20,8 @@
         
         <div class="history">
             {% if chat_list|length == 0 %}
-            <div id="no_hay_chats">No hay chats</div>
+                <div id="no_hay_chats">No hay chats</div>
+            
             {% else %}
                 {% for chat in chat_list %}
                 <div class="chat-element-container {% if chat.chat_id == chat_id %}active{% endif %}">
@@ -60,9 +60,21 @@
         <!-- Chat Area -->
         <div class="chat-container">
             {% if mensajes_nuevo_chat|length == 0 %}
+                
                 <div class="welcome-container">
                     <div id="nuevo-chat-mensaje">¿En qué puedo ayudarte?</div>
                 </div>
+
+                <div class="recommended-messages">
+                    <div class="recommended-title">Prueba con estos ejemplos:</div>
+                    <div class="pills-container">
+                        <button class="pill-message" onclick="insertarRecomendacion(this.textContent)">¿Qué síntomas tiene la gripe?</button>
+                        <button class="pill-message" onclick="insertarRecomendacion(this.textContent)">¿Cuántas horas de sueño son recomendables?</button>
+                        <button class="pill-message" onclick="insertarRecomendacion(this.textContent)">Beneficios de la vitamina D</button>
+                        <button class="pill-message" onclick="insertarRecomendacion(this.textContent)">¿Qué hacer ante un dolor de cabeza intenso?</button>
+                    </div>
+                </div>
+
             {% else %}
                 {% for msg in mensajes_nuevo_chat %}
                 {% if msg.message_sender == "IA" %}
@@ -112,8 +124,6 @@
     <script src="{{ url_for('static', filename='js/markdown-renderer.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script src="{{ url_for('static', filename='js/peticiones_chats.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/responsive.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/mobile.js') }}"></script>
 
 </body>
 </html>
