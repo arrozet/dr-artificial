@@ -16,6 +16,7 @@ from rich.markdown import Markdown
 from rich.console import Console
 from rich.spinner import Spinner
 from datetime import datetime
+import ast
 
 client = openai.OpenAI(api_key=cfg.API_KEY, base_url="https://litellm.dccp.pbu.dedalus.com")
 
@@ -46,7 +47,7 @@ def generate_default_prompts():
         
         # If we don't have enough patients, use fallback names
         if len(patient_names) < 2:
-            patient_names = ["Rosa Jiménez", "Antonio García", "María López", "Carlos Sánchez"]
+            patient_names = ["Rosa Jiménez", "Juan Pérez", "Laura Castro", "Lucía Ramírez"]
         
         # Select a few random patient names (up to 3)
         import random
@@ -78,7 +79,16 @@ def generate_default_prompts():
         )
         
         # If we couldn't parse the response correctly, use the fallback
-        return response.choices[0].message.content.strip()
+        response_text = response.choices[0].message.content.strip()
+
+        # Use ast.literal_eval to safely convert the string representation to an actual list
+        prompt_list = ast.literal_eval(response_text)
+        
+        # Verify that we got a list of strings
+        if isinstance(prompt_list, list) and all(isinstance(item, str) for item in prompt_list):
+            return prompt_list
+        else:
+            raise Exception("Response was not a valid list of strings")
         
     except Exception as e:
         print(f"Error generating default prompts: {e}")
