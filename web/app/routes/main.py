@@ -113,8 +113,8 @@ def procesarPeticiones():
         
         # Añadir la respuesta de la IA al chat
         
-        add_message(chat_id=chat_id, text=ia_response, sender="IA", id_usuario=user_id, username=session.get("username")
-)
+        add_message(chat_id=chat_id, text=ia_response, sender="IA", id_usuario=user_id)
+
         
     elif borrar_chat_id:    # La petición es sobre borrar un chat
         delete_chat(borrar_chat_id,user_id)
@@ -130,7 +130,7 @@ def procesarPeticiones():
     chat_list = list_of_chats(user_id)
     mensajes_chat = list_of_messages(chat_id, user_id)
 
-    return render_template('index_body.html', chat_list=chat_list, mensajes_nuevo_chat=mensajes_chat, chat_id=chat_id)
+    return render_template('index_body.html', chat_list=chat_list, mensajes_nuevo_chat=mensajes_chat, chat_id=chat_id, username=session.get("username"))
 
 @main_bp.route('/<chat_name>')
 def mostrar_chat(chat_name: str):

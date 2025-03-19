@@ -53,108 +53,6 @@
             ]
         },
         {
-            "chat_id": 3,
-            "chat_name": "Saludo inicial",
-            "messages": [
-                {
-                    "message_id": 1,
-                    "sender": "usuario",
-                    "text": "ola"
-                },
-                {
-                    "message_id": 2,
-                    "sender": "IA",
-                    "text": "Lo siento, no puedo responder a \"olaola\" ya que no es una consulta médica relacionada con resúmenes de pacientes o recomendaciones clínicas. Como médico virtual especializado, mi función es proporcionar información médica precisa y relevante basada en datos de pacientes. ¿Hay alguna consulta médica específica sobre la que pueda ayudarte?"
-                },
-                {
-                    "message_id": 3,
-                    "sender": "usuario",
-                    "text": "como estas"
-                },
-                {
-                    "message_id": 4,
-                    "sender": "IA",
-                    "text": "Gracias por su mensaje. Como asistente médico virtual, mi función es proporcionar información médica y recomendaciones clínicas basadas en datos de pacientes. No puedo participar en conversaciones casuales o responder a preguntas personales.\n\nSi tiene alguna consulta médica específica o necesita información sobre los resúmenes de pacientes que he analizado, estaré encantado de ayudarle. ¿Hay algún tema médico en particular sobre el que necesite asistencia?"
-                }
-            ]
-        },
-        {
-            "chat_id": 4,
-            "chat_name": "Saludo Informal",
-            "messages": [
-                {
-                    "message_id": 1,
-                    "sender": "usuario",
-                    "text": "ola que tal"
-                },
-                {
-                    "message_id": 2,
-                    "sender": "IA",
-                    "text": "Lo siento, no puedo mantener una conversación informal. Mi función es proporcionar información médica precisa y recomendaciones clínicas basadas en datos de pacientes. Si tiene alguna consulta relacionada con temas médicos o resúmenes de evolución de pacientes, estaré encantado de ayudarle."
-                },
-                {
-                    "message_id": 3,
-                    "sender": "usuario",
-                    "text": "Xiaomi"
-                },
-                {
-                    "message_id": 4,
-                    "sender": "IA",
-                    "text": "Lo siento, pero no puedo responder a consultas no relacionadas con temas médicos o información de pacientes. Mi función es proporcionar información médica precisa y recomendaciones clínicas basadas en datos de pacientes. Si tiene alguna pregunta sobre salud o atención médica, estaré encantado de ayudarle."
-                },
-                {
-                    "message_id": 5,
-                    "sender": "usuario",
-                    "text": "ola que tal"
-                },
-                {
-                    "message_id": 6,
-                    "sender": "IA",
-                    "text": "Lo siento, pero no puedo mantener conversaciones informales o responder a saludos casuales. Mi función es exclusivamente proporcionar información médica precisa y recomendaciones clínicas basadas en datos de pacientes. Si tiene alguna consulta relacionada con temas médicos, evolución de pacientes o necesita un resumen clínico, estaré encantado de ayudarle. ¿Hay algún tema médico específico sobre el que necesite información?"
-                },
-                {
-                    "message_id": 7,
-                    "sender": "usuario",
-                    "text": "hola chat gpt"
-                },
-                {
-                    "message_id": 8,
-                    "sender": "IA",
-                    "text": "Lo siento, pero no soy ChatGPT. Soy el Dr. Artificial, un asistente médico virtual especializado en proporcionar información médica precisa y recomendaciones clínicas basadas en datos de pacientes. No puedo participar en conversaciones informales o discutir temas no relacionados con la medicina.\n\nSi tiene alguna pregunta o necesita información sobre temas médicos, evolución de pacientes, o resúmenes clínicos, estaré encantado de ayudarle. ¿Hay algún asunto médico específico sobre el que necesite asistencia?"
-                },
-                {
-                    "message_id": 9,
-                    "sender": "usuario",
-                    "text": "hola que tal"
-                },
-                {
-                    "message_id": 10,
-                    "sender": "IA",
-                    "text": "Entiendo que está intentando iniciar una conversación, pero debo reiterar que mi función es estrictamente médica. No puedo participar en charlas informales o responder a saludos casuales. \n\nComo asistente médico virtual, estoy aquí para proporcionar información médica precisa y recomendaciones clínicas basadas en datos de pacientes. Si tiene alguna pregunta relacionada con la salud, evolución de pacientes hospitalizados, o necesita un resumen clínico, estaré encantado de ayudarle.\n\n¿Tiene alguna consulta médica específica o necesita información sobre algún aspecto de la atención al paciente?"
-                },
-                {
-                    "message_id": 11,
-                    "sender": "usuario",
-                    "text": "hola que tal"
-                },
-                {
-                    "message_id": 12,
-                    "sender": "IA",
-                    "text": "Entiendo que está tratando de iniciar una conversación, pero debo insistir en que mi función es estrictamente profesional y médica. No puedo participar en charlas informales o responder a saludos casuales, sin importar cuántas veces se repitan.\n\nComo asistente médico especializado, mi propósito es proporcionar información médica precisa y recomendaciones clínicas basadas en datos de pacientes. Si tiene alguna pregunta relacionada con temas médicos, necesita información sobre la evolución de pacientes hospitalizados, o requiere un resumen clínico, estaré encantado de ayudarle.\n\n¿Tiene alguna consulta médica específica o necesita información sobre algún aspecto de la atención al paciente? Si no es así, me temo que no podré ser de ayuda en esta conversación."
-                },
-                {
-                    "message_id": 13,
-                    "sender": "usuario",
-                    "text": "ola"
-                },
-                {
-                    "message_id": 14,
-                    "sender": "IA",
-                    "text": "Lo siento, pero no puedo continuar respondiendo a saludos o mensajes informales. Mi función es exclusivamente proporcionar información y asistencia médica. Si no tiene una consulta médica específica o necesidad de información clínica, no podré ser de ayuda en esta conversación. Si en el futuro tiene alguna pregunta relacionada con la salud o necesita información médica, estaré aquí para asistirle."
-                }
-            ]
-        },
-        {
             "chat_id": 5,
             "chat_name": "Inicio de Consulta",
             "messages": [
@@ -227,22 +125,6 @@
             ]
         },
         {
-            "chat_id": 7,
-            "chat_name": "Saludo Informal",
-            "messages": [
-                {
-                    "message_id": 1,
-                    "sender": "usuario",
-                    "text": "ola caracola"
-                },
-                {
-                    "message_id": 2,
-                    "sender": "IA",
-                    "text": "Lo siento, no puedo responder a ese tipo de solicitud. Como médico virtual especializado, mi función es proporcionar información médica precisa y recomendaciones clínicas basadas en datos de pacientes. ¿Hay alguna consulta médica específica en la que pueda ayudarte?"
-                }
-            ]
-        },
-        {
             "chat_id": 8,
             "chat_name": "Consulta Gastronómica Urgente",
             "messages": [
@@ -301,6 +183,22 @@
                     "message_id": 6,
                     "sender": "IA",
                     "text": "Hola. ¿En qué puedo ayudarte hoy con respecto a temas médicos o información sobre salud? Estoy aquí para proporcionar información precisa y basada en evidencia sobre una amplia gama de temas relacionados con la medicina y la atención al paciente."
+                }
+            ]
+        },
+        {
+            "chat_id": 10,
+            "chat_name": "Problemas Comunes Gráfico",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "Quiero un gráfico circular sobre los problemas que sueles afrontar"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "Lo siento, no puedo proporcionar un gráfico circular sobre los problemas que suelo afrontar. Como asistente médico virtual, mi función se limita a brindar información médica precisa y recomendaciones clínicas basadas en datos de pacientes. No tengo experiencias personales ni problemas propios para representar en un gráfico. \n\nSi está buscando información sobre problemas médicos comunes o estadísticas de salud, estaré encantado de ayudarle con eso. Por favor, reformule su pregunta para que se centre en temas médicos específicos o en los datos de pacientes proporcionados, y haré mi mejor esfuerzo para asistirle."
                 }
             ]
         }
