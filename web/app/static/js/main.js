@@ -82,7 +82,6 @@ function iniciarMicrófono() {
     const micBtn = document.getElementById("mic-btn");
     console.log("Micrófono encontrado después del cambio de chat:", micBtn);
     const textArea = document.getElementById("prompt");
-    console.log("textareaaaaaaaaaaaa :", textArea);
 
     if (!("webkitSpeechRecognition" in window) && !("SpeechRecognition" in window)) {
         alert("Tu navegador no soporta reconocimiento de voz.");
@@ -118,7 +117,6 @@ function iniciarMicrófono() {
             recognition.start(); // Si está inactivo, iniciarlo
         }
     });
-    console.log("He terminao vale");
 }
 
 function iniciarModoOscuro(){

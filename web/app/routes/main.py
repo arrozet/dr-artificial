@@ -30,8 +30,7 @@ from web.utils.usuarios_handler import (
 )
 
 # Importar funciones del modelo de IA
-from model.api.chat import generate_response
-from model.api.chat import generate_chat_title
+from model.api.chat import generate_response, generate_default_prompts, generate_chat_title
 
 
 main_bp = Blueprint("main", __name__)
@@ -98,19 +97,37 @@ def home():
     if not session.get("user_id"):
         return redirect("login.html")
     
+    # Cargamos las variables necesarias
     user_id = session.get("user_id")
+    chat_id = datos_guardados["chat_id"]
     
-    # Cargamos el chat actual
-    mensajes_chat = list_of_messages(datos_guardados["chat_id"], user_id)
-    # Cargamos todos los chats
-    chat_list = list_of_chats(user_id)
+    # Cargamos los chats
+    chat_list = list_of_chats(user_id)        
+    mensajes_chat = []
+    msg1,msg2,msg3,msg4 = None,None,None,None
+    
+    if chat_id != 0:
+        
+        # Cargamos todos los mensajes del chat
+        mensajes_chat = list_of_messages(chat_id, user_id)
+    else:
+        prompt_list = generate_default_prompts()
+        msg1 = prompt_list[0]
+        msg2 = prompt_list[1]
+        msg3 = prompt_list[2]
+        msg4 = prompt_list[3]
+        
+    
     
     return render_template("index.html",
                             chat_list=chat_list, 
                             mensajes_nuevo_chat=mensajes_chat, 
                             chat_id=0, 
-                            user_id=session.get("user_id"),
-                            username=session.get("username"))
+                            username=session.get("username"),
+                            msg1=msg1,
+                            msg2=msg2,
+                            msg3=msg3,
+                            msg4=msg4)
 
 @main_bp.route('/', methods=['GET','POST'])
 def procesarPeticiones():
@@ -131,7 +148,8 @@ def procesarPeticiones():
     prompt = data.get('prompt', None)                
     borrar_chat_id = data.get("borrar_chat_id", None)
     user_id = session.get("user_id")
-    
+    msg1,msg2,msg3,msg4 = None,None,None,None
+
     if prompt:                     # Por tanto la petición es de un nuevo mensaje
         
         chat_id = procesarNuevoMensaje(chat_id, prompt, user_id)
@@ -143,10 +161,17 @@ def procesarPeticiones():
         if int(chat_id) == int(borrar_chat_id):
             chat_id = 0
         
-    else:                                          # La petición es de cargar un chat existente
+    else:                       # La petición es de cargar un chat existente
         
         chat_id = data.get("chat_id")        
         datos_guardados["chat_id"] = chat_id
+        
+        if chat_id == 0:        # Estamos en un chat nuevo             
+            prompt_list = generate_default_prompts()
+            msg1 = prompt_list[0]
+            msg2 = prompt_list[1]
+            msg3 = prompt_list[2]
+            msg4 = prompt_list[3]
 
     chat_list = list_of_chats(user_id)
     mensajes_chat = list_of_messages(chat_id, user_id)
@@ -155,7 +180,11 @@ def procesarPeticiones():
                            chat_list=chat_list,
                            mensajes_nuevo_chat=mensajes_chat,
                            chat_id=chat_id,
-                           username=session.get("username"))
+                           username=session.get("username"),
+                           msg1=msg1,
+                           msg2=msg2,
+                           msg3=msg3,
+                           msg4=msg4)
 
 @main_bp.route('/<chat_name>')
 def mostrar_chat(chat_name: str):
