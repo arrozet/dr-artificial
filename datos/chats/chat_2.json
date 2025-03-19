@@ -329,6 +329,54 @@
                     "text": "Hola, ¿cómo está usted? Soy el Dr. Artificial, un médico virtual especializado en resúmenes evolutivos y recomendaciones de seguimiento para pacientes hospitalizados. ¿En qué puedo ayudarle hoy en relación con temas médicos o información clínica? Estaré encantado de asistirle con cualquier consulta médica que tenga."
                 }
             ]
+        },
+        {
+            "chat_id": 19,
+            "chat_name": "Análisis de laboratorio",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "Diagrama de los últimos resultados de laboratorio de Carlos García"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "Ciertamente, puedo crear un diagrama de los últimos resultados de laboratorio de Carlos García utilizando Mermaid. Aquí está el diagrama basado en la información proporcionada:\n\n```mermaid\ngraph TD\n    A[Resultados de Laboratorio de Carlos García]\n    A --> B[Glucosa: 450 mg/dL]\n    A --> C[pH: 7.1]\n    A --> D[Cetonas: 5.0 mmol/L]\n    A --> E[Creatinina: 1.6 mg/dL]\n    A --> F[Hemoglobina: 16.0 g/dL]\n    A --> G[Leucocitos: 18,000 /μL]\n    A --> H[Sodio: 130 mEq/L]\n    A --> I[Potasio: 5.5 mEq/L]\n    A --> J[Urea: 60 mg/dL]\n    A --> K[Amilasa: 95 U/L]\n\n    style B fill:#ff9999,stroke:#ff0000\n    style C fill:#ff9999,stroke:#ff0000\n    style D fill:#ff9999,stroke:#ff0000\n    style E fill:#ffff99,stroke:#ffcc00\n    style G fill:#ffff99,stroke:#ffcc00\n    style H fill:#ffff99,stroke:#ffcc00\n    style I fill:#ffff99,stroke:#ffcc00\n    style J fill:#ffff99,stroke:#ffcc00\n```\n\nEn este diagrama:\n\n- Los valores marcados en rojo (fill:#ff9999,stroke:#ff0000) indican resultados críticos que requieren atención inmediata:\n  - Glucosa extremadamente elevada\n  - pH bajo (acidosis)\n  - Cetonas elevadas\n\n- Los valores marcados en amarillo (fill:#ffff99,stroke:#ffcc00) indican resultados anormales que requieren seguimiento:\n  - Creatinina ligeramente elevada\n  - Leucocitosis\n  - Sodio bajo (hiponatremia)\n  - Potasio elevado (hiperpotasemia)\n  - Urea elevada\n\nEstos resultados son consistentes con un diagnóstico de cetoacidosis diabética (CAD) severa, lo que explica el motivo de ingreso de Carlos y su admisión en la UCI."
+                }
+            ]
+        },
+        {
+            "chat_id": 20,
+            "chat_name": "Análisis de laboratorio",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "Carmen Jiménez: tabla resumen de resultados de laboratorio"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "Aquí tienes una tabla resumen de los resultados de laboratorio para Carmen Jiménez (PacienteID: 31) utilizando formato Markdown:\n\n| Parámetro    | Resultado | Unidades (típicas) | Rango de referencia típico |\n|--------------|-----------|--------------------|-----------------------------|\n| Glucosa      | 152       | mg/dL              | 70-100 (ayunas)             |\n| pH           | 7.33      | -                  | 7.35-7.45                   |\n| Cetonas      | 0.0       | mmol/L             | <0.6                        |\n| Creatinina   | 1.1       | mg/dL              | 0.6-1.2                     |\n| Hemoglobina  | 13.5      | g/dL               | 12.0-15.5 (mujeres)         |\n| Leucocitos   | 13,800    | células/μL         | 4,500-11,000                |\n| Sodio        | 137       | mEq/L              | 135-145                     |\n| Potasio      | 4.3       | mEq/L              | 3.5-5.0                     |\n| Urea         | 52        | mg/dL              | 7-20                        |\n| Amilasa      | 49        | U/L                | 23-85                       |\n\nObservaciones clínicas:\n\n1. La glucosa está elevada, indicando hiperglucemia.\n2. El pH está ligeramente disminuido, sugiriendo una ligera acidosis.\n3. Los leucocitos están moderadamente elevados, lo que podría indicar un proceso inflamatorio o infeccioso.\n4. La urea está elevada, lo que podría sugerir una alteración en la función renal.\n\nEstas observaciones deben ser interpretadas en el contexto clínico completo de la paciente, incluyendo su historia médica, síntomas actuales y otros hallazgos físicos."
+                }
+            ]
+        },
+        {
+            "chat_id": 21,
+            "chat_name": "Resultados laboratorio Silvia",
+            "messages": [
+                {
+                    "message_id": 1,
+                    "sender": "usuario",
+                    "text": "Diagrama de resultados de laboratorio de Silvia Blanco"
+                },
+                {
+                    "message_id": 2,
+                    "sender": "IA",
+                    "text": "Ciertamente, puedo crear un diagrama de resultados de laboratorio para Silvia Blanco utilizando Mermaid. Aquí está el diagrama basado en los datos proporcionados:\n\n```mermaid\ngraph TD\n    A[Resultados de Laboratorio - Silvia Blanco]\n    A --> B[Glucosa: 168 mg/dL]\n    A --> C[pH: 7.3]\n    A --> D[Cetonas: 0.1 mmol/L]\n    A --> E[Creatinina: 1.1 mg/dL]\n    A --> F[Hemoglobina: 13.4 g/dL]\n    A --> G[Leucocitos: 15,800 /µL]\n    A --> H[Sodio: 133 mEq/L]\n    A --> I[Potasio: 4.6 mEq/L]\n    A --> J[Urea: 58 mg/dL]\n    A --> K[Amilasa: 47 U/L]\n\n    style B fill:#ff9999,stroke:#ff0000\n    style C fill:#ffff99,stroke:#ffcc00\n    style G fill:#ff9999,stroke:#ff0000\n    style H fill:#ffff99,stroke:#ffcc00\n    style J fill:#ff9999,stroke:#ff0000\n```\n\nInterpretación del diagrama:\n\n1. Los valores en rojo (fondo rosa) indican resultados fuera del rango normal:\n   - Glucosa: 168 mg/dL (elevada)\n   - Leucocitos: 15,800 /µL (elevados)\n   - Urea: 58 mg/dL (elevada)\n\n2. Los valores en amarillo indican resultados ligeramente fuera del rango normal:\n   - pH: 7.3 (ligeramente bajo)\n   - Sodio: 133 mEq/L (ligeramente bajo)\n\n3. Los demás valores están dentro de los rangos normales esperados.\n\nObservaciones clínicas:\n1. La glucosa elevada sugiere hiperglucemia, consistente con las notas clínicas que mencionan niveles elevados de glucosa en sangre.\n2. El recuento elevado de leucocitos podría indicar una respuesta inflamatoria o infecciosa.\n3. El pH ligeramente bajo y el sodio ligeramente bajo podrían estar relacionados con el estado de la paciente al ingreso (diaforética, ansiosa).\n4. La urea elevada podría indicar una función renal alterada o deshidratación.\n\nEstas alteraciones en los resultados de laboratorio son consistentes con el cuadro clínico de Silvia Blanco, que incluye dolor torácico opresivo y disnea de esfuerzo, lo que podría estar relacionado con su diagnóstico principal (código 413844008, que corresponde a angina de pecho)."
+                }
+            ]
         }
     ]
 }

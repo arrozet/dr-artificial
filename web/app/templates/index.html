@@ -62,7 +62,7 @@
             {% if mensajes_nuevo_chat|length == 0 %}
                 
                 <div class="welcome-container">
-                    <div id="nuevo-chat-mensaje">¿En qué puedo ayudarte?</div>
+                    <div id="nuevo-chat-mensaje"></div>
                 </div>
 
             {% else %}
@@ -95,6 +95,7 @@
         <!-- Input Area -->
         <div class="input-container">
             <div class="input-box">
+               
                 <textarea id="prompt" name="prompt" placeholder="Escribe un mensaje..."></textarea>
                 <button type="button" id="mic-btn" class="mic-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
