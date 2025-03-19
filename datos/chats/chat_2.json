@@ -203,22 +203,6 @@
             ]
         },
         {
-            "chat_id": 11,
-            "chat_name": "Horas de sueño recomendadas",
-            "messages": [
-                {
-                    "message_id": 1,
-                    "sender": "usuario",
-                    "text": "¿Cuántas horas de sueño son recomendables?"
-                },
-                {
-                    "message_id": 2,
-                    "sender": "IA",
-                    "text": "Lo siento, pero no puedo proporcionar recomendaciones generales sobre las horas de sueño, ya que mi función se limita a elaborar resúmenes evolutivos precisos y recomendaciones de seguimiento basadas en la evidencia para pacientes hospitalizados en el momento del alta. No dispongo de información específica sobre los patrones de sueño de ningún paciente en particular.\n\nSi tuviera datos médicos relevantes sobre los patrones de sueño de un paciente hospitalizado específico, podría ofrecer recomendaciones personalizadas basadas en su condición clínica. Sin embargo, las recomendaciones generales sobre el sueño están fuera del alcance de mi función como asistente médico virtual especializado en resúmenes de alta hospitalaria.\n\nPara obtener información general sobre las recomendaciones de sueño, le sugiero consultar con un profesional de la salud calificado o buscar fuentes autorizadas en el campo de la medicina del sueño."
-                }
-            ]
-        },
-        {
             "chat_id": 12,
             "chat_name": "Inicio de conversación",
             "messages": [
@@ -231,22 +215,6 @@
                     "message_id": 2,
                     "sender": "IA",
                     "text": "Lo siento, no puedo ayudarte con esa solicitud. Como médico virtual, mi función es proporcionar información médica precisa y recomendaciones clínicas basadas en datos de pacientes. ¿Tienes alguna pregunta específica sobre temas médicos o la atención de pacientes que pueda responder?"
-                }
-            ]
-        },
-        {
-            "chat_id": 13,
-            "chat_name": "Saludo inicial",
-            "messages": [
-                {
-                    "message_id": 1,
-                    "sender": "usuario",
-                    "text": "hola que tal"
-                },
-                {
-                    "message_id": 2,
-                    "sender": "IA",
-                    "text": "Hola, ¿cómo está usted? Soy el Dr. Artificial, un médico virtual especializado en resúmenes evolutivos y recomendaciones de seguimiento para pacientes hospitalizados. ¿En qué puedo ayudarle hoy en relación con temas médicos o información clínica? Estaré encantado de asistirle con cualquier consulta médica que tenga."
                 }
             ]
         },
@@ -343,22 +311,6 @@
                     "message_id": 2,
                     "sender": "IA",
                     "text": "Ciertamente, puedo crear un diagrama de los últimos resultados de laboratorio de Carlos García utilizando Mermaid. Aquí está el diagrama basado en la información proporcionada:\n\n```mermaid\ngraph TD\n    A[Resultados de Laboratorio de Carlos García]\n    A --> B[Glucosa: 450 mg/dL]\n    A --> C[pH: 7.1]\n    A --> D[Cetonas: 5.0 mmol/L]\n    A --> E[Creatinina: 1.6 mg/dL]\n    A --> F[Hemoglobina: 16.0 g/dL]\n    A --> G[Leucocitos: 18,000 /μL]\n    A --> H[Sodio: 130 mEq/L]\n    A --> I[Potasio: 5.5 mEq/L]\n    A --> J[Urea: 60 mg/dL]\n    A --> K[Amilasa: 95 U/L]\n\n    style B fill:#ff9999,stroke:#ff0000\n    style C fill:#ff9999,stroke:#ff0000\n    style D fill:#ff9999,stroke:#ff0000\n    style E fill:#ffff99,stroke:#ffcc00\n    style G fill:#ffff99,stroke:#ffcc00\n    style H fill:#ffff99,stroke:#ffcc00\n    style I fill:#ffff99,stroke:#ffcc00\n    style J fill:#ffff99,stroke:#ffcc00\n```\n\nEn este diagrama:\n\n- Los valores marcados en rojo (fill:#ff9999,stroke:#ff0000) indican resultados críticos que requieren atención inmediata:\n  - Glucosa extremadamente elevada\n  - pH bajo (acidosis)\n  - Cetonas elevadas\n\n- Los valores marcados en amarillo (fill:#ffff99,stroke:#ffcc00) indican resultados anormales que requieren seguimiento:\n  - Creatinina ligeramente elevada\n  - Leucocitosis\n  - Sodio bajo (hiponatremia)\n  - Potasio elevado (hiperpotasemia)\n  - Urea elevada\n\nEstos resultados son consistentes con un diagnóstico de cetoacidosis diabética (CAD) severa, lo que explica el motivo de ingreso de Carlos y su admisión en la UCI."
-                }
-            ]
-        },
-        {
-            "chat_id": 20,
-            "chat_name": "Análisis de laboratorio",
-            "messages": [
-                {
-                    "message_id": 1,
-                    "sender": "usuario",
-                    "text": "Carmen Jiménez: tabla resumen de resultados de laboratorio"
-                },
-                {
-                    "message_id": 2,
-                    "sender": "IA",
-                    "text": "Aquí tienes una tabla resumen de los resultados de laboratorio para Carmen Jiménez (PacienteID: 31) utilizando formato Markdown:\n\n| Parámetro    | Resultado | Unidades (típicas) | Rango de referencia típico |\n|--------------|-----------|--------------------|-----------------------------|\n| Glucosa      | 152       | mg/dL              | 70-100 (ayunas)             |\n| pH           | 7.33      | -                  | 7.35-7.45                   |\n| Cetonas      | 0.0       | mmol/L             | <0.6                        |\n| Creatinina   | 1.1       | mg/dL              | 0.6-1.2                     |\n| Hemoglobina  | 13.5      | g/dL               | 12.0-15.5 (mujeres)         |\n| Leucocitos   | 13,800    | células/μL         | 4,500-11,000                |\n| Sodio        | 137       | mEq/L              | 135-145                     |\n| Potasio      | 4.3       | mEq/L              | 3.5-5.0                     |\n| Urea         | 52        | mg/dL              | 7-20                        |\n| Amilasa      | 49        | U/L                | 23-85                       |\n\nObservaciones clínicas:\n\n1. La glucosa está elevada, indicando hiperglucemia.\n2. El pH está ligeramente disminuido, sugiriendo una ligera acidosis.\n3. Los leucocitos están moderadamente elevados, lo que podría indicar un proceso inflamatorio o infeccioso.\n4. La urea está elevada, lo que podría sugerir una alteración en la función renal.\n\nEstas observaciones deben ser interpretadas en el contexto clínico completo de la paciente, incluyendo su historia médica, síntomas actuales y otros hallazgos físicos."
                 }
             ]
         },

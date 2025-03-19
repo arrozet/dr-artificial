@@ -106,11 +106,10 @@ def home():
     mensajes_chat = []
     msg1,msg2,msg3,msg4 = None,None,None,None
     
-    if chat_id != 0:
         
-        # Cargamos todos los mensajes del chat
-        mensajes_chat = list_of_messages(chat_id, user_id)
-    else:
+    # Cargamos todos los mensajes del chat
+    mensajes_chat = list_of_messages(chat_id, user_id)
+    if mensajes_chat == []:     # Si no hay mensajes, estamos ante un nuevo chat, generamos los mensajes por defecto
         prompt_list = generate_default_prompts()
         msg1 = prompt_list[0]
         msg2 = prompt_list[1]
@@ -165,16 +164,17 @@ def procesarPeticiones():
         
         chat_id = data.get("chat_id")        
         datos_guardados["chat_id"] = chat_id
-        
-        if chat_id == 0:        # Estamos en un chat nuevo             
-            prompt_list = generate_default_prompts()
-            msg1 = prompt_list[0]
-            msg2 = prompt_list[1]
-            msg3 = prompt_list[2]
-            msg4 = prompt_list[3]
-
+       
+       
     chat_list = list_of_chats(user_id)
     mensajes_chat = list_of_messages(chat_id, user_id)
+     
+    if mensajes_chat == []:     # Si no hay mensajes, estamos ante un nuevo chat, generamos los mensajes por defecto
+        prompt_list = generate_default_prompts()
+        msg1 = prompt_list[0]
+        msg2 = prompt_list[1]
+        msg3 = prompt_list[2]
+        msg4 = prompt_list[3]    
 
     return render_template('index_body.html',
                            chat_list=chat_list,
