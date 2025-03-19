@@ -83,7 +83,7 @@ class ConversationManager:
                 self.load_and_embed_all_csvs()
     
     def get_data_hash(self):
-        """Genera un hash de los archivos CSV para detectar cambios"""
+        """Genera un hash de los archivos CSV basado en su contenido"""
         hash_value = hashlib.md5()
         
         for root, _, files in os.walk(self.data_directory):
@@ -91,9 +91,18 @@ class ConversationManager:
                 if file.endswith('.csv'):
                     filepath = os.path.join(root, file)
                     rel_path = os.path.relpath(filepath, self.data_directory)
-                    mtime = os.path.getmtime(filepath)
-                    print(f"{rel_path} \n {mtime}")
-                    hash_value.update(f"{rel_path}:{mtime}".encode())
+                    
+                    # Use file content instead of modification time
+                    try:
+                        with open(filepath, 'rb') as f:
+                            # Read file in chunks to handle large files
+                            for chunk in iter(lambda: f.read(4096), b""):
+                                hash_value.update(chunk)
+                        
+                        # Include the relative path to distinguish between files
+                        hash_value.update(rel_path.encode())
+                    except Exception as e:
+                        print(f"Error reading file {rel_path}: {e}")
                     
         return hash_value.hexdigest()
     
