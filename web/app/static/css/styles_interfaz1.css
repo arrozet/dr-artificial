@@ -76,6 +76,8 @@ body {
     flex-direction: column;  /* Coloca los elementos en columna (uno debajo de otro) */
     padding: 16px;  /* Espacio interno alrededor del contenido */
     border-right: 1px solid var(--border-color);  /* Borde derecho para separar del contenido */
+    transition: transform 0.3s ease, width 0.3s ease, min-width 0.3s ease;
+    z-index: 1000;
 }
 
 /* Agrega texto "DrArtificial" después del elemento con clase .logo en la barra lateral */
@@ -173,6 +175,13 @@ body {
     max-width: 900px;  /* Ancho máximo para mejor legibilidad */
 }
 
+/* Estilo para el contenedor de bienvenida cuando la sidebar está oculta */
+.welcome-container.welcome-shifted {
+    left: 50%; /* Centra el contenedor cuando la sidebar está oculta */
+    transition: left 0.3s ease; /* Transición suave */
+}
+
+/* Asegurar que la welcome-container tenga transición */
 .welcome-container {
     position: absolute;
     top: 35%;
@@ -180,6 +189,7 @@ body {
     transform: translate(-50%, -50%);
     width: 100%;
     text-align: center;
+    transition: left 0.3s ease; /* Añadir transición suave */
 }
 
 #nuevo-chat-mensaje {
@@ -341,6 +351,8 @@ textarea {
 
 /* Estilos para la cabecera */
 .header {
+    display: flex;
+    align-items: center;
     position: relative;
     padding: 16px;
     text-align: center;
@@ -377,15 +389,77 @@ textarea {
 
 /* Ajustes para pantallas pequeñas (móviles) */
 @media (max-width: 768px) {
+    body {
+        flex-direction: row; /* Cambiado de column a row para mantener la disposición lateral */
+    }
+
     .sidebar {
-        display: none;  /* Oculta la barra lateral */
+        /* Eliminar display: none para que sea visible por defecto */
+        position: fixed;
+        width: 250px;
+        min-width: 250px;
+        height: 100%;
+        z-index: 1000;
+        transition: transform 0.3s ease, width 0.3s ease, min-width 0.3s ease;
+    }
+
+    /* Aplicar la misma lógica de ocultación en móvil */
+    .sidebar-hidden {
+        transform: translateX(-100%);
+        width: 0;
+        min-width: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .main {
+        flex: 1;
+        width: calc(100% - 250px);
+        margin-left: 250px;
+        transition: margin-left 0.3s ease, width 0.3s ease;
+    }
+
+    .main-expanded {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .welcome-container {
+        left: 60%; /* Ajuste para móviles con sidebar visible */
     }
     
-    .chat-container, .input-box {
-        max-width: 100%;  /* Usa todo el ancho disponible */
+    .welcome-container.welcome-shifted {
+        left: 50%; /* Centrado cuando sidebar está oculta */
+    }
+    
+    /* Eliminar los antiguos estilos que podrían interferir */
+    .sidebar.active {
+        left: auto;
+        box-shadow: none;
+    }
+
+    /* Ajustar el botón de toggle para que sea más visible en móvil */
+    .toggle-sidebar-btn {
+        padding: 10px;
     }
 }
 
+/* Media Query para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .sidebar {
+        width: 230px;
+        min-width: 230px;
+    }
+    
+    .main {
+        width: calc(100% - 230px);
+        margin-left: 230px;
+    }
+    
+    #nuevo-chat-mensaje {
+        font-size: 2rem; /* Texto más pequeño en pantallas pequeñas */
+    }
+}
 
 /* microfono*/
 /* Efecto de pulsación cuando el micrófono está activo */
@@ -642,7 +716,24 @@ textarea {
     justify-content: center;
 }
 
-/* ...existing code... */
+/* Estilo para el botón de alternar sidebar */
+.toggle-sidebar-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-color);
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    margin-right: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.toggle-sidebar-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
 
 /* Estilos base para sidebar */
 .sidebar {
@@ -711,94 +802,75 @@ textarea {
 /* Media Queries para diseño responsive */
 @media (max-width: 768px) {
     body {
-        flex-direction: column;
+        flex-direction: row; /* Cambiado de column a row para mantener la disposición lateral */
     }
 
     .sidebar {
+        /* Eliminar display: none para que sea visible por defecto */
         position: fixed;
-        left: -100%;
-        width: 100%;
-        max-width: 300px;
+        width: 250px;
+        min-width: 250px;
         height: 100%;
-        padding: 12px;
+        z-index: 1000;
+        transition: transform 0.3s ease, width 0.3s ease, min-width 0.3s ease;
     }
 
-    .sidebar.active {
-        left: 0;
-        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+    /* Aplicar la misma lógica de ocultación en móvil */
+    .sidebar-hidden {
+        transform: translateX(-100%);
+        width: 0;
+        min-width: 0;
+        padding: 0;
+        overflow: hidden;
     }
 
     .main {
-        width: 100%;
+        flex: 1;
+        width: calc(100% - 250px);
+        margin-left: 250px;
+        transition: margin-left 0.3s ease, width 0.3s ease;
+    }
+
+    .main-expanded {
         margin-left: 0;
+        width: 100%;
     }
 
-    /* Botón hamburguesa */
-    .menu-toggle {
-        display: block;
-        position: absolute;
-        left: 16px;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 100;
-        padding: 8px;
-        background: none;
-        border: none;
-        color: var(--text-color);
-        cursor: pointer;
+    .welcome-container {
+        left: 60%; /* Ajuste para móviles con sidebar visible */
+    }
+    
+    .welcome-container.welcome-shifted {
+        left: 50%; /* Centrado cuando sidebar está oculta */
+    }
+    
+    /* Eliminar los antiguos estilos que podrían interferir */
+    .sidebar.active {
+        left: auto;
+        box-shadow: none;
     }
 
-    .header {
-        position: relative;
-        padding: 16px 48px;
-    }
-
-    .chat-container {
-        height: calc(100vh - 130px);
-    }
-
-    .input-container {
-        padding: 8px;
-    }
-
-    .input-box {
-        margin: 0 4px;
-    }
-
-    /* Overlay para cuando el menú está abierto */
-    .sidebar-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 999;
-    }
-
-    .sidebar-overlay.active {
-        display: block;
+    /* Ajustar el botón de toggle para que sea más visible en móvil */
+    .toggle-sidebar-btn {
+        padding: 10px;
     }
 }
+
 
 /* Media Query para pantallas muy pequeñas */
 @media (max-width: 480px) {
     .sidebar {
-        max-width: 260px;
+        width: 230px;
+        min-width: 230px;
     }
-
-    .chat-element-container {
-        padding: 6px;
+    
+    .main {
+        width: calc(100% - 230px);
+        margin-left: 230px;
     }
-
-    .chat-item {
-        padding: 6px;
-        font-size: 14px;
-    }
-
-    .chat-delete {
-        opacity: 1;
+    
+    #nuevo-chat-mensaje {
+        font-size: 2rem; /* Texto más pequeño en pantallas pequeñas */
     }
 }
 
@@ -854,4 +926,63 @@ textarea {
 [data-theme="dark"] .logout-link {
     background-color: var(--primary-color);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Clase para sidebar oculta */
+.sidebar-hidden {
+    transform: translateX(-100%);
+    width: 0;
+    min-width: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Ajuste del main cuando sidebar está oculta */
+.main-expanded {
+    margin-left: 0;
+    width: 100%;
+}
+
+/* Estilos para ocultar elementos en móvil */
+@media (max-width: 768px) and (orientation: portrait) {
+    .input-hidden-mobile {
+        transform: translateY(100%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    
+    .theme-button-hidden-mobile {
+        transform: translateX(100%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    
+    /* Asegura que la transición funcione en ambas direcciones */
+    .input-container, #toggle-theme {
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    
+    /* Ajusta el contenedor del chat para que ocupe más espacio cuando se oculta el input */
+    .chat-container {
+        height: calc(100vh - 60px); /* Altura normal */
+        transition: height 0.3s ease;
+    }
+    
+    .input-hidden-mobile + .chat-container {
+        height: calc(100vh - 60px + 80px); /* Aumenta la altura para ocupar el espacio del input */
+    }
+    
+    /* Botón para mostrar input cuando está oculto */
+    .toggle-sidebar-btn.sidebar-hidden::after {
+        content: "💬";
+        margin-left: 5px;
+        font-size: 16px;
+    }
+}
+
+/* Clase para ocultar completamente el welcome container */
+.welcome-container.welcome-hidden-mobile {
+    display: none;
 }
