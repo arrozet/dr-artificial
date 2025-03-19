@@ -10,6 +10,7 @@ import openai
 from model.config import config as cfg
 from model.utils.expenditure import update_expenditure
 from model.api.rag import ConversationManager
+from model.utils.csv import load_csv_context
 from rich.live import Live
 from rich.markdown import Markdown
 from rich.console import Console
@@ -24,6 +25,74 @@ MAGENTA = "\033[35m"
 RESET = "\033[0m" 
 BLUE = "\033[94m"
 console = Console()
+
+def generate_default_prompts():
+    """
+    Generates a list of 4 predefined medical prompts using real patient names from the database.
+    
+    Args:
+        dataframe_list (list): List of DataFrames containing patient information
+        
+    Returns:
+        list: A list of 4 strings representing predefined prompts
+    """
+    try:
+        # Build the patient name map using the existing function
+        conversation_manager = ConversationManager(cfg.CSV_PATH)
+        patient_map = conversation_manager._build_patient_name_map(load_csv_context(cfg.CSV_PATH))
+        
+        # Extract patient names (only values from the dictionary)
+        patient_names = list(patient_map.values())
+        
+        # If we don't have enough patients, use fallback names
+        if len(patient_names) < 2:
+            patient_names = ["Rosa Jiménez", "Antonio García", "María López", "Carlos Sánchez"]
+        
+        # Select a few random patient names (up to 3)
+        import random
+        if len(patient_names) > 3:
+            selected_names = random.sample(patient_names, 3)
+        else:
+            selected_names = patient_names[:3]
+        
+        # Generate prompts using the OpenAI API
+        prompt = f"""
+        Generate exactly 4 medical consultation prompts that a doctor might use with Dr. Artificial.
+        Each prompt should be a natural question about medical care for a patient.
+        Use these real patient names in some of the prompts: {', '.join(selected_names)}.
+        Make the prompts diverse, covering different medical scenarios (medication review, diagnosis, treatment plan, lab results).
+        Respond only with the list. Format the response as a valid Python list of strings (those Strings should be in SPANISH), exactly like this:
+        ["Prompt 1", "Prompt 2", "Prompt 3", "Prompt 4"]
+        """
+        
+        messages = [
+            {"role": "system", "content": "You are a helpful assistant that generates sample medical prompts for doctors."},
+            {"role": "user", "content": prompt}
+        ]
+        
+        # Call the API
+        response = client.chat.completions.create(
+            model=cfg.ACTIVE_MODEL,
+            messages=messages,
+            max_tokens=300
+        )
+        
+        # If we couldn't parse the response correctly, use the fallback
+        return response.choices[0].message.content.strip()
+        
+    except Exception as e:
+        print(f"Error generating default prompts: {e}")
+        
+        # Create a template string with wildcards for patient names
+        templates = [
+            f"Hazme una tabla con la medicación de Rosa Jiménez.",
+            f"Hazme un diagrama sobre las constantes vitales en la evolución de Laura Castro",
+            f"Háblame sobre Juan Pérez. Cuéntame sobre cómo está y qué podemos hacer por él en el futuro cercano",
+            "Recomendaciones para paciente con dolor torácico y dificultad respiratoria"
+        ]
+        
+        return templates
+    
 
 def generate_chat_title(user_input):
     """
@@ -210,5 +279,5 @@ def chat_in_console():
             print(f"Error en la llamada a la API de Claude: {e}")
 
 if __name__ == "__main__":
-    chat_in_console()
+    print(generate_default_prompts())
     #print(generate_chat_title("Un homme de 35 ans s'est présenté avec des douleurs thoraciques, de la toux et de la fièvre. Veuillez fournir des suggestions de diagnostic et de traitement possibles."))

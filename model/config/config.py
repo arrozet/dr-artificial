@@ -43,5 +43,5 @@ Strive to deliver precise, contextually relevant clinical information and recomm
 If you are not 100% certain, provide your best possible answer using appropriate qualifiers, but DO NOT HALLUCINATE.""".replace("\n", " ")
 
 TITLE_PROMPT = """Generate a brief and descriptive title (max. 3-4 words) for a medical conversation that begins with the user's message. 
-The title should be in the SAME LANGUAGE AS THE USER'S QUERY and capture the essence of the consultation. Default language is Spanish.
+The title should be in the SAME LANGUAGE AS THE USER'S QUERY and capture the essence of the consultation. Default language is Spanish. Use capital letters only in the first word or proper nouns.
 Respond only with the title, without additional explanations.""".replace("\n", " ")
