@@ -49,22 +49,24 @@ def generate_default_prompts():
         if len(patient_names) < 2:
             patient_names = ["Rosa Jiménez", "Juan Pérez", "Laura Castro", "Lucía Ramírez"]
         
-        # Select a few random patient names (up to 3)
+        # Select a few random patient names (up to 4)
         import random
         if len(patient_names) > 3:
-            selected_names = random.sample(patient_names, 3)
+            selected_names = random.sample(patient_names, 4)
         else:
-            selected_names = patient_names[:3]
+            selected_names = patient_names[:4]
         
         # Generate prompts using the OpenAI API
         prompt = f"""
         Generate exactly 4 medical consultation prompts that a doctor might use with Dr. Artificial.
         Each prompt should be a natural question about medical care for a patient.
-        Use these real patient names in some of the prompts: {', '.join(selected_names)}.
-        Make the prompts diverse, covering different medical scenarios (medication review, diagnosis, treatment plan, lab results).
+        Use these real patient names in every prompts: {', '.join(selected_names)}.
+        Make the prompts diverse, covering different medical scenarios (medication, evolution of vital signs, summary, lab results, procedures, notes...). You must ask for information in a table or diagram in some of the prompts.
         Respond only with the list. Format the response as a valid Python list of strings (those Strings should be in SPANISH), exactly like this:
         ["Prompt 1", "Prompt 2", "Prompt 3", "Prompt 4"]
-        """
+
+        Each prompt CANNOT HAVE MORE THAN 8 WORDS.
+        """.replace("\n", " ")
         
         messages = [
             {"role": "system", "content": "You are a helpful assistant that generates sample medical prompts for doctors."},
