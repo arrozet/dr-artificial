@@ -159,6 +159,7 @@ function iniciarEventoEnter() {
 /**
  * Función para inicializar el toggle del sidebar
  */
+
 function iniciarToggleSidebar() {
     const toggleBtn = document.getElementById('toggle-sidebar');
     const sidebar = document.querySelector('.sidebar');
@@ -166,6 +167,7 @@ function iniciarToggleSidebar() {
     const welcomeContainer = document.querySelector('.welcome-container');
     const inputContainer = document.querySelector('.input-container');
     const themeToggleBtn = document.getElementById('toggle-theme');
+    const recommendedMessages = document.querySelector('.recommended-messages');
     
     if (toggleBtn && sidebar && main) {
         // Ocultar automáticamente en pantallas muy pequeñas al iniciar
@@ -190,6 +192,11 @@ function iniciarToggleSidebar() {
             if (esMobilVertical() && inputContainer && themeToggleBtn) {
                 inputContainer.classList.remove('input-hidden-mobile');
                 themeToggleBtn.classList.remove('theme-button-hidden-mobile');
+                
+                // Mostrar también los mensajes recomendados
+                if (recommendedMessages) {
+                    recommendedMessages.classList.remove('recommended-messages-hidden-mobile');
+                }
             }
         } else {
             // Si la sidebar es visible, en móviles ocultar input y botón de tema
@@ -200,6 +207,11 @@ function iniciarToggleSidebar() {
                 // Y también ocultar welcome container si existe
                 if (welcomeContainer) {
                     welcomeContainer.classList.add('welcome-hidden-mobile');
+                }
+                
+                // Ocultar los mensajes recomendados
+                if (recommendedMessages) {
+                    recommendedMessages.classList.add('recommended-messages-hidden-mobile');
                 }
             }
         }
@@ -231,9 +243,19 @@ function iniciarToggleSidebar() {
                 if (isSidebarHidden) {
                     inputContainer.classList.remove('input-hidden-mobile');
                     themeToggleBtn.classList.remove('theme-button-hidden-mobile');
+                    
+                    // También mostrar mensajes recomendados
+                    if (recommendedMessages) {
+                        recommendedMessages.classList.remove('recommended-messages-hidden-mobile');
+                    }
                 } else {
                     inputContainer.classList.add('input-hidden-mobile');
                     themeToggleBtn.classList.add('theme-button-hidden-mobile');
+                    
+                    // Y ocultar mensajes recomendados
+                    if (recommendedMessages) {
+                        recommendedMessages.classList.add('recommended-messages-hidden-mobile');
+                    }
                 }
             }
             
@@ -253,6 +275,7 @@ function manejarCambioOrientacion() {
     const welcomeContainer = document.querySelector('.welcome-container');
     const inputContainer = document.querySelector('.input-container');
     const themeToggleBtn = document.getElementById('toggle-theme');
+    const recommendedMessages = document.querySelector('.recommended-messages');
     
     // En dispositivos pequeños en modo vertical (portrait), ocultar la barra lateral
     if (window.innerWidth <= 480 && window.innerHeight > window.innerWidth) {
@@ -270,6 +293,11 @@ function manejarCambioOrientacion() {
             themeToggleBtn.classList.remove('theme-button-hidden-mobile');
         }
         
+        // También mostrar mensajes recomendados
+        if (recommendedMessages) {
+            recommendedMessages.classList.remove('recommended-messages-hidden-mobile');
+        }
+        
         localStorage.setItem('sidebarHidden', 'true');
     } else if (window.innerWidth > 768) {
         // En pantallas grandes, mostrar todo
@@ -282,9 +310,13 @@ function manejarCambioOrientacion() {
         if (welcomeContainer) {
             welcomeContainer.classList.remove('welcome-hidden-mobile');
         }
+        
+        // Y mostrar mensajes recomendados
+        if (recommendedMessages) {
+            recommendedMessages.classList.remove('recommended-messages-hidden-mobile');
+        }
     }
 }
-
 function esMobilVertical() {
     return window.innerWidth <= 768 && window.innerHeight > window.innerWidth;
 }

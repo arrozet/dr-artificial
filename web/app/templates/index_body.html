@@ -53,6 +53,16 @@
                 <div class="welcome-container">
                     <div id="nuevo-chat-mensaje">¿En qué puedo ayudarte?</div>
                 </div>
+
+                <div class="recommended-messages">
+                    <div class="recommended-title">Prueba con estos ejemplos:</div>
+                    <div class="pills-container">
+                        <button class="pill-message" onclick="insertarRecomendacion(this.textContent)">¿Qué síntomas tiene la gripe?</button>
+                        <button class="pill-message" onclick="insertarRecomendacion(this.textContent)">¿Cuántas horas de sueño son recomendables?</button>
+                        <button class="pill-message" onclick="insertarRecomendacion(this.textContent)">Beneficios de la vitamina D</button>
+                        <button class="pill-message" onclick="insertarRecomendacion(this.textContent)">¿Qué hacer ante un dolor de cabeza intenso?</button>
+                    </div>
+                </div>
             {% else %}
                 {% for msg in mensajes_nuevo_chat %}
                 {% if msg.message_sender == "IA" %}
