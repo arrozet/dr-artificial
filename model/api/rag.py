@@ -92,6 +92,7 @@ class ConversationManager:
                     filepath = os.path.join(root, file)
                     rel_path = os.path.relpath(filepath, self.data_directory)
                     mtime = os.path.getmtime(filepath)
+                    print(f"{rel_path} \n {mtime}")
                     hash_value.update(f"{rel_path}:{mtime}".encode())
                     
         return hash_value.hexdigest()
