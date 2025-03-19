@@ -1,0 +1,72 @@
+/* Añade esto a tu archivo responsive.css */
+
+/* Mobile toggle button styling */
+.mobile-toggle {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    z-index: 1000;
+    background-color: var(--primary-color, #4a90e2);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.mobile-toggle:hover {
+    transform: scale(1.05);
+}
+
+.mobile-toggle:active {
+    transform: scale(0.95);
+}
+
+/* Media query para dispositivos móviles */
+@media screen and (max-width: 768px) {
+    .mobile-toggle {
+        display: block; /* Mostrar solo en dispositivos móviles */
+    }
+    
+    /* Sidebar por defecto oculta en móvil */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -100%; /* Inicialmente fuera de la pantalla */
+        width: 80%;
+        height: 100vh;
+        background-color: var(--bg-color);
+        z-index: 1001;
+        transition: left 0.3s ease;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+    }
+    
+    /* Cuando la sidebar está expandida */
+    .sidebar.expanded {
+        left: 0; /* Mostrar en pantalla */
+    }
+    
+    /* Overlay para cerrar al hacer clic fuera */
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+    
+    .sidebar-overlay.active {
+        display: block;
+    }
+}   
+    /* Ajustes para el contenido principal */
+    
