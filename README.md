@@ -6,10 +6,10 @@ Dr. Artificial is an AI-powered virtual doctor designed for the **Dedalus Datath
 
 - **Conversational AI:** Capable of answering medical-related queries with high accuracy while minimizing hallucinations.
 - **Contextual Memory:** Retains conversation history to support chained question-answering.
-- **Data Visualization:** Generates graphical and non-textual responses (e.g., charts, diagrams).
+- **Data Visualization:** Generates graphical and non-textual responses using **Mermaid.js**.
 - **Actionable Insights:** Recommends next steps based on knowledge base data.
-- **Scalable and Modular Architecture:** Implements prompt engineering techniques and efficiently processes synthetic datasets.
-- **Efficient LLM Usage:** Optimized for sustainable and cost-effective model inference.
+- **Scalable and Modular Architecture:** Implements **prompt engineering** techniques and efficiently processes synthetic datasets.
+- **Efficient LLM Usage:** Optimized for sustainable and cost-effective model inference using **Amazon Bedrock via LiteLLM**.
 
 ## Project Structure
 
@@ -32,6 +32,10 @@ Dr. Artificial is an AI-powered virtual doctor designed for the **Dedalus Datath
 │   └── run.py  # Web server entry point
 └── logo/  # Branding assets
 ```
+## Prerequisites
+
+- **API Key:** A valid API key for **Amazon Bedrock** is required.
+- **Model Connection:** Connection may need to be adjusted to match the used model.
 
 ## Installation
 
@@ -59,13 +63,19 @@ Dr. Artificial is an AI-powered virtual doctor designed for the **Dedalus Datath
    python web/run.py
    ```
 
-## Dataset Information
+## AI Model Details
 
-The project utilizes synthetic datasets provided by Dedalus Datathon, including:
-- **Patient summaries** (`resumen_pacientes.csv`)
-- **Lab results** (`resumen_lab_iniciales.csv`)
-- **Medical notes** (`resumen_notas.csv`)
-- **Medications and procedures** (`resumen_medicacion.csv`, `resumen_procedimientos.csv`)
+- **LLM Model:** Claude 3.5 Sonnet via Amazon Bedrock (accessed through LiteLLM). Any model could be used.
+- **Embeddings:** Amazon Titan Text Embeddings V2
+- **RAG (Retrieval-Augmented Generation):** Utilized for efficient contextual retrieval and cost reduction.
+- **Response Format:** Markdown-based with Mermaid.js for graphical representation.
+
+## Future Improvements
+
+- **Vector Database Storage:** Transition from file-based storage to a vector database.
+- **AI-Powered Preprocessing:** Automate data extraction from databases via queries leveraging other AIs, as DeepSeek.
+- **File & Image Attachments:** Support for handling diverse document types.
+- **Automated Report Generation:** Beyond simple assistance, full document generation.
 
 ## Contributing
 
@@ -73,9 +83,4 @@ We welcome contributions! Please open an issue or submit a pull request for impr
 
 ## License
 
-This project is developed for the **Dedalus Datathon Andalucia 2025** and is for educational and research purposes only.
-
-## Acknowledgments
-
-Special thanks to Dedalus and the Datathon organizers for providing the datasets and evaluation framework.
-
+This project was developed as part of the **Dedalus Datathon Andalucia 2025** and is intended for educational and research purposes only. It is provided "as is" without warranty of any kind. Use at your own risk.
