@@ -1,6 +1,8 @@
 # Dr. Artificial
-
-Dr. Artificial is an AI-powered virtual doctor designed for the **Dedalus Datathon Andalucia 2025**. It leverages state-of-the-art (SOTA) machine learning models to provide insightful and data-driven responses in a healthcare environment, aiming to improve patient data analysis and clinical decision support.
+<p align="center">
+  <img src="https://github.com/arrozet/dr-artificial/blob/765362cfda044447a85189f013ea2ecf5e1a811f/!presentacion/demo.gif" alt="Dr. Artificial demo">
+</p>
+Dr. Artificial is an AI-powered virtual doctor designed for the Dedalus Datathon Andalucia 2025. It leverages state-of-the-art (SOTA) large language models to provide insightful and data-driven responses in a healthcare environment, aiming to improve patient data analysis and clinical decision support.
 
 ## Features
 
